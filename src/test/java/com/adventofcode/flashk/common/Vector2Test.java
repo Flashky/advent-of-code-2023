@@ -138,10 +138,8 @@ class Vector2Test {
 		Vector2 v2 = new Vector2(3,5);
 
 		double value = Vector2.distance(v1, v2);
-		// 2.23607
-		DecimalFormat numberFormat = new DecimalFormat("#.00000");
 
-		assertEquals("2,23607", numberFormat.format(value));
+		assertEquals(2.23606797749979, value);
 	}
 	
 	@Test
