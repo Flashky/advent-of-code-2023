@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
+import java.text.DecimalFormat;
+
 class Vector2Test {
 	
 	// Constructors tests
@@ -29,7 +31,7 @@ class Vector2Test {
 		assertEquals(expected, result);
 		assertNotSame(expected, result);
 	}
-	
+
 	@Test
 	void testVector2String() {
 		Vector2 result = new Vector2("2,3");
@@ -129,7 +131,54 @@ class Vector2Test {
 	}
 	
 	// Transform tests
+
+	@Test
+	void testDistance() {
+		Vector2 v1 = new Vector2(2,3);
+		Vector2 v2 = new Vector2(3,5);
+
+		double value = Vector2.distance(v1, v2);
+		// 2.23607
+		DecimalFormat numberFormat = new DecimalFormat("#.00000");
+
+		assertEquals("2,23607", numberFormat.format(value));
+	}
 	
+	@Test
+	void testTransformScalar() {
+		Vector2 startPos = new Vector2(2,5);
+		startPos.transform(3);
+
+		assertEquals(5, startPos.getX());
+		assertEquals(8, startPos.getY());
+	}
+
+	@Test
+	void testTransformX() {
+		Vector2 startPos = new Vector2(2, 5);
+		startPos.transformX(3);
+
+		assertEquals(5, startPos.getX());
+	}
+
+	@Test
+	void testTransformY() {
+		Vector2 startPos = new Vector2(2, 5);
+		startPos.transformY(3);
+
+		assertEquals(8, startPos.getY());
+	}
+
+	@Test
+	void testTransformStatic() {
+		Vector2 startPos = new Vector2(2,5);
+		Vector2 endPos = new Vector2(3,7);
+		Vector2 result = Vector2.transform(startPos, endPos);
+
+		assertEquals(5, result.getX());
+		assertEquals(12, result.getY());
+	}
+
 	@Test
 	void testTransform() {
 		
