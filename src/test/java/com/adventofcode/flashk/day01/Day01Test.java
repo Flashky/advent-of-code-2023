@@ -19,6 +19,8 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_01)
 @TestMethodOrder(OrderAnnotation.class)
 @Disabled // TODO Remove comment when implemented
@@ -43,7 +45,10 @@ public class Day01Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		Trebuchet trebuchet = new Trebuchet(inputs);
+		int result = trebuchet.solveA();
+
+		assertEquals(142, result);
 	}
 	
 	@Test
@@ -57,7 +62,11 @@ public class Day01Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		Trebuchet trebuchet = new Trebuchet(inputs);
+		int result = trebuchet.solveA();
+
+		assertEquals(54338, result);
 	}
 	
 	@Test
@@ -70,8 +79,11 @@ public class Day01Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
+		Trebuchet trebuchet = new Trebuchet(inputs);
+		int result = trebuchet.solveB();
+
+		assertEquals(281, result);
 	}
 	
 	@Test
@@ -85,7 +97,10 @@ public class Day01Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		Trebuchet trebuchet = new Trebuchet(inputs);
+		int result = trebuchet.solveB();
+
+		assertEquals(53389, result);
 	}
 
 }
