@@ -46,7 +46,5 @@ public class Trebuchet {
         }
         return replaceLine;
 
-        // This alternative should work but it doesn't:
-        //return StringUtils.replaceEach(line, numberWords, numberDigits);
     }
 }
