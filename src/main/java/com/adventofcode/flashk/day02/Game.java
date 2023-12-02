@@ -10,8 +10,8 @@ import lombok.Getter;
 @Getter
 public class Game {
 
-    private final static Pattern PATTERN = Pattern.compile("Game (\\d+)");
-    private final static String TURN_DELIMITER = ";";
+    private static final Pattern PATTERN = Pattern.compile("Game (\\d+)");
+    private static final String TURN_DELIMITER = ";";
 
     private final int id;
     private final int maxRedCubes;

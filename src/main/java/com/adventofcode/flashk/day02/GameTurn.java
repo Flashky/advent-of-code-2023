@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 @Getter
 public class GameTurn {
 
-    private final static Pattern RED_PATTERN = Pattern.compile("(\\d+) r");
-    private final static Pattern BLUE_PATTERN = Pattern.compile("(\\d+) b");
-    private final static Pattern GREEN_PATTERN = Pattern.compile("(\\d+) g");
+    private static final Pattern RED_PATTERN = Pattern.compile("(\\d+) r");
+    private static final Pattern BLUE_PATTERN = Pattern.compile("(\\d+) b");
+    private static final Pattern GREEN_PATTERN = Pattern.compile("(\\d+) g");
 
     private final int redCubes;
     private final int greenCubes;
