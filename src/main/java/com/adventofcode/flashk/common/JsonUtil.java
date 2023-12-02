@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 public final class JsonUtil {
 
 	private JsonUtil() {}
-	
+
 	/**
 	 * Builds a json tree.
 	 * <p>Input accepts basic json and even simple arrays such as:</p>
@@ -28,12 +28,10 @@ public final class JsonUtil {
 			ObjectMapper objectMapper = new ObjectMapper();
 			return objectMapper.readTree(input);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			throw new IllegalArgumentException("The file "+input+" has wrong format.");
 		}
-		
-		return null;
 	}
-	
+
 	/**
 	 * Builds a json tree using Gson library.
 	 * <p>Input accepts basic json and even simple arrays such as:</p>
@@ -59,5 +57,5 @@ public final class JsonUtil {
 	public static boolean isInt(JsonElement element) {
 		return element.isJsonPrimitive() && element.getAsJsonPrimitive().isNumber();
 	}
-	
+
 }

@@ -5,6 +5,7 @@ public final class TestFolder {
 	private TestFolder() {}
 	
 	// Folders
+	public final static String COMMON = "common";
 	public final static String DAY_XX = "day_xx";
 	public final static String DAY_01 = "day_01";
 	public final static String DAY_02 = "day_02";
