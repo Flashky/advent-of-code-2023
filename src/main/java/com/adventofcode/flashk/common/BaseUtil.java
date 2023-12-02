@@ -38,7 +38,7 @@ public final class BaseUtil {
 	}
 	
 	/**
-	 * Converts from hexadecimal to binary adding zero padding at the leading.
+	 * Converts from hexadecimal to binary and adds zero padding at the leading.
 	 * <p>
 	 * Any hexadecimal number can be represented with 4 binary digits (<code>6 hex = 0110 bin</code>).
 	 * </p>
@@ -53,12 +53,13 @@ public final class BaseUtil {
 	 * 	BaseUtil.hexToBinaryPadLeft("6") = "0110"
 	 * </pre>
 	 * @param hex the hexadecimal code
-	 * @return the translated binary code
+	 * @return the translated binary code, it will always have a multiple of 4 digits.
 	 * @see #hexToBinary(String)
 	 */
 	public static String hexToBinaryPadLeft(String hex) {
 	    String unpaddedBinary = BaseUtil.hexToBinary(hex);
 	    int size = hex.length() * 4;
-	    return String.format("%"+size+"s", unpaddedBinary).replace(" ", "0");
+		String formatSize = "%" + size + "s";
+	    return String.format(formatSize, unpaddedBinary).replace(" ", "0");
 	}
 }
