@@ -718,7 +718,4 @@ class Vector2Test {
 		assertThrows(IllegalStateException.class, vector::normalized);
 	
 	}
-
-
-
 }
