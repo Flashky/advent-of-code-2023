@@ -1,5 +1,7 @@
 package com.adventofcode.flashk.day01;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 public class Trebuchet {
@@ -26,25 +28,13 @@ public class Trebuchet {
     }
 
     private int lineValue(String line) {
-        List<String> result = line.chars()
-                .filter(Character::isDigit)
-                .mapToObj(c -> (char) c)
-                .map(Object::toString)
-                .toList();
+        String digits = StringUtils.getDigits(line);
+        String number = String.valueOf(digits.charAt(0)) + digits.charAt(digits.length() - 1);
 
-        String first = result.get(0);
-        String last = result.get(result.size()-1);
-
-        String number = first + last;
         return Integer.parseInt(number);
     }
+
     private String replaceWordsWithNumber(String line){
-
-        String replaceLine = line;
-        for(int i = 0; i < numberWords.length; i++) {
-            replaceLine = replaceLine.replace(numberWords[i], numberDigits[i]);
-        }
-        return replaceLine;
-
+        return StringUtils.replaceEachRepeatedly(line, numberWords, numberDigits);
     }
 }
