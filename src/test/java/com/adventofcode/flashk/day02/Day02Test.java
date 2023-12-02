@@ -1,9 +1,9 @@
 package com.adventofcode.flashk.day02;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -21,7 +21,6 @@ import com.adventofcode.flashk.common.test.utils.Util;
 
 @DisplayName(TestDisplayName.DAY_02)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day02Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_02;
@@ -43,9 +42,13 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		CubeConundrum cubeConundrum = new CubeConundrum(inputs);
+		int result = cubeConundrum.solveA(12,13,14);
+
+		assertEquals(8, result);
 	}
-	
+
 	@Test
 	@Order(2)
 	@Tag(TestTag.PART_ONE)
@@ -57,7 +60,12 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		CubeConundrum cubeConundrum = new CubeConundrum(inputs);
+		int result = cubeConundrum.solveA(12,13,14);
+
+		assertEquals(2541, result);
+
 	}
 	
 	@Test
@@ -71,7 +79,11 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		CubeConundrum cubeConundrum = new CubeConundrum(inputs);
+		int result = cubeConundrum.solveB();
+
+		assertEquals(2286, result);
 	}
 	
 	@Test
@@ -85,7 +97,12 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		CubeConundrum cubeConundrum = new CubeConundrum(inputs);
+		int result = cubeConundrum.solveB();
+
+		assertEquals(66016, result);
+
 	}
 
 }
