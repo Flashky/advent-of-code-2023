@@ -3,12 +3,10 @@ package com.adventofcode.flashk.common;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
-@ToString
 public class Vector3 {
 
 	private int x;
@@ -87,11 +85,19 @@ public class Vector3 {
 	public static Vector3 down() {
 		return new Vector3(0,-1,0);
 	}
-	
+
+	/**
+	 * Shorthand for <code>Vector3(0,0,1)</code>.
+	 * @return A unitary vector that points forward;
+	 */
 	public static Vector3 forward() {
 		return new Vector3(0,0,1);
 	}
-	
+
+	/**
+	 * Shorthand for <code>Vector3(0,0,-1)</code>.
+	 * @return A unitary vector that points backwards;
+	 */
 	public static Vector3 backward() {
 		return new Vector3(0,0,-1);
 	}

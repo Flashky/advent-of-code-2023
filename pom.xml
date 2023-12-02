@@ -28,13 +28,13 @@
 			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- Others -->
 		<dependency>
 		    <groupId>nl.jqno.equalsverifier</groupId>
 		    <artifactId>equalsverifier</artifactId>
 		    <version>3.8</version>
 		    <scope>test</scope>
 		</dependency>
+		<!-- Others -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
