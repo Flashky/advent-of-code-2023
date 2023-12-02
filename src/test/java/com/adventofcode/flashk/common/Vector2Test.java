@@ -141,7 +141,37 @@ class Vector2Test {
 
 		assertEquals(2.23606797749979, value);
 	}
-	
+
+	@Test
+	void testManhattanDistance() {
+		Vector2 v1 = new Vector2(2, 3);
+		Vector2 v2 = new Vector2(3, 5);
+
+		int value = Vector2.manhattanDistance(v1, v2);
+
+		assertEquals(3, value);
+	}
+
+	@Test
+	void testManhattanDistanceNegativeToPositive() {
+		Vector2 v1 = new Vector2(-1, -1);
+		Vector2 v2 = new Vector2(1, 1);
+
+		int value = Vector2.manhattanDistance(v1, v2);
+
+		assertEquals(4, value);
+	}
+
+	@Test
+	void testManhattanDistancePositiveToNegative() {
+		Vector2 v1 = new Vector2(1, 1);
+		Vector2 v2 = new Vector2(-1, -1);
+
+		int value = Vector2.manhattanDistance(v1, v2);
+
+		assertEquals(4, value);
+	}
+
 	@Test
 	void testTransformScalar() {
 		Vector2 startPos = new Vector2(2,5);
@@ -290,7 +320,25 @@ class Vector2Test {
 		assertEquals(6, leftOperand.getX());
 		assertEquals(0, leftOperand.getY());
 	}
-	
+
+	@Test
+	void testSubstractStatic() {
+		Vector2 leftOperand = new Vector2(5,0);
+		Vector2 rightOperand = new Vector2(11,0);
+
+		Vector2 result = Vector2.substract(leftOperand, rightOperand);
+
+		assertNotNull(result);
+		assertEquals(-6, result.getX());
+		assertEquals(0, result.getY());
+
+		// left and right operands are not modified
+		assertEquals(5, leftOperand.getX());
+		assertEquals(0, leftOperand.getY());
+		assertEquals(11, rightOperand.getX());
+		assertEquals(0, rightOperand.getY());
+	}
+
 	@Test
 	void testHashCodeAndEquals() {
 		EqualsVerifier.simple()
@@ -670,7 +718,7 @@ class Vector2Test {
 		assertThrows(IllegalStateException.class, vector::normalized);
 	
 	}
-	
 
-	
+
+
 }
