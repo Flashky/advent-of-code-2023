@@ -55,6 +55,12 @@ public final class Util {
 		return input;
 	}
 
+	/**
+	 * Reads an input file into a bidimensional char array.
+	 * @param inputFolder the folder where the input file is located.
+	 * @param inputFile the file to be read.
+	 * @return a bidimensional array of characters.
+	 */
 	public static char[][] read2DCharArray(String inputFolder, String inputFile) {
 		List<String> inputs = readStringLines(inputFolder,inputFile);
 
@@ -65,6 +71,27 @@ public final class Util {
 		int i = 0;
 		for(String input : inputs) {
 			char2D[i++] = input.toCharArray();
+		}
+
+		return char2D;
+	}
+
+	/**
+	 * Reads an input file into a bidimensional int array.
+	 * @param inputFolder the folder where the input file is located.
+	 * @param inputFile the file to be read.
+	 * @return a bidimensional array of integers.
+	 */
+	public static int[][] read2DIntArray(String inputFolder, String inputFile) {
+		List<String> inputs = readStringLines(inputFolder,inputFile);
+
+		int rows = inputs.size();
+		int cols = inputs.get(0).length();
+		int[][] char2D = new int[rows][cols];
+
+		int i = 0;
+		for(String input : inputs) {
+			char2D[i++] = input.chars().map(Character::getNumericValue).toArray();
 		}
 
 		return char2D;
