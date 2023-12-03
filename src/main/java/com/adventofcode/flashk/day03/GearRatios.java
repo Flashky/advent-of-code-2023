@@ -3,7 +3,12 @@ package com.adventofcode.flashk.day03;
 import com.adventofcode.flashk.common.GridUtil;
 import com.adventofcode.flashk.common.Vector2;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 
 public class GearRatios {
 
@@ -52,17 +57,18 @@ public class GearRatios {
     private int processNumber(int row, int col) {
         
         StringBuilder number = new StringBuilder();
+        int currentCol = col;
 
         // Find number and symbol if present
         Optional<Symbol> symbol = Optional.empty();
-        while(col < cols && Character.isDigit(engine[row][col])) {
-            number.append(engine[row][col]);
+        while(currentCol < cols && Character.isDigit(engine[row][currentCol])) {
+            number.append(engine[row][currentCol]);
 
             if(symbol.isEmpty()) {
-                symbol = findSymbol(row, col);
+                symbol = findSymbol(row, currentCol);
             }
 
-            col++;
+            currentCol++;
         }
 
         // If current number has a symbol, update data structures
@@ -71,7 +77,7 @@ public class GearRatios {
             saveOrUpdateSymbol(symbol.get(), calculatedPartNumber);
         }
 
-        return col;
+        return currentCol;
 
     }
 
