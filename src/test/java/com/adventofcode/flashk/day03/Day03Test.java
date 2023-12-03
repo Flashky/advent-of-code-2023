@@ -17,9 +17,10 @@ import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_03)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day03Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_03;
@@ -37,7 +38,10 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		GearRatios gearRatios = new GearRatios(inputs);
+
+		long result = gearRatios.solveA();
+		assertEquals(4361L, result);
 	}
 	
 	@Test
@@ -51,7 +55,12 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		GearRatios gearRatios = new GearRatios(inputs);
+		long result = gearRatios.solveA();
+
+		assertEquals(519444, result);
+
 	}
 	
 	@Test
@@ -65,7 +74,12 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		GearRatios gearRatios = new GearRatios(inputs);
+		long result = gearRatios.solveB();
+
+		assertEquals(467835, result);
+
 	}
 	
 	@Test
@@ -79,7 +93,12 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		GearRatios gearRatios = new GearRatios(inputs);
+		long result = gearRatios.solveB();
+
+		System.out.println("R: "+ result);
+		//assertEquals(467835, result);
 	}
 
 }
