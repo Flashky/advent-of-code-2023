@@ -55,4 +55,19 @@ public final class Util {
 		return input;
 	}
 
+	public static char[][] read2DCharArray(String inputFolder, String inputFile) {
+		List<String> inputs = readStringLines(inputFolder,inputFile);
+
+		int rows = inputs.size();
+		int cols = inputs.get(0).length();
+		char[][] char2D = new char[rows][cols];
+
+		int i = 0;
+		for(String input : inputs) {
+			char2D[i++] = input.toCharArray();
+		}
+
+		return char2D;
+	}
+
 }

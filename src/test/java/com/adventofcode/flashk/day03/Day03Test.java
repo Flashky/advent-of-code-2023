@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day03;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -37,11 +36,12 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		GearRatios gearRatios = new GearRatios(inputs);
+		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		long result = gearRatios.solveA();
-		assertEquals(4361L, result);
+		GearRatios gearRatios = new GearRatios(input);
+		int result = gearRatios.solveA();
+
+		assertEquals(4361, result);
 	}
 	
 	@Test
@@ -54,9 +54,9 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		GearRatios gearRatios = new GearRatios(inputs);
+		GearRatios gearRatios = new GearRatios(input);
 		long result = gearRatios.solveA();
 
 		assertEquals(519444, result);
@@ -73,10 +73,10 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		GearRatios gearRatios = new GearRatios(inputs);
-		long result = gearRatios.solveB();
+		GearRatios gearRatios = new GearRatios(input);
+		int result = gearRatios.solveB();
 
 		assertEquals(467835, result);
 
@@ -92,13 +92,12 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		GearRatios gearRatios = new GearRatios(inputs);
-		long result = gearRatios.solveB();
+		GearRatios gearRatios = new GearRatios(input);
+		int result = gearRatios.solveB();
 
-		System.out.println("R: "+ result);
-		//assertEquals(467835, result);
+		assertEquals(74528807, result);
 	}
 
 }
