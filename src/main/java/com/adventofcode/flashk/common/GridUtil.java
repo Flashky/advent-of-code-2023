@@ -12,10 +12,16 @@ public class GridUtil {
         int maxRows = array.length;
         int maxCols = array[0].length;
 
-        return getVector2s(row, col, maxCols, maxRows);
+        return getVector2s(row, col, maxCols, maxRows, true);
     }
 
-    private static List<Vector2> getVector2s(int row, int col, int maxCols, int maxRows) {
+    public static List<Vector2> getAdjacents(char[][] array, int row, int col) {
+        int maxRows = array.length;
+        int maxCols = array[0].length;
+        return getVector2s(row, col, maxCols, maxRows, false);
+    }
+
+    private static List<Vector2> getVector2s(int row, int col, int maxCols, int maxRows, boolean includeDiagonals) {
 
         // Initialize vector
         Vector2 start = new Vector2(col, row);
@@ -24,11 +30,14 @@ public class GridUtil {
         tiles.add(Vector2.substract(start, Vector2.left()));
         tiles.add(Vector2.substract(start, Vector2.right()));
         tiles.add(Vector2.substract(start, Vector2.up()));
-        tiles.add(Vector2.substract(start, Vector2.upLeft()));
-        tiles.add(Vector2.substract(start, Vector2.upRight()));
         tiles.add(Vector2.substract(start, Vector2.down()));
-        tiles.add(Vector2.substract(start, Vector2.downLeft()));
-        tiles.add(Vector2.substract(start, Vector2.downRight()));
+
+        if(includeDiagonals) {
+            tiles.add(Vector2.substract(start, Vector2.upLeft()));
+            tiles.add(Vector2.substract(start, Vector2.upRight()));
+            tiles.add(Vector2.substract(start, Vector2.downLeft()));
+            tiles.add(Vector2.substract(start, Vector2.downRight()));
+        }
 
         return tiles.stream()
                 .filter(v -> v.getX() >= 0)
