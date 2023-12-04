@@ -1,8 +1,5 @@
 package com.adventofcode.flashk.day03;
 
-import com.adventofcode.flashk.common.GridTile;
-import com.adventofcode.flashk.common.Vector2;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
