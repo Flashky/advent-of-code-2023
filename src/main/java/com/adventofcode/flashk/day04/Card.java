@@ -39,8 +39,7 @@ public class Card {
     }
 
     public int calculateWinningPoints() {
-        return matchingNumbers.isEmpty() ?
-                0 : IntStream.range(1, matchingNumbers.size()).reduce(1, (a,b) -> a*2);
+        return (int) Math.floor(Math.pow(2, (double) matchingNumbers.size()-1));
     }
 
     public int totalMatchingNumbers() {
