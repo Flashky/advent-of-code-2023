@@ -1,27 +1,30 @@
 package com.adventofcode.flashk.day03;
 
+import com.adventofcode.flashk.common.GridTile;
 import com.adventofcode.flashk.common.Vector2;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode
+@Getter
 public class Symbol {
 
     private static final char GEAR = '*';
 
     private final char value;
-
-    @Getter
-    private final Vector2 pos;
+    private final int row;
+    private final int col;
 
     private final List<Integer> adjacentPartNumbers = new ArrayList<>();
 
-    public Symbol(char value, Vector2 pos) {
+    public Symbol(int row, int col, char value) {
+        this.row = row;
+        this.col = col;
         this.value = value;
-        this.pos = pos;
     }
 
     public void addAdjacentPartNumber(int partNumber) {
@@ -44,4 +47,19 @@ public class Symbol {
         return 0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Symbol symbol = (Symbol) o;
+
+        return new EqualsBuilder().append(row, symbol.row).append(col, symbol.col).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(row).append(col).toHashCode();
+    }
 }

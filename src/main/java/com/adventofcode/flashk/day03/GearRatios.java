@@ -1,13 +1,13 @@
 package com.adventofcode.flashk.day03;
 
+import com.adventofcode.flashk.common.Grid;
+import com.adventofcode.flashk.common.GridTile;
 import com.adventofcode.flashk.common.GridUtil;
-import com.adventofcode.flashk.common.Vector2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 
 public class GearRatios {
@@ -15,37 +15,32 @@ public class GearRatios {
     private static final char EMPTY = '.';
 
     // Initial data structure
-    private final int rows;
-    private final int cols;
-    private final char[][] engine;
+    private final Grid<Character> engine;
 
     // Calculated symbol information
-    private final List<Symbol> symbols = new ArrayList<>();
-    private final Map<Vector2, Symbol> symbolPositions = new HashMap<>();
+    private final Map<Symbol,Symbol> symbols = new HashMap<>();
 
     public GearRatios(char[][] input) {
 
-        engine = input;
-        rows = engine.length;
-        cols = engine[0].length;
+        engine = GridUtil.asGrid(input);
 
         processGrid();
 
     }
 
     public int solveA() {
-        return symbols.stream().map(Symbol::sumPartNumbers).reduce(0, Integer::sum);
+        return symbols.keySet().stream().map(Symbol::sumPartNumbers).reduce(0, Integer::sum);
     }
 
     public int solveB() {
-        return symbols.stream().map(Symbol::gearRatio).reduce(0, Integer::sum);
+        return symbols.keySet().stream().distinct().map(Symbol::gearRatio).reduce(0, Integer::sum);
     }
 
     private void processGrid() {
-        for(int row = 0; row < rows; row++) {
+        for(int row = 0; row < engine.rows(); row++) {
             int col = 0;
-            while(col < cols) {
-                if(Character.isDigit(engine[row][col])) {
+            while(col < engine.cols()) {
+                if(Character.isDigit(engine.get(row,col))) {
                     col = processNumber(row, col);
                 } else {
                     col++;
@@ -61,8 +56,8 @@ public class GearRatios {
 
         // Find number and symbol if present
         Optional<Symbol> symbol = Optional.empty();
-        while(currentCol < cols && Character.isDigit(engine[row][currentCol])) {
-            number.append(engine[row][currentCol]);
+        while(currentCol < engine.cols() && Character.isDigit(engine.get(row, currentCol))) {
+            number.append(engine.get(row,currentCol));
 
             if(symbol.isEmpty()) {
                 symbol = findSymbol(row, currentCol);
@@ -82,30 +77,23 @@ public class GearRatios {
     }
 
     private void saveOrUpdateSymbol(Symbol symbol, int calculatedPartNumber) {
-        Vector2 symbolPos = symbol.getPos();
-
-        // Symbol has been previously added
-        if(symbolPositions.containsKey(symbolPos)) {
-            symbolPositions.get(symbolPos).addAdjacentPartNumber(calculatedPartNumber);
-        } else {
-            symbol.addAdjacentPartNumber(calculatedPartNumber);
-            symbolPositions.put(symbolPos, symbol);
-            symbols.add(symbol);
-        }
+        symbols.getOrDefault(symbol,symbol).addAdjacentPartNumber(calculatedPartNumber);
+        symbols.putIfAbsent(symbol,symbol);
     }
 
     private Optional<Symbol> findSymbol(int row, int col) {
-        List<Vector2> adjacents = GridUtil.getAdjacentsIncludingDiagonals(engine, row, col);
-        return adjacents.stream().filter(this::isSymbol).findFirst().map(this::createSymbol);
+        Set<GridTile<Character>> adjacents = engine.getAdjacentTiles(row, col, true);
+        return adjacents.stream()
+                .filter(t -> this.isSymbol(t.getValue()))
+                .findFirst()
+                .map(this::createSymbol);
     }
 
-    private boolean isSymbol(Vector2 pos) {
-        char value = engine[pos.getY()][pos.getX()];
+    private boolean isSymbol(Character value) {
         return  !Character.isDigit(value) && value != EMPTY;
     }
 
-    private Symbol createSymbol(Vector2 pos) {
-        char value = engine[pos.getY()][pos.getX()];
-        return new Symbol(value, pos);
+    private Symbol createSymbol(GridTile<Character> tile) {
+        return new Symbol(tile.getRow(), tile.getCol(), tile.getValue());
     }
 }

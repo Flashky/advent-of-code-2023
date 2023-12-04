@@ -8,14 +8,24 @@ public class GridUtil {
     private GridUtil() {}
 
     public static List<Vector2> getAdjacentsIncludingDiagonals(char[][] array, int row, int col) {
-
         int maxRows = array.length;
         int maxCols = array[0].length;
-
         return getVector2s(row, col, maxCols, maxRows, true);
     }
 
     public static List<Vector2> getAdjacents(char[][] array, int row, int col) {
+        int maxRows = array.length;
+        int maxCols = array[0].length;
+        return getVector2s(row, col, maxCols, maxRows, false);
+    }
+
+    public static List<Vector2> getAdjacentsIncludingDiagonals(int[][] array, int row, int col) {
+        int maxRows = array.length;
+        int maxCols = array[0].length;
+        return getVector2s(row, col, maxCols, maxRows, true);
+    }
+
+    public static List<Vector2> getAdjacents(int[][] array, int row, int col) {
         int maxRows = array.length;
         int maxCols = array[0].length;
         return getVector2s(row, col, maxCols, maxRows, false);
@@ -45,6 +55,33 @@ public class GridUtil {
                 .filter(v -> v.getY() >= 0)
                 .filter(v -> v.getY() < maxRows)
                 .toList();
+    }
 
+    public static Grid<Character> asGrid(char[][] array) {
+        int rows = array.length;
+        int cols = array[0].length;
+        Character[][] characterArray = new Character[rows][cols];
+
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                characterArray[row][col] = array[row][col];
+            }
+        }
+
+        return new ArrayGrid<>(characterArray);
+    }
+
+    public static Grid<Integer> asGrid(int[][] array) {
+        int rows = array.length;
+        int cols = array[0].length;
+        Integer[][] integerArray = new Integer[rows][cols];
+
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                integerArray[row][col] = array[row][col];
+            }
+        }
+
+        return new ArrayGrid<>(integerArray);
     }
 }
