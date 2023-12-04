@@ -4,8 +4,16 @@ import java.util.Set;
 
 public interface Grid<T> {
 
+    /**
+     * Returns the number of rows of the grid.
+     * @return the number of rows
+     */
     int rows();
 
+    /**
+     * Returns the number of cols of the grid.
+     * @return the number of cols
+     */
     int cols();
 
     /**
