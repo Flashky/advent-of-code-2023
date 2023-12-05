@@ -41,7 +41,4 @@ public class Card {
         return (int) Math.floor(Math.pow(2, (double) matchingNumbers.size()-1));
     }
 
-    public int totalMatchingNumbers() {
-        return matchingNumbers.size();
-    }
 }

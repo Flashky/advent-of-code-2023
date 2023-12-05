@@ -22,7 +22,7 @@ public class Scratchcards {
     public long solveB() {
 
         for (Card card : cards) {
-            int size = card.totalMatchingNumbers();
+            int size = card.getMatchingNumbers().size();
             long totalToIncrease = cardTotals.get(card.getId());
             IntStream.rangeClosed(card.getId() + 1, card.getId() + size)
                     .filter(cardTotals::containsKey)
