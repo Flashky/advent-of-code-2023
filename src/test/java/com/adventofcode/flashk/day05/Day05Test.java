@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_05)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day05Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_05;
@@ -43,7 +44,28 @@ public class Day05Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		YouGiveASeedAFertilizer puzzle = new YouGiveASeedAFertilizer(inputs);
+		assertEquals(35,puzzle.solveA());
 		
+	}
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_DEBUG)
+	@Disabled
+	public void testSolvePart1SampleTest() {
+
+		System.out.print("1 | sample | ");
+
+		// Read input file
+		List<String> inputs = Util.readStringLines(INPUT_FOLDER, "sample_test.input");
+
+		YouGiveASeedAFertilizer puzzle = new YouGiveASeedAFertilizer(inputs);
+		assertEquals(35,puzzle.solveA());
+
 	}
 	
 	@Test
@@ -57,6 +79,9 @@ public class Day05Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		YouGiveASeedAFertilizer puzzle = new YouGiveASeedAFertilizer(inputs);
+		assertEquals(579439039L,puzzle.solveA());
 		
 	}
 	
