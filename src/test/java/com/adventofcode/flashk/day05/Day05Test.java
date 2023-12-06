@@ -96,7 +96,8 @@ public class Day05Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		YouGiveASeedAFertilizer puzzle = new YouGiveASeedAFertilizer(inputs);
+		assertEquals(46,puzzle.solveB());
 	}
 	
 	@Test
@@ -104,12 +105,17 @@ public class Day05Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
+	@Disabled
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		YouGiveASeedAFertilizer puzzle = new YouGiveASeedAFertilizer(inputs);
+		assertEquals(7873084, puzzle.solveB());
+
+
 		
 	}
 

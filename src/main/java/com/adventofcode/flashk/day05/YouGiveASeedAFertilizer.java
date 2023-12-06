@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 public class YouGiveASeedAFertilizer {
 
     private static final Pattern NUMBER_PATTERN = Pattern.compile("(\\d*)");
+    private static final Pattern SEED_RANGE_PATTERN = Pattern.compile(" +(\\d*) (\\d*)");
 
-    private final List<Seed> initialSeeds = new ArrayList<>();
+    private final String initialSeedsInfo;
+    private List<Seed> initialSeeds = new ArrayList<>();
     private final List<RowRange> seedToSoil = new ArrayList<>();
     private final List<RowRange> soilToFertilizer = new ArrayList<>();
     private final List<RowRange> fertilizerToWater = new ArrayList<>();
@@ -23,13 +27,7 @@ public class YouGiveASeedAFertilizer {
 
     public YouGiveASeedAFertilizer(List<String> inputs) {
 
-        // Initial seeds
-        Matcher seedsMatcher = NUMBER_PATTERN.matcher(inputs.get(0));
-        while (seedsMatcher.find()) {
-            if (StringUtils.isNotBlank(seedsMatcher.group(1))) {
-                initialSeeds.add(new Seed(seedsMatcher.group(1)));
-            }
-        }
+        initialSeedsInfo = inputs.get(0);
 
         // Lectura: seed-to-soil-map
         inputs.remove(0);
@@ -64,6 +62,13 @@ public class YouGiveASeedAFertilizer {
 
     public long solveA() {
 
+        Matcher seedsMatcher = NUMBER_PATTERN.matcher(initialSeedsInfo);
+        while (seedsMatcher.find()) {
+            if (StringUtils.isNotBlank(seedsMatcher.group(1))) {
+                initialSeeds.add(new Seed(seedsMatcher.group(1)));
+            }
+        }
+
         for (Seed seed : initialSeeds) {
             mapSoil(seed);
             mapFertilizer(seed);
@@ -78,7 +83,30 @@ public class YouGiveASeedAFertilizer {
     }
 
     public long solveB() {
-        return 0;
+        long result = Long.MAX_VALUE;
+
+        // Process by ranges
+        Matcher seedsMatcher = SEED_RANGE_PATTERN.matcher(initialSeedsInfo);
+        while (seedsMatcher.find()) {
+            long startIndex = Long.parseLong(seedsMatcher.group(1));
+            long range = Long.parseLong(seedsMatcher.group(2));
+            long endIndex = startIndex+range;
+
+            for(long i = startIndex; i < endIndex; i++) {
+                Seed seed = new Seed(i);
+                mapSoil(seed);
+                mapFertilizer(seed);
+                mapWater(seed);
+                mapLight(seed);
+                mapTemperature(seed);
+                mapHumidity(seed);
+                mapLocation(seed);
+                result = Math.min(result, seed.getLocation());
+            }
+
+        }
+
+        return result;
     }
 
 
