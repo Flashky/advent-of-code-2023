@@ -5,9 +5,9 @@ public class Race {
     private final long time;
     private final long recordDistance;
 
-    public Race(long time, long record) {
+    public Race(long time, long recordDistance) {
         this.time = time;
-        this.recordDistance = record;
+        this.recordDistance = recordDistance;
     }
 
     public long beatTheRecord() {
