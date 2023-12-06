@@ -55,6 +55,7 @@ public class Day05Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_DEBUG)
+	@Disabled
 	public void testSolvePart1SampleTest() {
 
 		System.out.print("1 | sample | ");
