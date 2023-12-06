@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 public class YouGiveASeedAFertilizer {
 
@@ -16,7 +14,7 @@ public class YouGiveASeedAFertilizer {
     private static final Pattern SEED_RANGE_PATTERN = Pattern.compile(" +(\\d*) (\\d*)");
 
     private final String initialSeedsInfo;
-    private List<Seed> initialSeeds = new ArrayList<>();
+    private final List<Seed> initialSeeds = new ArrayList<>();
     private final List<RowRange> seedToSoil = new ArrayList<>();
     private final List<RowRange> soilToFertilizer = new ArrayList<>();
     private final List<RowRange> fertilizerToWater = new ArrayList<>();
