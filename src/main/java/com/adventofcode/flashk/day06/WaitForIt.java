@@ -54,6 +54,6 @@ public class WaitForIt {
     }
 
     public long solve() {
-        return races.stream().map(Race::beatTheRecord).reduce(1L, Math::multiplyExact);
+        return races.stream().map(Race::waysToBeatTheRecord).reduce(1L, Math::multiplyExact);
     }
 }

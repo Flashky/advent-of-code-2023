@@ -10,7 +10,7 @@ public class Race {
         this.recordDistance = recordDistance;
     }
 
-    public long beatTheRecord() {
+    public long waysToBeatTheRecord() {
 
         long speed = 0;
         long remainingTime = time;
