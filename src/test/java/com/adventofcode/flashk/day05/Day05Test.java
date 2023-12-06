@@ -55,7 +55,7 @@ public class Day05Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_DEBUG)
-	@Disabled("Sample test just for analysing the behaviour for part 2.")
+	@Disabled("(Disabled) Part 1 Sample - Reason: Sample test just for analysing the behaviour for part 2")
 	void testSolvePart1SampleTest() {
 
 		System.out.print("1 | sample | ");
@@ -105,7 +105,7 @@ public class Day05Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
-	@Disabled("Solved via brute force. Requires 30 minutes to run.")
+	@Disabled("(Disabled) Part 2 Input - Reason: Solved via brute force. Requires 30 minutes to run.")
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");
@@ -114,8 +114,6 @@ public class Day05Test extends PuzzleTest {
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		YouGiveASeedAFertilizer puzzle = new YouGiveASeedAFertilizer(inputs);
 		assertEquals(7873084, puzzle.solveB());
-
-
 		
 	}
 

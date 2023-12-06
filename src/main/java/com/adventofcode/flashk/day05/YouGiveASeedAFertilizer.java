@@ -27,12 +27,11 @@ public class YouGiveASeedAFertilizer {
 
         initialSeedsInfo = inputs.get(0);
 
-        // Lectura: seed-to-soil-map
         inputs.remove(0);
         inputs.remove(1);
 
+        // Start reading maps
         int mapId = 0;
-
         for (String input : inputs) {
             if (input.contains("map")) {
                 mapId++;
@@ -54,7 +53,7 @@ public class YouGiveASeedAFertilizer {
             case 4 -> lightToTemperature.add(rowRange);
             case 5 -> temperatureToHumidity.add(rowRange);
             case 6 -> humidityToLocation.add(rowRange);
-            default -> throw new IllegalArgumentException("Unexistent map id");
+            //default -> throw new IllegalArgumentException("Nonexistent map id");
         }
     }
 
@@ -67,17 +66,7 @@ public class YouGiveASeedAFertilizer {
             }
         }
 
-        for (Seed seed : initialSeeds) {
-            mapSoil(seed);
-            mapFertilizer(seed);
-            mapWater(seed);
-            mapLight(seed);
-            mapTemperature(seed);
-            mapHumidity(seed);
-            mapLocation(seed);
-        }
-
-        return initialSeeds.stream().map(Seed::getLocation).min(Long::compareTo).get();
+        return initialSeeds.stream().map(this::calculateLocation).min(Long::compareTo).orElse(Long.MAX_VALUE);
     }
 
     public long solveB() {
@@ -91,15 +80,7 @@ public class YouGiveASeedAFertilizer {
             long endIndex = startIndex+range;
 
             for(long i = startIndex; i < endIndex; i++) {
-                Seed seed = new Seed(i);
-                mapSoil(seed);
-                mapFertilizer(seed);
-                mapWater(seed);
-                mapLight(seed);
-                mapTemperature(seed);
-                mapHumidity(seed);
-                mapLocation(seed);
-                result = Math.min(result, seed.getLocation());
+                result = Math.min(result, calculateLocation(new Seed(i)));
             }
 
         }
@@ -107,6 +88,16 @@ public class YouGiveASeedAFertilizer {
         return result;
     }
 
+    private long calculateLocation(Seed seed) {
+        mapSoil(seed);
+        mapFertilizer(seed);
+        mapWater(seed);
+        mapLight(seed);
+        mapTemperature(seed);
+        mapHumidity(seed);
+        mapLocation(seed);
+        return seed.getLocation();
+    }
 
     private void mapSoil(Seed seed) {
         long originId = seed.getId();
