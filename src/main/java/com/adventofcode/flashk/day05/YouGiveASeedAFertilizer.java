@@ -53,7 +53,7 @@ public class YouGiveASeedAFertilizer {
             case 4 -> lightToTemperature.add(rowRange);
             case 5 -> temperatureToHumidity.add(rowRange);
             case 6 -> humidityToLocation.add(rowRange);
-            //default -> throw new IllegalArgumentException("Nonexistent map id");
+            default -> throw new IllegalArgumentException("Nonexistent map id");
         }
     }
 
