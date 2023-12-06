@@ -3,7 +3,6 @@ package com.adventofcode.flashk.day06;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -19,9 +18,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_06)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day06Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_06;
@@ -43,7 +43,10 @@ public class Day06Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		WaitForIt waitForIt = new WaitForIt(inputs, true);
+		long result = waitForIt.solve();
+		assertEquals(288, result);
+
 	}
 	
 	@Test
@@ -57,7 +60,11 @@ public class Day06Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		WaitForIt waitForIt = new WaitForIt(inputs, true);
+		long result = waitForIt.solve();
+
+		assertEquals(303600, result);
 	}
 	
 	@Test
@@ -71,7 +78,11 @@ public class Day06Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		WaitForIt waitForIt = new WaitForIt(inputs, false);
+		long result = waitForIt.solve();
+
+		assertEquals(71503, result);
 	}
 	
 	@Test
@@ -85,7 +96,12 @@ public class Day06Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		WaitForIt waitForIt = new WaitForIt(inputs, false);
+		long result = waitForIt.solve();
+
+		assertEquals(23654842, result);
+
 	}
 
 }
