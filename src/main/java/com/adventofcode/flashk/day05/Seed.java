@@ -32,19 +32,4 @@ public class Seed {
         id, soil, fertilizer, water, light, temperature, humidity, location);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Seed seed = (Seed) o;
-
-        return new EqualsBuilder().append(id, seed.id).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(id).toHashCode();
-    }
 }
