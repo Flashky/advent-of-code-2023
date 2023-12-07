@@ -77,6 +77,7 @@ public class Hand implements Comparable<Hand> {
             return Integer.compare(this.handType.getValue(), o.handType.getValue());
         }
 
+        // Wins first highest card found from left to right
         int i = 0;
         while(i < cards.size()) {
             Card thisCard = cards.get(i);
