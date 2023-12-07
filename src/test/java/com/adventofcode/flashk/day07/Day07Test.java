@@ -3,7 +3,6 @@ package com.adventofcode.flashk.day07;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -19,9 +18,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_07)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day07Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_07;
@@ -43,7 +43,11 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		CamelCards camelCards = new CamelCards(inputs);
+		int result = camelCards.solve(false);
+
+		assertEquals(6440, result);
 	}
 	
 	@Test
@@ -57,7 +61,11 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		CamelCards camelCards = new CamelCards(inputs);
+		int result = camelCards.solve(false);
+
+		assertEquals(250058342, result);
 	}
 	
 	@Test
@@ -71,7 +79,11 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		CamelCards camelCards = new CamelCards(inputs);
+		int result = camelCards.solve(true);
+
+		assertEquals(5905, result);
 	}
 	
 	@Test
@@ -85,7 +97,11 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Util.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		CamelCards camelCards = new CamelCards(inputs);
+		int result = camelCards.solve(true);
+
+		assertEquals(250506580, result);
 	}
 
 }
