@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day07;
 
-import lombok.Getter;
-
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -16,7 +14,6 @@ public class Hand implements Comparable<Hand> {
 
     private List<Card> cards;
 
-    @Getter
     private int bid;
     private HandType handType; // The hand type from strongest (7) to weakest (1).
 
@@ -43,7 +40,7 @@ public class Hand implements Comparable<Hand> {
         }
     }
 
-    public void setHandType(Map<Character,Long> cardsByType) {
+    private void setHandType(Map<Character,Long> cardsByType) {
         handType = switch(cardsByType.size()) {
             case 1: yield HandType.FIVE_OF_A_KIND;
             case 2: yield cardsByType.containsValue(4L) ? HandType.FOUR_OF_A_KIND : HandType.FULL_HOUSE;
@@ -54,7 +51,7 @@ public class Hand implements Comparable<Hand> {
         };
     }
 
-    public void setHandTypeWithJokers(Map<Character,Long> cardsByType) {
+    private void setHandTypeWithJokers(Map<Character,Long> cardsByType) {
 
         handType = switch(cardsByType.size()) {
             case 1,2: yield HandType.FIVE_OF_A_KIND;
