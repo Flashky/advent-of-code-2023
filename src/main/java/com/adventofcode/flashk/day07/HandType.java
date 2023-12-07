@@ -2,6 +2,7 @@ package com.adventofcode.flashk.day07;
 
 import lombok.Getter;
 
+
 @Getter
 public enum HandType {
     FIVE_OF_A_KIND(7),
@@ -14,9 +15,8 @@ public enum HandType {
 
     private final int value;
 
-    private HandType(int value) {
+    HandType(int value) {
         this.value = value;
     }
-
 
 }
