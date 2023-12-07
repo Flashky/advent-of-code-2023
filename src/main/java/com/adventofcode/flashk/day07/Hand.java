@@ -13,7 +13,6 @@ public class Hand implements Comparable<Hand> {
     private static final Character JOKER = 'J';
 
     private List<Card> cards;
-
     private int bid;
     private HandType handType; // The hand type from strongest (7) to weakest (1).
 

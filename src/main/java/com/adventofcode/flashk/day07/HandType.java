@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day07;
 
 import lombok.Getter;
 
-
 @Getter
 public enum HandType {
     FIVE_OF_A_KIND(7),

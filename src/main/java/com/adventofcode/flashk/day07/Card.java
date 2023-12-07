@@ -2,9 +2,9 @@ package com.adventofcode.flashk.day07;
 
 import lombok.Getter;
 
-@Getter
 public class Card implements Comparable<Card> {
 
+    @Getter
     private final char number;
     private final int value;
 
@@ -24,4 +24,5 @@ public class Card implements Comparable<Card> {
     public int compareTo(Card o) {
         return Integer.compare(this.value, o.value);
     }
+
 }
