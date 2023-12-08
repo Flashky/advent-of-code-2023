@@ -11,45 +11,37 @@ import java.util.stream.Stream;
 
 public final class Util {
 
+	private static final String PATH_INPUTS = "src/test/resources/inputs";
+
 	private Util() {}
 	
 	public static List<Integer> readIntegerLines(String inputFolder, String inputFile) {
-		
-		Stream<String> lines = null;
-		List<Integer> input = null;
+
+		List<Integer> input;
 		
 		try {
-			Path path = Paths.get("src", "test", "resources", inputFolder, inputFile).toAbsolutePath();
+			Path path = Paths.get(PATH_INPUTS, inputFolder, inputFile).toAbsolutePath();
 			input = Files.lines(path).map(Integer::parseInt).collect(Collectors.toList());
 			
 		} catch (IOException e) {
 			input = new ArrayList<>();
 			e.printStackTrace();
-		} finally {
-			if(lines != null) {
-				lines.close();
-			}
 		}
 		
 		return input;
 	}
 	
 	public static List<String> readStringLines(String inputFolder, String inputFile) {
-		
-		Stream<String> lines = null;
-		List<String> input = null;
+
+		List<String> input;
 		
 		try {
-			Path path = Paths.get("src", "test", "resources", inputFolder, inputFile).toAbsolutePath();
+			Path path = Paths.get(PATH_INPUTS, inputFolder, inputFile).toAbsolutePath();
 			input = Files.lines(path).collect(Collectors.toList());
 			
 		} catch (IOException e) {
 			input = new ArrayList<>();
 			e.printStackTrace();
-		} finally {
-			if(lines != null) {
-				lines.close();
-			}
 		}
 		
 		return input;
