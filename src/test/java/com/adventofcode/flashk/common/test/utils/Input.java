@@ -7,13 +7,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public final class Util {
+/**
+ * Helper class for reading Advent of Code input files.
+ * <p></p>All input files are expected to be located under <code>src/test/resources/inputs</code> path.</p>
+ */
+public final class Input {
 
 	private static final String PATH_INPUTS = "src/test/resources/inputs";
 
-	private Util() {}
+	private Input() {}
 	
 	public static List<Integer> readIntegerLines(String inputFolder, String inputFile) {
 

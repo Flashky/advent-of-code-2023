@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day03;
 
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -14,7 +12,7 @@ import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Util;
+import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,7 +34,7 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] input = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		GearRatios gearRatios = new GearRatios(input);
 		int result = gearRatios.solveA();
@@ -54,7 +52,7 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] input = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		GearRatios gearRatios = new GearRatios(input);
 		long result = gearRatios.solveA();
@@ -73,7 +71,7 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] input = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		GearRatios gearRatios = new GearRatios(input);
 		int result = gearRatios.solveB();
@@ -92,7 +90,7 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		char[][] input = Util.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] input = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		GearRatios gearRatios = new GearRatios(input);
 		int result = gearRatios.solveB();
