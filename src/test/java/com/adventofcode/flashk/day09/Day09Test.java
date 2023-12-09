@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_09)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day09Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_09;
@@ -43,6 +44,11 @@ public class Day09Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		MirageMaintenance mirageMaintenance = new MirageMaintenance(inputs);
+		long result = mirageMaintenance.solve(false);
+
+		assertEquals(114, result);
 		
 	}
 	
@@ -57,7 +63,12 @@ public class Day09Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		MirageMaintenance mirageMaintenance = new MirageMaintenance(inputs);
+		long result = mirageMaintenance.solve(false);
+
+		assertEquals(1725987467L, result);
+
 	}
 	
 	@Test
@@ -70,8 +81,13 @@ public class Day09Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
+
+		MirageMaintenance mirageMaintenance = new MirageMaintenance(inputs);
+		long result = mirageMaintenance.solve(true);
+
+		assertEquals(5, result);
+
 	}
 	
 	@Test
@@ -85,6 +101,11 @@ public class Day09Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		MirageMaintenance mirageMaintenance = new MirageMaintenance(inputs);
+		long result = mirageMaintenance.solve(true);
+
+		assertEquals(971, result);
 		
 	}
 
