@@ -1,4 +1,0 @@
-[submodule "src/test/resources/inputs"]
-	path = src/test/resources/inputs
-	url = https://github.com/Flashky/advent-of-code-2023-data
-	branch = master
