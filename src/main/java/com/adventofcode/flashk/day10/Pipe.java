@@ -12,7 +12,6 @@ public enum Pipe {
     SOUTH_WEST('7'),
     SOUTH_EAST('F');
 
-
     private final char value;
 
     Pipe(char value) {
