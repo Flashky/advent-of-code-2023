@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_10)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day10Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_10;
@@ -42,8 +43,30 @@ public class Day10Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveA();
+
+		assertEquals(4, result);
+	}
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SAMPLE + " 2")
+	public void testSolvePart1Sample2() {
+
+		System.out.print("1 | sample | ");
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
+
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveA();
+
+		assertEquals(8, result);
 	}
 	
 	@Test
@@ -56,8 +79,12 @@ public class Day10Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveA();
+
+		assertEquals(2, result);
 	}
 	
 	@Test
@@ -70,8 +97,43 @@ public class Day10Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_3);
+
+		int result = 0;
+		assertEquals(4, result);
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_TWO)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " 2")
+	public void testSolvePart2Sample2() {
+
+		System.out.print("2 | sample | ");
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_4);
+
+		int result = 0;
+		assertEquals(4, result);
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_TWO)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " 3")
+	public void testSolvePart2Sample3() {
+
+		System.out.print("2 | sample | ");
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_5);
+
+		int result = 0;
+		assertEquals(10, result);
+
 	}
 	
 	@Test
@@ -84,7 +146,7 @@ public class Day10Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		
 	}
 
