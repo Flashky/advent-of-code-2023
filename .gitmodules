@@ -2,3 +2,4 @@
 	path = src/test/resources/inputs
 	url = https://github.com/Flashky/advent-of-code-2023-data.git
 	branch = master
+	update = merge
