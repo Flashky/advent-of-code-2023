@@ -84,7 +84,7 @@ public class Day10Test extends PuzzleTest {
 		PipeMaze pipeMaze = new PipeMaze(inputs);
 		int result = pipeMaze.solveA();
 
-		assertEquals(2, result);
+		assertEquals(6907, result);
 	}
 	
 	@Test
@@ -99,7 +99,9 @@ public class Day10Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_3);
 
-		int result = 0;
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveB();
+
 		assertEquals(4, result);
 	}
 
@@ -115,7 +117,9 @@ public class Day10Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_4);
 
-		int result = 0;
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveB();
+
 		assertEquals(4, result);
 	}
 
@@ -131,11 +135,32 @@ public class Day10Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_5);
 
-		int result = 0;
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveB();
+
+		assertEquals(8, result);
+
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_TWO)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " 4")
+	public void testSolvePart2Sample4() {
+
+		System.out.print("2 | sample | ");
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_6);
+
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveB();
+
 		assertEquals(10, result);
 
 	}
-	
+
 	@Test
 	@Order(4)
 	@Tag(TestTag.PART_TWO)
@@ -147,7 +172,12 @@ public class Day10Test extends PuzzleTest {
 		
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		PipeMaze pipeMaze = new PipeMaze(inputs);
+		int result = pipeMaze.solveB();
+
+		assertEquals(541, result);
+		// 2908 -> Too high
 	}
 
 }
