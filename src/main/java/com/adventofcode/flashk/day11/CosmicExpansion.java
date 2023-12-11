@@ -10,12 +10,12 @@ import java.util.List;
 
 public class CosmicExpansion {
 
-    private static long PART_2_EXPANSION_RATE = 1000000;
+    private static final long PART_2_EXPANSION_RATE = 1000000;
 
     private static final char SPACE = '.';
     private static final char GALAXY = '#';
 
-    private char[][] originalMap;
+    private final char[][] originalMap;
     private char[][] map;
     private int rows;
     private int cols;
