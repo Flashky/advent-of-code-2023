@@ -31,16 +31,16 @@ public class CosmicExpansionRefactor {
     }
 
     public long solve(int expansionRate) {
-        int shiftUnits = expansionRate;
+        int shiftUnits = expansionRate-1;
 
         // TODO Cuidado puede que desplacemos veces de más o de menos una coluimna
         // Expand the universe
         for(int col : initialEmptyCols) {
-            galaxies = galaxies.stream().filter(g -> g.getX() > col).map(g -> moveRight(g, shiftUnits)).toList();
+            galaxies.stream().filter(g -> g.getX() > col).forEach(g -> moveRight(g, shiftUnits));
         }
 
         for(int row : initialEmptyRows) {
-            galaxies = galaxies.stream().filter(g -> g.getY() > row).map(g -> moveDown(g, shiftUnits)).toList();
+            galaxies.stream().filter(g -> g.getY() > row).forEach(g -> moveDown(g, shiftUnits));
         }
 
         // Calculate distances
@@ -65,7 +65,9 @@ public class CosmicExpansionRefactor {
     private void initializeGalaxies() {
         for(int row = 0; row < rows; row++) {
             for(int col = 0; col < cols; col++) {
-                galaxies.add(new Vector2(col, row));
+                if(map[row][col] == GALAXY) {
+                    galaxies.add(new Vector2(col, row));
+                }
             }
         }
     }
