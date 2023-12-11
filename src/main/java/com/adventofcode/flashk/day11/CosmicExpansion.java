@@ -10,12 +10,12 @@ import java.util.List;
 
 public class CosmicExpansion {
 
-    private static long PART_2_EXPANSION_RATE = 1000000;
+    private static final long PART_2_EXPANSION_RATE = 1000000;
 
     private static final char SPACE = '.';
     private static final char GALAXY = '#';
 
-    private char[][] originalMap;
+    private final char[][] originalMap;
     private char[][] map;
     private int rows;
     private int cols;
@@ -51,7 +51,7 @@ public class CosmicExpansion {
         return result;
     }
 
-    public double solveB(){
+    public long solveB(){
 
         // Line equation:
         // y = mx + b
@@ -64,8 +64,8 @@ public class CosmicExpansion {
         long y2 = solveA(x2);
 
         SimpleRegression regression = new SimpleRegression();
-        regression.addData(2, y1);
-        regression.addData(10, y2);
+        regression.addData(x1, y1);
+        regression.addData(x2, y2);
 
         long m = (long) regression.getSlope();
         long b = (long) regression.getIntercept();
@@ -106,20 +106,17 @@ public class CosmicExpansion {
                 // Initialize row
                 newMap[i] = new char[newCols];
 
-                // First half
-                for(int j = 0; j < col; j++) {
-                    newMap[i][j] = map[i][j];
-                }
+                // First half - Copy from 0 to col (exclusive) into newMap
+                System.arraycopy(map[i], 0, newMap[i], 0, col);
 
-                // New column
+                // Fill expansion columns
                 for(int times = 0; times < duplicatedCols; times++) {
                     newMap[i][col+times] = SPACE;
                 }
 
-                // Second half
-                for(int j = col; j < cols; j++) {
-                    newMap[i][j+duplicatedCols] = map[i][j];
-                }
+                // Second half - Copy from col + duplicatedCols to the end (exclusive) into newMap
+                System.arraycopy(map[i], col, newMap[i], col + duplicatedCols, cols - col);
+
 
             }
 
@@ -145,20 +142,16 @@ public class CosmicExpansion {
             row += shift;
             char[][] newMap = new char[newRows][cols];
 
-            // First half of rows
-            for(int i = 0; i < row; i++) {
-                newMap[i] = map[i];
-            }
+            // First half - Copy from 0 to row (exclusive) into newMap
+            System.arraycopy(map, 0, newMap, 0, row);
 
-            // New empty row
+            // Fill expansion rows
             for(int times = 0; times < duplicatedRows; times++) {
                 newMap[row+times] = StringUtils.repeat(SPACE, cols).toCharArray();
             }
 
-            // Second half of rows
-            for(int i = row; i < rows; i++) {
-                newMap[i+duplicatedRows] = map[i];
-            }
+            // Second half - Copy from row + duplicatedRows to the end (exclusive) into newMap
+            System.arraycopy(map, row, newMap, row + duplicatedRows, rows - row);
 
             map = newMap;
             rows = map.length;

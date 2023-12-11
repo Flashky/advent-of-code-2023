@@ -65,9 +65,8 @@ public class Day11Test extends PuzzleTest {
 
 		CosmicExpansion cosmicExpansion = new CosmicExpansion(inputs);
 		long result = cosmicExpansion.solveA(2);
-
-		System.out.println("R: "+result);
-			assertEquals(9312968, result);
+		
+		assertEquals(9312968, result);
 	}
 	
 	@Test
