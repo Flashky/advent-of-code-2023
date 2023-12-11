@@ -164,6 +164,16 @@ public class Vector2 {
 		this.x = newX;
 		
 	}
+
+	/**
+	 * Obtains the intercept or <code>b</code> value.
+	 * @param slope the slope or <code>m</code> value for a line <code>y = mx + b</code> 
+	 * @return the intercept or <code>b</code> value for a line.
+	 * @see Vector2#slope(Vector2, Vector2)
+	 */
+	public long intercept(int slope) {
+		return y - (slope * x);
+	}
 	
 	// Static operations
 	
@@ -242,7 +252,18 @@ public class Vector2 {
 		
 		return xDistance + yDistance;
 	}
-	
+
+	/**
+	 * Calculates the slope (m) between two points.
+	 * @param a the first vector point.
+	 * @param b the second vector point.
+	 * @return the slope value (<code>m</code>) between the two points.
+	 * @see Vector2#intercept(int) 
+	 */
+	public static long slope(Vector2 a, Vector2 b) {
+		return (b.y - a.y) / (b.x - a.x);
+	}
+
 	/**
 	 * Shorthand for <code>Vector2(-1,0)</code>.
 	 * @return A unitary vector that points to the left.

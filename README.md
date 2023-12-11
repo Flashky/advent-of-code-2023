@@ -13,7 +13,7 @@
 - [Day 8 - Haunted Wasteland](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day08)
 - [Day 9 - Mirage Maintenance](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day09)
 - [Day 10 - Pipe Maze](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day10)
-- [Day 11](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day11)
+- [Day 11 - Cosmic Expansion](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day11)
 - [Day 12](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day12)
 - [Day 13](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day13)
 - [Day 14](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day14)
@@ -39,7 +39,7 @@ git clone https://github.com/Flashky/advent-of-code-2023.git
 
 Including data repository:
 
-```
+```bash
 git clone https://github.com/Flashky/advent-of-code-2023.git --recurse-submodules
 ```
 

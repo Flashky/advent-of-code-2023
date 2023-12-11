@@ -1,45 +1,103 @@
 package com.adventofcode.flashk.day11;
 
+import com.adventofcode.flashk.common.Vector2;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CosmicExpansion {
 
+    private static long PART_2_EXPANSION_RATE = 1000000;
+
     private static final char SPACE = '.';
     private static final char GALAXY = '#';
 
+    private char[][] originalMap;
     private char[][] map;
     private int rows;
     private int cols;
 
     public CosmicExpansion(char[][] map) {
+        this.originalMap = map;
         this.map = map;
         this.rows = map.length;
         this.cols = map[0].length;
     }
 
-    public long solveA() {
-
-        List<Integer> emptyCols = getEmptyCols();
-        List<Integer> emptyRows = getEmptyRows();
-
-        expandColumns(emptyCols);
-        expandRows(emptyRows);
+    public long solveA(int expansionRate) {
 
         long result = 0;
+
+        expandColumns(expansionRate);
+        expandRows(expansionRate);
+
+        // Search for galaxies now
+        List<Vector2> galaxies = findGalaxies();
+
+        Iterator<Vector2> galaxyIterator = galaxies.iterator();
+        int nextGalaxyIndex = 0;
+        while(galaxyIterator.hasNext()) {
+            Vector2 galaxy = galaxyIterator.next();
+            nextGalaxyIndex++;
+            for(int i = nextGalaxyIndex; i < galaxies.size(); i++) {
+                Vector2 otherGalaxy = galaxies.get(i);
+                result += Vector2.manhattanDistance(galaxy, otherGalaxy);
+            }
+        }
+        resetMap();
         return result;
     }
 
-    private void expandColumns(List<Integer> emptyCols) {
+    public double solveB(){
+
+        // Line equation:
+        // y = mx + b
+        // So given x = 1000000
+        // Calculate m (slope) and b (intercept) and then substitute
+
+        int x1 = 2;
+        int x2 = 10;
+        long y1 = solveA(x1);
+        long y2 = solveA(x2);
+
+        SimpleRegression regression = new SimpleRegression();
+        regression.addData(2, y1);
+        regression.addData(10, y2);
+
+        long m = (long) regression.getSlope();
+        long b = (long) regression.getIntercept();
+
+        return m * PART_2_EXPANSION_RATE + b;
+
+    }
+
+    private List<Vector2> findGalaxies() {
+        List<Vector2> galaxies = new ArrayList<>();
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                if(map[row][col] == GALAXY) {
+                    galaxies.add(new Vector2(col, row));
+                }
+            }
+        }
+
+        return galaxies;
+    }
+
+    private void expandColumns(int expansionRate) {
+
+        List<Integer> emptyCols = getEmptyCols();
 
         int shift = 0;
         int newCols = cols;
+        int duplicatedCols = expansionRate - 1;
         for(int col : emptyCols) {
 
             col += shift;
-            newCols++;
+            newCols += duplicatedCols;
             char[][] newMap = new char[rows][newCols];
 
             // Relleno el nuevo mapa
@@ -54,11 +112,13 @@ public class CosmicExpansion {
                 }
 
                 // New column
-                newMap[i][col] = SPACE;
+                for(int times = 0; times < duplicatedCols; times++) {
+                    newMap[i][col+times] = SPACE;
+                }
 
                 // Second half
                 for(int j = col; j < cols; j++) {
-                    newMap[i][j+1] = map[i][j];
+                    newMap[i][j+duplicatedCols] = map[i][j];
                 }
 
             }
@@ -66,19 +126,22 @@ public class CosmicExpansion {
             map = newMap;
             rows = map.length;
             cols = map[0].length;
-            shift++; // Anytime a column is expanded this counter needs to shift
+            shift += duplicatedCols; // Anytime a column is expanded this counter needs to shift
 
         }
 
     }
 
-    private void expandRows(List<Integer> emptyRows) {
+    private void expandRows(int expansionRate) {
+
+        List<Integer> emptyRows = getEmptyRows();
 
         int shift = 0;
         int newRows = rows;
+        int duplicatedRows = expansionRate - 1;
         for(int row : emptyRows) {
 
-            newRows++;
+            newRows += duplicatedRows;
             row += shift;
             char[][] newMap = new char[newRows][cols];
 
@@ -88,17 +151,19 @@ public class CosmicExpansion {
             }
 
             // New empty row
-            newMap[row] = StringUtils.repeat(SPACE, cols).toCharArray();
+            for(int times = 0; times < duplicatedRows; times++) {
+                newMap[row+times] = StringUtils.repeat(SPACE, cols).toCharArray();
+            }
 
             // Second half of rows
             for(int i = row; i < rows; i++) {
-                newMap[i+1] = map[i];
+                newMap[i+duplicatedRows] = map[i];
             }
 
             map = newMap;
             rows = map.length;
             cols = map[0].length;
-            shift++; // Anytime a row is expanded this counter needs to shift
+            shift += duplicatedRows; // Anytime a row is expanded this counter needs to shift
 
         }
 
@@ -136,5 +201,11 @@ public class CosmicExpansion {
             }
         }
         return true;
+    }
+
+    private void resetMap() {
+        this.map = originalMap;
+        this.rows = this.map.length;
+        this.cols = this.map[0].length;
     }
 }

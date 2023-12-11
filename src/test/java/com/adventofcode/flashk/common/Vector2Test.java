@@ -173,6 +173,14 @@ class Vector2Test {
 	}
 
 	@Test
+	void testSlope() {
+		Vector2 a = new Vector2(2, 374);
+		Vector2 b = new Vector2(10, 1030);
+
+		assertEquals(82, Vector2.slope(a,b));
+	}
+
+	@Test
 	void testTransformScalar() {
 		Vector2 startPos = new Vector2(2,5);
 		startPos.transform(3);
