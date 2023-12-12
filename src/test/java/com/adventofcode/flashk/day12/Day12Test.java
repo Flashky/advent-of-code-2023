@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_12)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day12Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_12;
@@ -43,6 +44,11 @@ public class Day12Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		HotSprings hotSprings = new HotSprings(inputs, false);
+		long result = hotSprings.solveA();
+
+		assertEquals(21, result);
 		
 	}
 	
@@ -57,7 +63,31 @@ public class Day12Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		HotSprings hotSprings = new HotSprings(inputs, false);
+		long result = hotSprings.solveA();
+
+		assertEquals(7195, result);
+
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_TWO)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
+	public void testSolvePart2SingleSample() {
+
+		System.out.print("2 | single sample | ");
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
+
+		HotSprings hotSprings = new HotSprings(inputs, true);
+		long result = hotSprings.solveA();
+
+		//assertEquals(1, result);
+
 	}
 	
 	@Test
@@ -65,13 +95,20 @@ public class Day12Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
+	@Disabled
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		HotSprings hotSprings = new HotSprings(inputs, true);
+		long result = hotSprings.solveA();
+
+		// TODO enable the test
+		assertEquals(525152, result);
+
 	}
 	
 	@Test
