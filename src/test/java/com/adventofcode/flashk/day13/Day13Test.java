@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_13)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day13Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_13;
@@ -43,7 +44,12 @@ public class Day13Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		PointOfIncidence pointOfIncidence = new PointOfIncidence(inputs);
+		long result = pointOfIncidence.solveA();
+
+		assertEquals(405, result);
+
 	}
 	
 	@Test
@@ -57,7 +63,16 @@ public class Day13Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		PointOfIncidence pointOfIncidence = new PointOfIncidence(inputs);
+		long result = pointOfIncidence.solveA();
+
+		//assertEquals(405, result);
+		System.out.println("R: "+result);
+
+		// 39935 -> That's not the right answer. If you're stuck, make sure you're using the full input data;
+		// 45650 -> That's not the right answer. If you're stuck, make sure you're using the full input data;
+		// 34918
 	}
 	
 	@Test
