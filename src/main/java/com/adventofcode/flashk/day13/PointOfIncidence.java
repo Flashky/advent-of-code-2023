@@ -11,7 +11,6 @@ public class PointOfIncidence {
     private static final char ASH = '.';
     private static final char ROCK = '#';
     private final Iterator<String> inputsIterator;
-
     private char[][] map;
     private int rows;
     private int cols;
@@ -34,17 +33,16 @@ public class PointOfIncidence {
     }
 
     public long solveB() {
+
         long verticalColsToTheLeft = 0;
         long horizontalRowsToAbove = 0;
-
-
 
         while(inputsIterator.hasNext()) {
             readMap();
 
             // Exclusion values
-            long excludeVerticalCol = evaluateVerticalMirrors(-1);
-            long excludeHorizontalRow = evaluateHorizontalMirrors(-1);
+            long excludeVerticalIndex = evaluateVerticalMirrors(-1)-1;
+            long excludeHorizontalIndex = evaluateHorizontalMirrors(-1)-1;
 
             boolean nextMap = false;
             for(int row = 0; row < rows;row++) {
@@ -58,10 +56,8 @@ public class PointOfIncidence {
                     // Flip value
                     map[row][col] = map[row][col] == ASH ? ROCK : ASH;
 
-                    long possibleVerticalColsToTheLeft = evaluateVerticalMirrors(excludeVerticalCol-1L);
-                    long possibleHorizontalRowsToAbove = evaluateHorizontalMirrors(excludeHorizontalRow-1L);
-
-                    // Importante: "different reflection line"
+                    long possibleVerticalColsToTheLeft = evaluateVerticalMirrors(excludeVerticalIndex);
+                    long possibleHorizontalRowsToAbove = evaluateHorizontalMirrors(excludeHorizontalIndex);
 
                     if(possibleVerticalColsToTheLeft != 0 || possibleHorizontalRowsToAbove != 0) {
                         nextMap = true;
@@ -70,11 +66,8 @@ public class PointOfIncidence {
                         break;
                     }
 
-
                     // Backtrack flip
                     map[row][col] = map[row][col] == ASH ? ROCK : ASH;
-
-
 
                 }
             }
@@ -94,17 +87,12 @@ public class PointOfIncidence {
             if(i1 != iExclude) {
                 found = isVerticalMirror(i1++, i2++);
             } else {
-                //found = isVerticalMirror(i1+2,i2+2); // Skip mirror
                 i1++;
                 i2++;
             }
         }
 
-        if(found) {
-            return i1;
-        }
-
-        return 0;
+        return found ? i1 : 0;
     }
 
     private long evaluateHorizontalMirrors(long iExclude) {
@@ -121,8 +109,7 @@ public class PointOfIncidence {
             }
         }
 
-        if(found) {return i1;}
-        return 0;
+        return found ? i1 : 0;
     }
 
     private boolean isVerticalMirror(int i1, int i2) {
