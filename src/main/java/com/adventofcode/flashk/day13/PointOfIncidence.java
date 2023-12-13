@@ -23,20 +23,11 @@ public class PointOfIncidence {
     public long solveA() {
         long verticalColsToTheLeft = 0;
         long horizontalRowsToAbove = 0;
-        boolean isVertical = true;
 
         while(inputsIterator.hasNext()) {
             readMap();
             verticalColsToTheLeft += evaluateVerticalMirrors();
             horizontalRowsToAbove += evaluateHorizontalMirrors();
-            /*
-            if (isVertical) {
-                verticalColsToTheLeft += evaluateVerticalMirrors();
-            } else {
-                horizontalRowsToAbove += evaluateHorizontalMirrors();
-            }*/
-
-            isVertical = !isVertical;
         }
 
         return verticalColsToTheLeft + 100 * horizontalRowsToAbove;
