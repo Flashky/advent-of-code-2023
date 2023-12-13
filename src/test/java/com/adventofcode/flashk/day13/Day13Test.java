@@ -67,12 +67,8 @@ public class Day13Test extends PuzzleTest {
 		PointOfIncidence pointOfIncidence = new PointOfIncidence(inputs);
 		long result = pointOfIncidence.solveA();
 
-		//assertEquals(405, result);
-		System.out.println("R: "+result);
+		assertEquals(34918, result);
 
-		// 39935 -> That's not the right answer. If you're stuck, make sure you're using the full input data;
-		// 45650 -> That's not the right answer. If you're stuck, make sure you're using the full input data;
-		// 34918
 	}
 	
 	@Test
