@@ -82,7 +82,12 @@ public class Day13Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		PointOfIncidence pointOfIncidence = new PointOfIncidence(inputs);
+		long result = pointOfIncidence.solveB();
+
+		assertEquals(400, result);
+
 	}
 	
 	@Test
@@ -96,7 +101,12 @@ public class Day13Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		PointOfIncidence pointOfIncidence = new PointOfIncidence(inputs);
+		long result = pointOfIncidence.solveB();
+
+		assertEquals(33054, result);
+
 	}
 
 }
