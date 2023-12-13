@@ -1,5 +1,6 @@
 # Advent of Code 2023
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/85031fa50e714b4aadfe0ddc96fcdd54)](https://app.codacy.com/gh/Flashky/advent-of-code-2023?utm_source=github.com&utm_medium=referral&utm_content=Flashky/advent-of-code-2023&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/894bfa4353e349ac96e626b1b95b76b0)](https://app.codacy.com/gh/Flashky/advent-of-code-2023/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/894bfa4353e349ac96e626b1b95b76b0)](https://app.codacy.com/gh/Flashky/advent-of-code-2023/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
