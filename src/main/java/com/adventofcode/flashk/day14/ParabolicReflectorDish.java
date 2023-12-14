@@ -54,9 +54,8 @@ public class ParabolicReflectorDish {
         } while(!cycleFound && (currentCycle < cycles));
 
         // Cycle detected!
-        int snapshotsSize = orderedSnapshots.size();
         int nonPatternItems = removeItemsNotInCycle(snapshot);
-        int itemsPerPattern = snapshotsSize - nonPatternItems;
+        int itemsPerPattern = orderedSnapshots.size();
         int patternItems = cycles - nonPatternItems;
         int position = (patternItems-1) % itemsPerPattern;
 
