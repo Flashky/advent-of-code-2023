@@ -79,10 +79,15 @@ public class Day14Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
+		long result = parabolicReflectorDish.solveB(1);
+
+		System.out.println("R: "+ result);
+		//assertEquals(110565, result);
 	}
 	
 	@Test
