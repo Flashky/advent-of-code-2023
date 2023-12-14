@@ -84,4 +84,20 @@ public class GridUtil {
 
         return new ArrayGrid<>(integerArray);
     }
+
+    public static void paint(char[][] map) {
+
+        int rows = map.length;
+        int cols = map[0].length;
+
+        System.out.println();
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                System.out.print(map[row][col]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+    }
 }

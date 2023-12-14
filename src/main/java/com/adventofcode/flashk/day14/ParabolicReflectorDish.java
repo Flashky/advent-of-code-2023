@@ -132,23 +132,8 @@ public class ParabolicReflectorDish {
             return false;
         }
 
-        if(map[expectedRow][expectedCol] != EMPTY) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private void paint(int cycle) {
-
-        System.out.println();
-        for(int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                System.out.print(map[row][col]);
-            }
-            System.out.println();
-        }
-        System.out.println();
+        return map[expectedRow][expectedCol] == EMPTY;
 
     }
+    
 }
