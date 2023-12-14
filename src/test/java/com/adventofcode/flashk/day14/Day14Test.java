@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_14)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day14Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_14;
@@ -43,7 +44,13 @@ public class Day14Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
+		long result = parabolicReflectorDish.solveA();
+
+		assertEquals(136, result);
+
+
 	}
 	
 	@Test
@@ -57,7 +64,11 @@ public class Day14Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
+		long result = parabolicReflectorDish.solveA();
+
+		assertEquals(110565, result);
 	}
 	
 	@Test
