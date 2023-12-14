@@ -5,7 +5,6 @@ import com.adventofcode.flashk.common.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public class ParabolicReflectorDish {
 
@@ -42,17 +41,20 @@ public class ParabolicReflectorDish {
 
     public long solveA() {
         move(Direction.NORTH);
+        paint(0);
         return countRocks();
     }
 
     public long solveB(int cycles) {
-
+        System.out.println();
+        System.out.println("Cycle = " + 0 + " | Value = " + countRocks());
         for(int i = 0; i < cycles; i++) {
             move(Direction.NORTH);
             move(Direction.WEST);
             move(Direction.SOUTH);
             move(Direction.EAST);
-            paint();
+            System.out.println("Cycle = " + (i+1) + " | Value = " + countRocks());
+            //paint(i+1);
         }
 
         // TODO realmente no podemos bruteforcear
@@ -112,18 +114,14 @@ public class ParabolicReflectorDish {
             return true;
         }
 
-        if(cubedRocks.stream().anyMatch(c -> c.collidesWith(roundedRock))) {
-            return true;
-        }
-
-        return false;
+        return cubedRocks.stream().anyMatch(c -> c.collidesWith(roundedRock));
     }
 
-    private void paint() {
-        System.out.println();
-        for(int x = 1; x <= cols; x++) {
-            for(int y = 10; y > 0; y--) {
+    private void paint(int cycle) {
 
+        System.out.println();
+        for(int y = 10; y > 0; y--) {
+            for(int x = 1; x <= cols; x++) {
                 int finalX = x;
                 int finalY = y;
                 if(roundedRocks.stream().anyMatch(c -> (c.getStart().getX() == finalX) && (c.getStart().getY() == finalY))){

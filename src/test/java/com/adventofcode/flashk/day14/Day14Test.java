@@ -84,10 +84,10 @@ public class Day14Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
-		long result = parabolicReflectorDish.solveB(1);
+		long result = parabolicReflectorDish.solveB(30);
 
 		System.out.println("R: "+ result);
-		//assertEquals(110565, result);
+		assertEquals(64, result);
 	}
 	
 	@Test
