@@ -1,9 +1,6 @@
 package com.adventofcode.flashk.day14;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -32,7 +29,7 @@ public class Day14Test extends PuzzleTest {
 		Timer.printHeader(TestDisplayName.DAY_14);
 	}
 
-	
+
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
@@ -43,13 +40,12 @@ public class Day14Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
 		long result = parabolicReflectorDish.solveA();
 
 		assertEquals(136, result);
-
 
 	}
 	
@@ -63,7 +59,7 @@ public class Day14Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
 		long result = parabolicReflectorDish.solveA();
@@ -81,12 +77,11 @@ public class Day14Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
-		long result = parabolicReflectorDish.solveB(30);
+		long result = parabolicReflectorDish.solveB(1000000000);
 
-		System.out.println("R: "+ result);
 		assertEquals(64, result);
 	}
 	
@@ -100,7 +95,12 @@ public class Day14Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		ParabolicReflectorDish parabolicReflectorDish = new ParabolicReflectorDish(inputs);
+		long result = parabolicReflectorDish.solveB(1000000000);
+
+		assertEquals(89845, result);
 		
 	}
 

@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public enum Direction {
 
-    NORTH(Vector2.up(), Vector2.down()),
+    NORTH(Vector2.down(),Vector2.up()),
     WEST(Vector2.left(), Vector2.right()),
-    SOUTH(Vector2.down(), Vector2.up()),
+    SOUTH(Vector2.up(),Vector2.down()),
     EAST(Vector2.right(), Vector2.left());
 
     private final Vector2 move;

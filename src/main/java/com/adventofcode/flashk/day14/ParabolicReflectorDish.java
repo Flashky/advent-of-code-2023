@@ -1,75 +1,100 @@
 package com.adventofcode.flashk.day14;
 
-import com.adventofcode.flashk.common.Collider2D;
 import com.adventofcode.flashk.common.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ParabolicReflectorDish {
 
     private static final char ROUNDED_ROCK = 'O';
-    private static final char CUBED_ROCK = '#';
     private static final char EMPTY = '.';
 
-    private int rows;
-    private int cols;
-    private List<Collider2D> roundedRocks = new ArrayList<>();
-    private List<Collider2D> cubedRocks = new ArrayList<>();
+    private final char[][] map;
+    private final int rows;
+    private final int cols;
 
-    public ParabolicReflectorDish(List<String> inputs) {
+    private final Map<String,Long> snapshots = new HashMap<>();
+    private final List<String> orderedSnapshots = new ArrayList<>();
 
-        rows = inputs.size();
-        cols = inputs.get(0).length();
-
-        int y = rows;
-        for(String input : inputs) {
-
-            char[] values = input.toCharArray();
-            for(int i = 0; i < values.length; i++) {
-                int x = i+1;
-                if(values[i] == ROUNDED_ROCK) {
-                    roundedRocks.add(new Collider2D(new Vector2(x,y)));
-                } else if(values[i] == CUBED_ROCK) {
-                    cubedRocks.add(new Collider2D(new Vector2(x,y)));
-                }
-            }
-            y--;
-        }
-
+    public ParabolicReflectorDish(char[][] map) {
+        this.map = map;
+        this.rows = map.length;
+        this.cols = map[0].length;
     }
 
     public long solveA() {
         move(Direction.NORTH);
-        paint(0);
         return countRocks();
     }
 
     public long solveB(int cycles) {
-        System.out.println();
-        System.out.println("Cycle = " + 0 + " | Value = " + countRocks());
-        for(int i = 0; i < cycles; i++) {
+
+        int currentCycle = 0;
+        String snapshot;
+        boolean cycleFound = false;
+        do {
+
             move(Direction.NORTH);
             move(Direction.WEST);
             move(Direction.SOUTH);
             move(Direction.EAST);
-            System.out.println("Cycle = " + (i+1) + " | Value = " + countRocks());
-            //paint(i+1);
-        }
+            snapshot = createSnapshot();
 
-        // TODO realmente no podemos bruteforcear
-        // TODO Check: https://github.com/Flashky/advent-of-code-2022/tree/master/src/main/java/com/adventofcode/flashk/day17
-        // TODO buscar un patrón de repetición tal que una vez encontrado ese patrón, podamos comprobar cuantas veces
-        // TODO Se vuelve a repetir de aquí a un millón de ciclos
+            if(snapshots.containsKey(snapshot)) {
+                cycleFound = true;
+            } else {
+                snapshots.put(snapshot, countRocks());
+                orderedSnapshots.add(snapshot);
+                currentCycle++;
+            }
 
-        // Problema 1:
-        // ¿Cuando verificar repetición de ciclo?
-        // - Hay que tiltear primero en las cuatro direcciones.
-        // Una vez tilteado, hay que comprobar si el estado actual del tablero es un estado conocido.
+        } while(!cycleFound && (currentCycle < cycles));
 
-        return countRocks();
+        // Cycle detected!
+        int snapshotsSize = orderedSnapshots.size();
+        int nonPatternItems = removeItemsNotInCycle(snapshot);
+        int itemsPerPattern = snapshotsSize - nonPatternItems;
+        int patternItems = cycles - nonPatternItems;
+        int position = (patternItems-1) % itemsPerPattern;
+
+        String item = orderedSnapshots.get(position);
+
+        return snapshots.get(item);
     }
 
+    private String createSnapshot() {
+        StringBuilder snapshotBuilder = new StringBuilder();
+        for(int i = 0; i < rows; i++) {
+            snapshotBuilder.append(new String(map[i]));
+        }
+        return snapshotBuilder.toString();
+    }
+
+    private int removeItemsNotInCycle(String snapshotCycle) {
+        int count = 0;
+        while(!snapshotCycle.equals(orderedSnapshots.get(0))) {
+            orderedSnapshots.remove(0);
+            count++;
+        }
+        return count;
+    }
+    private long countRocks() {
+        long result = 0;
+        int rowCounter = rows;
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                if(map[row][col] == ROUNDED_ROCK) {
+                    result += rowCounter;
+                }
+            }
+            rowCounter--;
+        }
+        return result;
+    }
+    
     private void move(Direction direction) {
         boolean move;
         do {
@@ -77,64 +102,53 @@ public class ParabolicReflectorDish {
         } while (move);
     }
 
-    private long countRocks() {
-        return roundedRocks.stream().map(r -> r.getStart().getY()).reduce(0, Integer::sum);
-    }
-
     private boolean tilt(Direction direction) {
-
-        Vector2 directionVector = direction.getMove();
-        Vector2 directionVectorRollback = direction.getRollback();
-
-        boolean movement = false;
-        for(Collider2D roundedRock : roundedRocks) {
-
-            if(isValidRock(roundedRock, direction)) {
-                roundedRock.transform(directionVector);
-                if(collidesWithAnyRock(roundedRock)) {
-                    roundedRock.transform(directionVectorRollback);
-                } else {
-                    movement = true;
+        boolean move = false;
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                if(canMove(row, col, direction.getMove())){
+                    map[row][col] = EMPTY;
+                    map[direction.getMove().getY()+row][direction.getMove().getX()+col] = ROUNDED_ROCK;
+                    move = true;
                 }
             }
         }
-        return movement;
+        return move;
     }
 
-    private boolean isValidRock(Collider2D roundedRock, Direction direction) {
-        return switch (direction) {
-            case NORTH -> roundedRock.getStart().getY() != rows;
-            case WEST -> roundedRock.getStart().getX() > 1;
-            case SOUTH -> roundedRock.getStart().getY() > 1;
-            case EAST -> roundedRock.getStart().getX() != cols;
-        };
-    }
-    private boolean collidesWithAnyRock(Collider2D roundedRock) {
-        if(roundedRocks.stream().filter(r -> r != roundedRock).anyMatch(r -> r.collidesWith(roundedRock))) {
-            return true;
+    private boolean canMove(int row, int col, Vector2 direction) {
+        if(map[row][col] != ROUNDED_ROCK) {
+            return false;
         }
 
-        return cubedRocks.stream().anyMatch(c -> c.collidesWith(roundedRock));
+        int expectedRow = direction.getY() + row;
+        int expectedCol = direction.getX() + col;
+
+        if(expectedRow < 0 || expectedRow >= rows) {
+            return false;
+        }
+
+        if(expectedCol < 0 || expectedCol >= cols) {
+            return false;
+        }
+
+        if(map[expectedRow][expectedCol] != EMPTY) {
+            return false;
+        }
+
+        return true;
     }
 
     private void paint(int cycle) {
 
         System.out.println();
-        for(int y = 10; y > 0; y--) {
-            for(int x = 1; x <= cols; x++) {
-                int finalX = x;
-                int finalY = y;
-                if(roundedRocks.stream().anyMatch(c -> (c.getStart().getX() == finalX) && (c.getStart().getY() == finalY))){
-                    System.out.print(ROUNDED_ROCK);
-                } else if(cubedRocks.stream().anyMatch(c -> (c.getStart().getX() == finalX) && (c.getStart().getY() == finalY))){
-                    System.out.print(CUBED_ROCK);
-                } else {
-                    System.out.print(EMPTY);
-                }
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                System.out.print(map[row][col]);
             }
             System.out.println();
         }
         System.out.println();
-    }
 
+    }
 }
