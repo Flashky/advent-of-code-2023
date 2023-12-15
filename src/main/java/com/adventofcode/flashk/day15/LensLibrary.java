@@ -1,6 +1,7 @@
 package com.adventofcode.flashk.day15;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,13 +13,11 @@ public class LensLibrary {
 
     private static final Pattern STEP_PATTERN = Pattern.compile("([a-z]*)([=-])([1-9]*)");
 
-    private String[] steps;
-    private int stepsNumber;
-    private List<Map<String,Integer>> boxes = new ArrayList<>();
+    private final String[] steps;
+    private final List<Map<String,Integer>> boxes = new ArrayList<>();
 
     public LensLibrary(String input) {
         steps = input.split(",");
-        stepsNumber = steps.length;
 
         for(int i = 0; i < 256; i++) {
             boxes.add(new LinkedHashMap<>());
@@ -26,12 +25,8 @@ public class LensLibrary {
 
     }
 
-    public long solveA() {
-        long currentValue = 0;
-        for(String step : steps) {
-            currentValue += hash(step);
-        }
-        return currentValue;
+    public int solveA() {
+        return Arrays.stream(steps).map(this::hash).reduce(0, Integer::sum);
     }
 
     public long solveB() {
@@ -65,7 +60,7 @@ public class LensLibrary {
     private long calculateBoxes() {
         long finalResult = 0;
 
-        for(int boxIndex = 0; boxIndex <boxes.size(); boxIndex++) {
+        for(int boxIndex = 0; boxIndex < boxes.size(); boxIndex++) {
             Collection<Integer> focalLengths = boxes.get(boxIndex).values();
             int slot = 1;
             for(int focalLength : focalLengths) {
@@ -81,10 +76,7 @@ public class LensLibrary {
         int currentValue = 0;
         char[] wordCharacters = label.toCharArray();
         for(char character : wordCharacters) {
-            currentValue += (int) character;
-            if(currentValue == 10) {
-                System.out.println("New character on word = '"+label+"'- Character: "+character);
-            }
+            currentValue += character;
             currentValue *= 17;
             currentValue %= 256;
         }
