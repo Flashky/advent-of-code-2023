@@ -58,18 +58,26 @@ public class LensLibrary {
     }
 
     private int focusingPower() {
-        int finalResult = 0;
+        int focusingPower = 0;
 
         for(int boxIndex = 0; boxIndex < boxes.size(); boxIndex++) {
-            Collection<Integer> focalLengths = boxes.get(boxIndex).values();
-            int slot = 1;
-            int boxValue = boxIndex+1;
-            for(int focalLength : focalLengths) {
-                finalResult += boxValue * slot++ * focalLength;
-            }
+            focusingPower += focusingPower(boxIndex);
         }
 
-        return finalResult;
+        return focusingPower;
+    }
+
+    private int focusingPower(int boxIndex) {
+        int focusingPower = 0;
+        Collection<Integer> focalLengths = boxes.get(boxIndex).values();
+
+        int slot = 1;
+        int boxValue = boxIndex + 1;
+        for(int focalLength : focalLengths) {
+            focusingPower += boxValue * slot++ * focalLength;
+        }
+        
+        return focusingPower;
     }
 
     private int hash(String label) {
