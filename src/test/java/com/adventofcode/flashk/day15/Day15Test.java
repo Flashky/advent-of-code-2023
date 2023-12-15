@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_15)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day15Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_15;
@@ -31,7 +32,51 @@ public class Day15Test extends PuzzleTest {
 		Timer.printHeader(TestDisplayName.DAY_15);
 	}
 
-	
+	@Test
+	@Order(0)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SINGLE_SAMPLE)
+	public void testSolvePart1SingleSample() {
+
+		System.out.print("1 | single sample | ");
+
+		LensLibrary lensLibrary = new LensLibrary("HASH");
+		long result = lensLibrary.solveA();
+
+		assertEquals(52, result);
+	}
+
+	@Test
+	@Order(0)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SINGLE_SAMPLE)
+	public void testSolvePart1SingleValueRn() {
+
+		System.out.print("2 | single sample | ");
+
+		LensLibrary lensLibrary = new LensLibrary("rn");
+		long result = lensLibrary.solveA();
+
+		assertEquals(0, result);
+	}
+
+	@Test
+	@Order(0)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SINGLE_SAMPLE)
+	public void testSolvePart1SingleValueQp() {
+
+		System.out.print("3 | single sample | ");
+
+		LensLibrary lensLibrary = new LensLibrary("qp");
+		long result = lensLibrary.solveA();
+
+		assertEquals(1, result);
+	}
+
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
@@ -43,7 +88,11 @@ public class Day15Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+		long result = lensLibrary.solveA();
+
+		assertEquals(1320, result);
 	}
 	
 	@Test
@@ -57,7 +106,11 @@ public class Day15Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+		long result = lensLibrary.solveA();
+
+		assertEquals(510792, result);
+
 	}
 	
 	@Test
@@ -71,7 +124,10 @@ public class Day15Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+		long result = lensLibrary.solveB();
+
+		assertEquals(145, result);
 	}
 	
 	@Test
@@ -85,6 +141,11 @@ public class Day15Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+		long result = lensLibrary.solveB();
+
+		assertEquals(269410, result);
 		
 	}
 
