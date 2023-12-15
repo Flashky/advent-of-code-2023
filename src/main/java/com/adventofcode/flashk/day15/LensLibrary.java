@@ -44,7 +44,7 @@ public class LensLibrary {
             }
         }
 
-        return calculateBoxes();
+        return focusingPower();
     }
 
     private void removeLens(String label) {
@@ -57,15 +57,15 @@ public class LensLibrary {
         boxes.get(boxIndex).put(label, focalLength);
     }
 
-    private long calculateBoxes() {
-        long finalResult = 0;
+    private int focusingPower() {
+        int finalResult = 0;
 
         for(int boxIndex = 0; boxIndex < boxes.size(); boxIndex++) {
             Collection<Integer> focalLengths = boxes.get(boxIndex).values();
             int slot = 1;
+            int boxValue = boxIndex+1;
             for(int focalLength : focalLengths) {
-                finalResult += (boxIndex+1) * slot * focalLength;
-                slot++;
+                finalResult += boxValue * slot++ * focalLength;
             }
         }
 
