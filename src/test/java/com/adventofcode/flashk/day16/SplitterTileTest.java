@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SplitterTileTest {
 
-    private SplitterTile vertical = new SplitterTileVertical('|',1,1);
-    private SplitterTile horizontal = new SplitterTileHorizontal('-',1,1);
+    private final Tile vertical = new SplitterVerticalTile(1,1);
+    private final Tile horizontal = new SplitterHorizontalTile(1,1);
 
     @Test
     void nextDirectionsSplitterTileVerticalLeft() {

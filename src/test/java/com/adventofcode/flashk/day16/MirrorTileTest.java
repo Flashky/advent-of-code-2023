@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MirrorTileTest {
 
-    private MirrorTile left = new MirrorTileLeft('\\',1,1);
-    private MirrorTile right = new MirrorTileRight('/',1,1);
+    private final Tile left = new MirrorLeftTile(1,1);
+    private final Tile right = new MirrorRightTile(1,1);
 
     @Test
     void reflectLeftMirrorWithRightDirection() {

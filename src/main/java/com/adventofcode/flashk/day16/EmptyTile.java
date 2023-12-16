@@ -6,13 +6,8 @@ import java.util.List;
 
 public class EmptyTile extends Tile {
 
-    private static final char EMPTY = '.';
-
-    protected EmptyTile(char value, int row, int col) {
-        super(value, row, col);
-        if(value != EMPTY) {
-            throw new IllegalArgumentException("Value is not an empty tile: '.'");
-        }
+    protected EmptyTile(int row, int col) {
+        super(row, col);
     }
 
     @Override

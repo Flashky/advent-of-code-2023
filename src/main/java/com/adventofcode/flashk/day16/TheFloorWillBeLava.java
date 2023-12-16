@@ -31,12 +31,13 @@ public class TheFloorWillBeLava {
 
 
     private long bfs(Vector2 startPosition, Vector2 startingDirection) {
-    // Start conditions
-        Tile startingTile = map[startPosition.getY()][startPosition.getX()];
 
         Queue<Tile> tilesQueue = new LinkedList<>();
         Queue<Vector2> directionsQueue = new LinkedList<>();
+
+        Tile startingTile = map[startPosition.getY()][startPosition.getX()];
         startingTile.visit(startingDirection);
+
         tilesQueue.add(startingTile);
         directionsQueue.add(startingDirection);
 
@@ -107,6 +108,7 @@ public class TheFloorWillBeLava {
         Vector2 currentTilePos = new Vector2(currentTile.getCol(), currentTile.getRow());
         Vector2 nextPosition = Vector2.transform(nextDirection, currentTilePos);
 
+        // Exclude out of bounds tiles
         if(nextPosition.getX() >= 0 &&
                 nextPosition.getX() < cols &&
                 nextPosition.getY() >= 0 &&
@@ -114,7 +116,7 @@ public class TheFloorWillBeLava {
 
             Tile nextTile = map[nextPosition.getY()][nextPosition.getX()];
 
-            // Next tile must NOT have been visited from that direction
+            // Exclude tiles that have been already visited from that direction
             if(!nextTile.isVisited(nextDirection)) {
                 return Optional.of(nextTile);
             }
@@ -139,11 +141,11 @@ public class TheFloorWillBeLava {
     private Tile buildTile(char value, int row, int col) {
 
         return switch (value) {
-            case '.': yield new EmptyTile(value, row, col);
-            case '\\': yield new MirrorTileLeft(value, row, col);
-            case '/': yield new MirrorTileRight(value, row, col);
-            case '|': yield new SplitterTileVertical(value, row, col);
-            case '-': yield new SplitterTileHorizontal(value, row, col);
+            case '.': yield new EmptyTile(row, col);
+            case '\\': yield new MirrorLeftTile(row, col);
+            case '/': yield new MirrorRightTile(row, col);
+            case '|': yield new SplitterVerticalTile(row, col);
+            case '-': yield new SplitterHorizontalTile(row, col);
             default: throw new IllegalArgumentException("Unexpected value: "+value);
         };
     }

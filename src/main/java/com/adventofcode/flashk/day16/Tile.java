@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Getter
+ @Getter
 public abstract class Tile {
 
     // Possible directions in tiles
@@ -16,13 +16,11 @@ public abstract class Tile {
     public static final Vector2 UP_DIRECTION = Vector2.down();
     public static final Vector2 DOWN_DIRECTION = Vector2.up();
 
-    private final char value;
     private final int row;
     private final int col;
     private final Set<Vector2> visitedDirections = new HashSet<>();
 
-    protected Tile(char value, int row, int col) {
-        this.value = value;
+    protected Tile(int row, int col) {
         this.row = row;
         this.col = col;
     }
