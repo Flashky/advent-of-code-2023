@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_16)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day16Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_16;
@@ -42,7 +43,11 @@ public class Day16Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
+
+		long result = theFloorWillBeLava.solveA();
+		assertEquals(46, result);
 		
 	}
 	
@@ -56,7 +61,12 @@ public class Day16Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
+
+		long result = theFloorWillBeLava.solveA();
+
+		assertEquals(6883, result);
 		
 	}
 	
