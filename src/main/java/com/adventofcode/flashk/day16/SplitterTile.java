@@ -1,9 +1,5 @@
 package com.adventofcode.flashk.day16;
 
-import com.adventofcode.flashk.common.Vector2;
-
-import java.util.List;
-
 public abstract class SplitterTile extends Tile {
 
     private static final char VERTICAL = '|';

@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day16;
 
 import com.adventofcode.flashk.common.Vector2;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.List;

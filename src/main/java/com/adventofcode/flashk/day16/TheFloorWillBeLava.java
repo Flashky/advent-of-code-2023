@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day16;
 
 import com.adventofcode.flashk.common.Vector2;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +9,9 @@ import java.util.Queue;
 
 public class TheFloorWillBeLava {
 
-    private Tile[][] map;
-    //private char[][] solutionMap;
-    private int rows;
-    private int cols;
+    private final Tile[][] map;
+    private final int rows;
+    private final int cols;
 
     public TheFloorWillBeLava(char[][] map) {
         this.map = new Tile[map.length][];
@@ -67,8 +65,6 @@ public class TheFloorWillBeLava {
         // Possible starts
 
         long result = Long.MIN_VALUE;
-
-        // TODO reset map
 
         // Left edge
         Vector2 startingDirection = Vector2.right();
