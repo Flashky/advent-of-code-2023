@@ -44,9 +44,10 @@ public class Day16Test extends PuzzleTest {
 		
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
 
+		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
 		long result = theFloorWillBeLava.solveA();
+		
 		assertEquals(46, result);
 		
 	}
@@ -62,8 +63,8 @@ public class Day16Test extends PuzzleTest {
 		
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
 
+		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
 		long result = theFloorWillBeLava.solveA();
 
 		assertEquals(6883, result);
@@ -78,9 +79,14 @@ public class Day16Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
-		
+
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
+		long result = theFloorWillBeLava.solveB();
+
+		assertEquals(51, result);
 		
 	}
 	
@@ -94,7 +100,12 @@ public class Day16Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		TheFloorWillBeLava theFloorWillBeLava = new TheFloorWillBeLava(inputs);
+		long result = theFloorWillBeLava.solveB();
+
+		assertEquals(7228, result);
 		
 	}
 

@@ -28,11 +28,13 @@ public class TheFloorWillBeLava {
     }
 
     public long solveA(){
-        long result = 0;
+        return bfs(new Vector2(0,0), Vector2.right());
+    }
 
-        // Start conditions
-        Tile startingTile = map[0][0];
-        Vector2 startingDirection = Vector2.right();
+
+    private long bfs(Vector2 startPosition, Vector2 startingDirection) {
+    // Start conditions
+        Tile startingTile = map[startPosition.getY()][startPosition.getX()];
 
         Queue<Tile> tilesQueue = new LinkedList<>();
         Queue<Vector2> directionsQueue = new LinkedList<>();
@@ -40,7 +42,6 @@ public class TheFloorWillBeLava {
         tilesQueue.add(startingTile);
         directionsQueue.add(startingDirection);
 
-        // TODO cualquier tile solo se marca como completamente visitada si es visitada desde las cuatro direcciones.
         while(!tilesQueue.isEmpty()) {
             Tile currentTile = tilesQueue.poll();
             Vector2 currentDirection = directionsQueue.poll();
@@ -62,29 +63,47 @@ public class TheFloorWillBeLava {
         return countVisitedTiles();
     }
 
-
-    private long bfs(Vector2 startPosition, Vector2 endPosition) {
-
-    }
-
     public long solveB() {
         // Possible starts
 
+        long result = Long.MIN_VALUE;
+
+        // TODO reset map
+
         // Left edge
         Vector2 startingDirection = Vector2.right();
+
         for(int row = 0; row < rows; row++) {
             Vector2 startingPosition = new Vector2(0,row);
+            result = Math.max(result, bfs(startingPosition, startingDirection));
+            resetMap();
         }
+
         // Right edge
         startingDirection = Vector2.left();
-
+        for(int row = 0; row < rows; row++) {
+            Vector2 startingPosition = new Vector2(cols-1,row);
+            result = Math.max(result, bfs(startingPosition, startingDirection));
+            resetMap();
+        }
 
         // Top edge
-        Vector2 startingDirection = Vector2.down();
+        startingDirection = Vector2.up();
+        for(int col = 0; col < cols; col++) {
+            Vector2 startingPosition = new Vector2(col,0);
+            result = Math.max(result, bfs(startingPosition, startingDirection));
+            resetMap();
+        }
 
         // Bottom edge
-        startingDirection = Vector2.up();
+        startingDirection = Vector2.down();
+        for(int col = 0; col < cols; col++) {
+            Vector2 startingPosition = new Vector2(col,rows-1);
+            result = Math.max(result, bfs(startingPosition, startingDirection));
+            resetMap();
+        }
 
+        return result;
 
     }
     private Optional<Tile> nextTile(Vector2 nextDirection, Tile currentTile) {
@@ -131,5 +150,13 @@ public class TheFloorWillBeLava {
             case '-': yield new SplitterTileHorizontal(value, row, col);
             default: throw new IllegalArgumentException("Unexpected value: "+value);
         };
+    }
+
+    private void resetMap() {
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                map[row][col].reset();
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@
 - [Day 13 - Point of Incidence](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day13)
 - [Day 14 - Parabolic Reflector Dish](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day14)
 - [Day 15 - Lens Library](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day15)
-- [Day 16](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day16)
+- [Day 16 - The Floor Will Be Lava](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day16)
 - [Day 17](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day17)
 - [Day 18](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day18)
 - [Day 19](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day19)

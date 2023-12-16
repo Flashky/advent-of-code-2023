@@ -40,7 +40,12 @@ public abstract class Tile {
         return visitedDirections.contains(direction);
     }
 
+    public void reset() {
+        visitedDirections.clear();
+    }
+
     abstract List<Vector2> nextDirections(Vector2 direction);
+
 
 
 }
