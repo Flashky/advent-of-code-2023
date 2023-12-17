@@ -41,6 +41,11 @@ public class Vector2 {
 		this.x += scalar;
 		this.y += scalar;
 	}
+
+	public void multiply(int scalar) {
+		this.x *= scalar;
+		this.y *= scalar;
+	}
 	
 	public void transformX(int scalar) {
 		this.x += scalar;
