@@ -232,13 +232,7 @@ public class Vector2 {
 		return new Vector2(x,y);
 	}
 	
-	/**
-	 * Shorthand for <code>Vector2(1,0)</code>.
-	 * @return A unitary vector that points to the right.
-	 */
-	public static Vector2 right() {
-		return new Vector2(1,0);
-	}
+
 	
 	public static double distance(Vector2 a, Vector2 b) {
 		
@@ -267,6 +261,14 @@ public class Vector2 {
 	 */
 	public static long slope(Vector2 a, Vector2 b) {
 		return (b.y - a.y) / (b.x - a.x);
+	}
+
+	/**
+	 * Shorthand for <code>Vector2(1,0)</code>.
+	 * @return A unitary vector that points to the right.
+	 */
+	public static Vector2 right() {
+		return new Vector2(1,0);
 	}
 
 	/**

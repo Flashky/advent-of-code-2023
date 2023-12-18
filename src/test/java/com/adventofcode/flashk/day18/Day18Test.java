@@ -31,7 +31,6 @@ public class Day18Test extends PuzzleTest {
 	public static void beforeAll() {
 		Timer.printHeader(TestDisplayName.DAY_18);
 	}
-
 	
 	@Test
 	@Order(1)
@@ -45,9 +44,10 @@ public class Day18Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		long result = 0;
+		LavaductLagoon lavaductLagoon = new LavaductLagoon(inputs);
+		long result = lavaductLagoon.solveA();
 
-		assertEquals(0, result);
+		assertEquals(62, result);
 	}
 	
 	@Test
@@ -62,9 +62,11 @@ public class Day18Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		long result = 0;
+		LavaductLagoon lavaductLagoon = new LavaductLagoon(inputs);
+		long result = lavaductLagoon.solveA();
 
-		System.out.println("R: "+result);
+		assertEquals(76387, result);
+
 	}
 	
 	@Test
@@ -79,9 +81,11 @@ public class Day18Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		long result = 0;
+		LavaductLagoon lavaductLagoon = new LavaductLagoon(inputs);
+		long result = lavaductLagoon.solveB();
 
-		assertEquals(0, result);
+		assertEquals(952408144115L, result);
+
 	}
 	
 	@Test
@@ -96,9 +100,10 @@ public class Day18Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		long result = 0;
+		LavaductLagoon lavaductLagoon = new LavaductLagoon(inputs);
+		long result = lavaductLagoon.solveB();
 
-		System.out.println("R: "+result);
+		assertEquals(250022188522074L, result);
 	}
 
 }
