@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 public class Tile implements Comparable<Tile>{
 
-    private static final Vector2 REVERSE = new Vector2(-1,-1);
     public static final Vector2 RIGHT = Vector2.right();
     public static final Vector2 LEFT = Vector2.left();
     public static final Vector2 UP = Vector2.down();
@@ -25,10 +24,6 @@ public class Tile implements Comparable<Tile>{
     private int col;
     private int totalHeatloss = Integer.MAX_VALUE;
     private int heatloss;
-
-    //private Tile parent;
-    private Vector2 travelDirection;
-    private int travelLength;
 
     private final Set<Pair<Vector2, Integer>> visitedDirectionsPerLength = new HashSet<>();
 
