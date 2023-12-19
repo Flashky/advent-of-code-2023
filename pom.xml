@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<lombok.version>1.18.30</lombok.version>
 		<!-- Testing -->
-		<junit.jupiter.version>5.8.1</junit.jupiter.version>
+		<junit.jupiter.version>5.10.1</junit.jupiter.version>
 		<junit.platform.version>1.8.2</junit.platform.version>
 		<!-- Plugins -->
 		<maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
