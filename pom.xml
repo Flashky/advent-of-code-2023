@@ -14,7 +14,7 @@
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<junit.platform.version>1.8.2</junit.platform.version>
 		<!-- Plugins -->
-		<maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
 		<maven-compiler-plugin.version>3.12.0</maven-compiler-plugin.version>
 		<maven.compiler.release>17</maven.compiler.release>
 		<jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
