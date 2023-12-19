@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_19)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day19Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_19;
@@ -43,7 +44,11 @@ public class Day19Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		Aplenty aplenty = new Aplenty(inputs);
+		long result = aplenty.solveA();
+
+		assertEquals(19114, result);
 	}
 	
 	@Test
@@ -57,7 +62,11 @@ public class Day19Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		Aplenty aplenty = new Aplenty(inputs);
+		long result = aplenty.solveA();
+
+		assertEquals(489392, result);
 	}
 	
 	@Test
@@ -71,7 +80,11 @@ public class Day19Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		Aplenty aplenty = new Aplenty(inputs);
+		long result = aplenty.solveB();
+
+		assertEquals(167409079868000L, result);
 	}
 	
 	@Test
@@ -85,7 +98,14 @@ public class Day19Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		Aplenty aplenty = new Aplenty(inputs);
+		long result = aplenty.solveB();
+
+		System.out.println("R: "+result);
+
+		//assertEquals(0, result);
+
 	}
 
 }
