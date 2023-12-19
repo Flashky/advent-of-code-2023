@@ -27,6 +27,22 @@ public class Workflow {
         String rulesString = StringUtils.substringBetween(input, "{", "}");
         String[] rulesArray = rulesString.split(",");
         rules = Arrays.stream(rulesArray).map(Rule::new).collect(Collectors.toList());
+
+        // TODO minor improvement
+        // some workflows lead always to the same output workflow, in that case
+        // rules can be directely bypassed.
+        boolean sameWorkflows = true;
+        String workflowName = rules.get(0).getDestinationWorkflow();
+        for(Rule rule : rules) {
+            if(!rule.getDestinationWorkflow().equals(workflowName)) {
+                sameWorkflows = false;
+            }
+        }
+
+        if(sameWorkflows) {
+            rules.clear();
+            rules.add(new Rule(workflowName));
+        }
     }
 
     public String run(Part part) {
