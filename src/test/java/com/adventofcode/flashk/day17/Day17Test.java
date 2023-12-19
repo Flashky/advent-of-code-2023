@@ -63,7 +63,7 @@ public class Day17Test extends PuzzleTest {
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
+		ClumsyCrucibleRefactor clumsyCrucible = new ClumsyCrucibleRefactor(inputs);
 		long result = clumsyCrucible.solveA();
 
 		System.out.println("R: "+result);
