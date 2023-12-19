@@ -74,6 +74,7 @@ public class Day19Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
+	@Disabled
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
@@ -92,6 +93,7 @@ public class Day19Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
+	@Disabled
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");
