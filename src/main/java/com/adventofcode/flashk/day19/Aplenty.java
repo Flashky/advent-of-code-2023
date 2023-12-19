@@ -32,7 +32,6 @@ public class Aplenty {
                 workflowPerPart.put(part, StringUtils.EMPTY);
             }
         }
-        int a = 3;
     }
 
     public long solveA() {

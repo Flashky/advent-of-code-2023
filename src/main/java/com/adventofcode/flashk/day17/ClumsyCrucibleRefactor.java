@@ -1,10 +1,7 @@
 package com.adventofcode.flashk.day17;
 
 import com.adventofcode.flashk.common.Vector2;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
 import java.util.Optional;

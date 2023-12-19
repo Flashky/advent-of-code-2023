@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -28,21 +27,6 @@ public class Workflow {
         String[] rulesArray = rulesString.split(",");
         rules = Arrays.stream(rulesArray).map(Rule::new).collect(Collectors.toList());
 
-        // TODO minor improvement
-        // some workflows lead always to the same output workflow, in that case
-        // rules can be directely bypassed.
-        boolean sameWorkflows = true;
-        String workflowName = rules.get(0).getDestinationWorkflow();
-        for(Rule rule : rules) {
-            if(!rule.getDestinationWorkflow().equals(workflowName)) {
-                sameWorkflows = false;
-            }
-        }
-
-        if(sameWorkflows) {
-            rules.clear();
-            rules.add(new Rule(workflowName));
-        }
     }
 
     public String run(Part part) {

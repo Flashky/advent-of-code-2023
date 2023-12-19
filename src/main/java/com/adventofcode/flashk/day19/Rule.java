@@ -10,7 +10,6 @@ public class Rule {
     private static final Pattern FULL_RULE_PATTERN = Pattern.compile("([xmas])([><])(\\d*):(\\w*)");
 
     private static final char LESS_THAN = '<';
-    private static final char GREATER_THAN = '>';
 
     private char letter;
     private char condition;
