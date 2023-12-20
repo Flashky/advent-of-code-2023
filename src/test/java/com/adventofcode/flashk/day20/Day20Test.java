@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_20)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled
 public class Day20Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_20;
@@ -47,8 +46,28 @@ public class Day20Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		long result = 0;
-		assertEquals(0, result);
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
+		long result = pulsePropagation.solveA(1);
+
+		assertEquals(32000000, result);
+	}
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
+	public void testSolvePart1Sample2() {
+
+		System.out.print("1 | sample | ");
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
+
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
+		long result = pulsePropagation.solveA(1);
+
+		assertEquals(11687500, result);
 	}
 	
 	@Test
@@ -62,7 +81,9 @@ public class Day20Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		long result = 0;
+
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
+		long result = pulsePropagation.solveA(1000);
 
 		System.out.println("R: "+result);
 		//assertEquals(0, result);
