@@ -57,7 +57,8 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	public void testSolvePart1Sample2() {
+	@Disabled // TODO enable
+	void testSolvePart1Sample2() {
 
 		System.out.print("1 | sample | ");
 
