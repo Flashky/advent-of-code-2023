@@ -7,9 +7,7 @@ public class Output extends Module {
     }
 
     @Override
-    public void executePulse() {
-        super.executePulse();
+    public void processPulse() {
         // Output does nothing
-        //pulseExecuted = true;
     }
 }

@@ -9,8 +9,7 @@ public class Broadcaster extends Module {
     }
 
     @Override
-    public void executePulse() {
-        super.executePulse();
+    public void processPulse() {
         if(!inputPulses.isEmpty()) {
 
             Pair<Module, String> inputPulse = this.inputPulses.poll();
@@ -19,13 +18,13 @@ public class Broadcaster extends Module {
             // Processes the pulse:
             // A broadcast module just sends the pulse to other modules.
             for(Module output : outputs) {
-                output.addPulse(this, newOutputPulse);
+                output.sendPulse(this, newOutputPulse);
             }
 
             // Recursively process the pulses
-            /*for(Module output : outputs) {
-                output.process();
-            }*/
+            for(Module output : outputs) {
+                output.processPulse();
+            }
         }
 
 

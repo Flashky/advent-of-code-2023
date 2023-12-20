@@ -14,17 +14,16 @@ public class Conjunction extends Module {
     }
 
     @Override
-    public void executePulse() {
-        super.executePulse();
+    public void sendPulse(Module origin, String value) {
+        super.sendPulse(origin, value);
+        memory.put(origin, value);
+    }
+
+    @Override
+    public void processPulse() {
         if(!inputPulses.isEmpty()) {
             Pair<Module, String> inputPulse = inputPulses.poll();
-            Module module = inputPulse.getLeft();
-            String pulse = inputPulse.getRight();
 
-            // Update memory
-            memory.put(module, pulse);
-
-            // Verify memory values
             boolean isAllHigh = true;
             for(String memoryValue : memory.values()) {
                 if(LOW.equals(memoryValue)) {
@@ -41,13 +40,13 @@ public class Conjunction extends Module {
             }
 
             for(Module output : outputs) {
-                output.addPulse(this, newOutputPulse);
+                output.sendPulse(this, newOutputPulse);
             }
 
             // Process childs
-            /*for(Module output : outputs) {
-                output.process();
-            }*/
+            for(Module output : outputs) {
+                output.processPulse();
+            }
 
 
         }

@@ -15,7 +15,12 @@ public abstract class Module {
     public static final String HIGH = "high";
 
     @Getter
-    private String name;
+    private final String name;
+
+    protected Deque<Pair<Module,String>> inputPulses = new ArrayDeque<>();
+
+    @Getter
+    protected List<Module> outputs = new ArrayList<>();
 
     @Getter
     private long lowCount;
@@ -23,39 +28,35 @@ public abstract class Module {
     @Getter
     private long highCount;
 
-    @Getter
-    protected List<Module> outputs = new ArrayList<>();
-    protected Deque<Pair<Module,String>> inputPulses = new ArrayDeque<>();
-
-    protected boolean pulseExecuted = false;
-
-    public Module(String name) {
+    protected Module(String name) {
         this.name = name;
     }
 
-    public void addPulse(Module origin, String value) {
+    public void sendPulse(Module origin, String value) {
         this.inputPulses.add(ImmutablePair.of(origin, value));
         System.out.println(origin.name + " -"+value+"-> " + name);
 
         // Update high and low counters
         if(LOW.equals(value)) {
-            lowCount++;
+            increaseLowCount();
         } else {
-            highCount++;
+            increaseHighCount();
         }
 
+    }
+
+    public void increaseLowCount() {
+        lowCount++;
+    }
+
+    public void increaseHighCount() {
+        highCount++;
     }
 
     public void addOutput(Module output) {
         this.outputs.add(output);
     }
 
-    public void executePulse() {
-        pulseExecuted = true;
-    }
-
-    public void reset() {
-        pulseExecuted = false;
-    }
+    public abstract void processPulse();
 
 }

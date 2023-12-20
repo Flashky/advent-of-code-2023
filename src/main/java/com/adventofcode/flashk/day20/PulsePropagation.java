@@ -91,26 +91,9 @@ public class PulsePropagation {
     public long solveA(int pressTimes) {
         System.out.println();
 
-
-        Deque<Module> queue = new ArrayDeque<>();
-
         for(int i = 0; i < pressTimes; i++) {
-
-            button.addPulse(button, Module.LOW);
-            queue.add(button);
-            Set<Module> processedModules = new HashSet<>();
-            do {
-                Module module = queue.poll();
-                module.executePulse();
-                queue.addAll(module.getOutputs());
-                processedModules.add(module);
-            } while (!modules.isEmpty() && processedModules.size() < modules.size());
-
-            for(Module module : modules) {
-                module.reset();
-            }
-
-            queue.clear();
+            button.sendPulse(button, Module.LOW);
+            button.processPulse();
         }
 
         long lows = 0;

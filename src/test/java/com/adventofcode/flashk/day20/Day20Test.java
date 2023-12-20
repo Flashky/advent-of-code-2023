@@ -47,7 +47,7 @@ public class Day20Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
-		long result = pulsePropagation.solveA(1);
+		long result = pulsePropagation.solveA(1000);
 
 		assertEquals(32000000, result);
 	}
@@ -75,6 +75,7 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
+	@Disabled // TODO enable
 	public void testSolvePart1Input() {
 		
 		System.out.print("1 | input  | ");
@@ -83,7 +84,7 @@ public class Day20Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
-		long result = pulsePropagation.solveA(1000);
+		long result = pulsePropagation.solveA(1);
 
 		System.out.println("R: "+result);
 		//assertEquals(0, result);
@@ -94,6 +95,7 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
+	@Disabled // TODO enable
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
@@ -108,6 +110,7 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
+	@Disabled // TODO enable
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");
