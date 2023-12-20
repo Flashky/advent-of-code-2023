@@ -3,6 +3,7 @@ package com.adventofcode.flashk.day17;
 import com.adventofcode.flashk.common.Vector2;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.apache.commons.lang3.tuple.Pair;
 
 @AllArgsConstructor
 @Getter
