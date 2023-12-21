@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_21)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day21Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_21;
@@ -42,7 +43,15 @@ public class Day21Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		StepCounter stepCounter = new StepCounter(inputs);
+		long result = stepCounter.solveADFS(1);
+
+		assertEquals(2, result);
+
+		result = stepCounter.solveADFS(6); // 6 para el ejemplo
+		assertEquals(16, result);
 		
 	}
 	
@@ -56,8 +65,13 @@ public class Day21Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		StepCounter stepCounter = new StepCounter(inputs);
+		long result = stepCounter.solveADFS(64);
+
+		System.out.println("R: "+result);
+
 	}
 	
 	@Test
