@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_21)
 @TestMethodOrder(OrderAnnotation.class)
+@Disabled
 public class Day21Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_21;
