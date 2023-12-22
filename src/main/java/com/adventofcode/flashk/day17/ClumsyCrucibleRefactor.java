@@ -49,7 +49,7 @@ public class ClumsyCrucibleRefactor {
             // Mark as visited
             Tile minTile = minTileStatus.getTile();
             Vector2 direction = minTileStatus.getDirection();
-            int steps = minTileStatus.getLength();
+            int steps = minTileStatus.getSteps();
             minTile.visit(ImmutablePair.of(direction, steps));
 
             // Obtain candidates for Tile
@@ -58,7 +58,7 @@ public class ClumsyCrucibleRefactor {
             for(TileStatus nextTileStatus : adjacentTiles) {
                 Tile adjacentTile = nextTileStatus.getTile();
                 direction = nextTileStatus.getDirection();
-                steps = nextTileStatus.getLength();
+                steps = nextTileStatus.getSteps();
 
                 if(!adjacentTile.isVisited(ImmutablePair.of(direction, steps))) {
 
@@ -87,7 +87,7 @@ public class ClumsyCrucibleRefactor {
         Tile currentTile = currentTileStatus.getTile();
         Vector2 currentTilePos = new Vector2(currentTile.getCol(), currentTile.getRow());
         Vector2 currentDirection = currentTileStatus.getDirection();
-        int currentDirectionSteps = currentTileStatus.getLength();
+        int currentDirectionSteps = currentTileStatus.getSteps();
 
         // Filter reversed direction
         Vector2 reversedDirection = new Vector2(currentDirection);
@@ -98,7 +98,7 @@ public class ClumsyCrucibleRefactor {
         Vector2 nextPosition = Vector2.transform(currentTilePos, nextDirection);
         int nextDirectionSteps = nextSteps(nextDirection, currentDirection, currentDirectionSteps);
         
-        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection) && nextDirectionSteps < 4) {
+        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection)) {
             tileStatuses.add(createTileStatus(nextPosition, nextDirection, nextDirectionSteps));
         }
         
@@ -107,7 +107,7 @@ public class ClumsyCrucibleRefactor {
         nextPosition = Vector2.transform(currentTilePos, nextDirection);
         nextDirectionSteps = nextSteps(nextDirection, currentDirection, currentDirectionSteps);
 
-        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection) && nextDirectionSteps < 4) {
+        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection)) {
             tileStatuses.add(createTileStatus(nextPosition, nextDirection, nextDirectionSteps));
         }
 
@@ -116,7 +116,7 @@ public class ClumsyCrucibleRefactor {
         nextPosition = Vector2.transform(currentTilePos, nextDirection);
         nextDirectionSteps = nextSteps(nextDirection, currentDirection, currentDirectionSteps);
 
-        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection) && nextDirectionSteps < 4) {
+        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection)) {
             tileStatuses.add(createTileStatus(nextPosition, nextDirection, nextDirectionSteps));
         }
 
@@ -125,11 +125,11 @@ public class ClumsyCrucibleRefactor {
         nextPosition = Vector2.transform(currentTilePos, nextDirection);
         nextDirectionSteps = nextSteps(nextDirection, currentDirection, currentDirectionSteps);
 
-        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection) && nextDirectionSteps < 4) {
+        if(isNotOutOfBounds(nextPosition) && !nextDirection.equals(reversedDirection)) {
             tileStatuses.add(createTileStatus(nextPosition, nextDirection, nextDirectionSteps));
         }
 
-        return tileStatuses;
+        return tileStatuses.stream().filter(t -> t.getSteps() < 4).toList();
     }
 
 
