@@ -37,7 +37,6 @@ public class ClumsyCrucibleRefactor {
 
         Tile root = map[0][0];
         root.setTotalHeatloss(0);
-
         queue.add(new TileStatus(root, new Vector2(0,0), 0));
 
         // Start algorithm
