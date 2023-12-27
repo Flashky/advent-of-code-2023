@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_23)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day23Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_23;
@@ -42,7 +43,12 @@ public class Day23Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		ALongWalk aLongWalk = new ALongWalk(inputs);
+		long result = aLongWalk.solveA();
+
+		assertEquals(94, result);
 		
 	}
 	
@@ -56,8 +62,13 @@ public class Day23Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		ALongWalk aLongWalk = new ALongWalk(inputs);
+		long result = aLongWalk.solveA();
+
+		assertEquals(2294, result);
+
 	}
 	
 	@Test
@@ -68,9 +79,14 @@ public class Day23Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
-		
+
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		ALongWalkNotSlippery aLongWalk = new ALongWalkNotSlippery(inputs);
+		long result = aLongWalk.solveA();
+
+		assertEquals(154, result);
 		
 	}
 	
@@ -84,7 +100,13 @@ public class Day23Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		ALongWalkNotSlippery aLongWalk = new ALongWalkNotSlippery(inputs);
+		long result = aLongWalk.solveA();
+
+		//assertEquals(154, result);
+		System.out.println("R: "+result);
 		
 	}
 
