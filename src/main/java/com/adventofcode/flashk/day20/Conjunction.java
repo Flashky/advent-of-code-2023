@@ -22,7 +22,7 @@ public class Conjunction extends Module {
     @Override
     public void processPulse() {
         if(!inputPulses.isEmpty()) {
-            Pair<Module, String> inputPulse = inputPulses.poll();
+            //Pair<Module, String> inputPulse = inputPulses.poll();
 
             boolean isAllHigh = true;
             for(String memoryValue : memory.values()) {

@@ -89,7 +89,6 @@ public class PulsePropagation {
     }
 
     public long solveA(int pressTimes) {
-        System.out.println();
 
         for(int i = 0; i < pressTimes; i++) {
             button.sendPulse(button, Module.LOW);

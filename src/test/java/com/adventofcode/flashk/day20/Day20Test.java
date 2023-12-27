@@ -57,7 +57,6 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	@Disabled // TODO enable
 	void testSolvePart1Sample2() {
 
 		System.out.print("1 | sample | ");
@@ -66,7 +65,7 @@ public class Day20Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
 
 		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
-		long result = pulsePropagation.solveA(1);
+		long result = pulsePropagation.solveA(1000);
 
 		assertEquals(11687500, result);
 	}
@@ -76,7 +75,6 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
-	@Disabled // TODO enable
 	public void testSolvePart1Input() {
 		
 		System.out.print("1 | input  | ");
@@ -85,9 +83,10 @@ public class Day20Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
-		long result = pulsePropagation.solveA(1);
+		long result = pulsePropagation.solveA(1000);
 
 		System.out.println("R: "+result);
+		// 787801375 -> Too high
 		//assertEquals(0, result);
 	}
 	
