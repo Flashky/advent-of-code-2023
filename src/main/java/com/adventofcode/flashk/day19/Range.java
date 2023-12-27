@@ -7,6 +7,7 @@ public class Range {
 
     private static final int DEFAULT_MIN = 1;
     private static final int DEFAULT_MAX = 4000;
+
     private int minX = DEFAULT_MIN;
     private int maxX = DEFAULT_MAX;
     private int minM = DEFAULT_MIN;
@@ -30,18 +31,13 @@ public class Range {
         maxS = other.maxS;
     }
 
-    public long value() {
-        long value = 0;
-        for(int x = minX; x <= maxX; x++) {
-            for(int m = minM; m <= maxM; m++) {
-                for(int a = minA; a <= maxA; a++) {
-                    for(int s = minS; s <= maxS; s++) {
-                        value += x+m+a+s;
-                    }
-                }
-            }
-        }
-        return value;
+    public long size() {
+        long sizeX = maxX - minX + 1L;
+        long sizeM = maxM - minM + 1L;
+        long sizeA = maxA - minA + 1L;
+        long sizeS = maxS - minS + 1L;
+
+        return sizeX * sizeM * sizeA * sizeS;
     }
 
     /**

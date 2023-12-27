@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RangeTest {
 
     @Test
-    void value() {
+    void valueAndSizeTest() {
         Range range = new Range();
 
         Rule rule = new Rule("qkq{x<3:A,crn}");
@@ -23,6 +23,7 @@ class RangeTest {
         Range matchedS = matchedA.matchesRange(rule);
 
         assertEquals(96L, matchedS.value());
+        assertEquals(16, matchedS.size());
 
     }
 

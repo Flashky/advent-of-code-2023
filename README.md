@@ -21,7 +21,7 @@
 - [Day 16 - The Floor Will Be Lava](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day16)
 - [Day 17 - Clumsy Crucible](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day17)
 - [Day 18 - Lavaduct Lagoon](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day18)
-- [Day 19](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day19)
+- [Day 19 - Aplenty](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day19)
 - [Day 20](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day20)
 - [Day 21](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day21)
 - [Day 22](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day22)

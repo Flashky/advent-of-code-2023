@@ -1,40 +1,48 @@
 package com.adventofcode.flashk.day19;
 
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Workflow {
+public class Workflow extends AbstractWorkflow {
 
-    private static final Pattern NAME_PATTERN = Pattern.compile("(\\w*)\\{");
-
-    @Getter
-    private String name;
     private List<Rule> rules;
 
     public Workflow(String input) {
-        Matcher matcher = NAME_PATTERN.matcher(input);
-        if(matcher.find()) {
-            name = matcher.group(1);
-        }
+        super(input);
 
         String rulesString = StringUtils.substringBetween(input, "{", "}");
         String[] rulesArray = rulesString.split(",");
         rules = Arrays.stream(rulesArray).map(Rule::new).collect(Collectors.toList());
-
     }
 
-    public String run(Part part) {
+    @Override
+    public long run(Part part) {
         for(Rule rule : rules) {
             if(rule.matches(part)) {
-                return rule.getDestinationWorkflow();
+                // Redirect to workflow
+                return workflows.get(rule.getDestinationWorkflow()).run(part);
             }
         }
-        return "UNKNOWN";
+        return 0;
+    }
+
+    @Override
+    public long run(Range partsRange) {
+        long result = 0;
+        Range matchedRange = new Range(partsRange);
+        for(Rule rule : rules) {
+            if(rule.isBypassRule()) {
+                result += workflows.get(rule.getDestinationWorkflow()).run(matchedRange);
+            } else {
+                Range updatedMatchedRange = rule.matches(matchedRange);
+                matchedRange = rule.unmatches(matchedRange);
+                result += workflows.get(rule.getDestinationWorkflow()).run(updatedMatchedRange);
+            }
+        }
+
+        return result;
     }
 }

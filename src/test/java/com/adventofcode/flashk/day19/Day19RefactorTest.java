@@ -1,9 +1,13 @@
 package com.adventofcode.flashk.day19;
 
-import java.util.List;
-
+import com.adventofcode.flashk.common.test.constants.TestDisplayName;
+import com.adventofcode.flashk.common.test.constants.TestFilename;
+import com.adventofcode.flashk.common.test.constants.TestFolder;
+import com.adventofcode.flashk.common.test.constants.TestTag;
+import com.adventofcode.flashk.common.test.utils.Input;
+import com.adventofcode.flashk.common.test.utils.PuzzleTest;
+import com.adventofcode.flashk.common.test.utils.Timer;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -11,19 +15,13 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import com.adventofcode.flashk.common.test.constants.TestDisplayName;
-import com.adventofcode.flashk.common.test.constants.TestFilename;
-import com.adventofcode.flashk.common.test.constants.TestFolder;
-import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
-import com.adventofcode.flashk.common.test.utils.Input;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_19)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day19Test extends PuzzleTest {
+public class Day19RefactorTest extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_19;
 
@@ -74,13 +72,14 @@ public class Day19Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	@Disabled
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		// Question: How many combinations of ratings will be accepted?
 
 		Aplenty aplenty = new Aplenty(inputs);
 		long result = aplenty.solveB();
@@ -93,7 +92,6 @@ public class Day19Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
-	@Disabled
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");
@@ -104,9 +102,8 @@ public class Day19Test extends PuzzleTest {
 		Aplenty aplenty = new Aplenty(inputs);
 		long result = aplenty.solveB();
 
-		System.out.println("R: "+result);
-
-		//assertEquals(0, result);
+		System.out.println("R: " + result);
+		assertEquals(134370637448305L, result);
 
 	}
 
