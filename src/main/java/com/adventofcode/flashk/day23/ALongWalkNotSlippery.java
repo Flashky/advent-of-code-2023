@@ -6,6 +6,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -53,36 +54,41 @@ public class ALongWalkNotSlippery {
     }
 
     public long solveA() {
+        return dfs(start.getRow(), start.getCol(), 0);
         //return dfsIterative();
-        return bfs();
+        //return dijkstraReversed();
     }
 
-    private long bfs() {
-        long bestResult = Long.MIN_VALUE;
-        Deque<Tile> queue = new ArrayDeque<>();
-        start.setVisited(true);
+    /*
+    private long dijkstraReversed() {
 
+        start.setTotalSteps(0);
+
+        PriorityQueue<Tile> queue = new PriorityQueue<>();
         queue.add(start);
-        while(!queue.isEmpty()) {
-            Tile currentTile = queue.poll();
-            if(currentTile.getRow() == end.getRow() && currentTile.getCol() == end.getCol()) {
-                bestResult = Math.max(bestResult, currentTile.getSteps());
-            }
 
-            Set<Tile> adjacentTiles = getAdjacentTiles(currentTile.getRow(), currentTile.getCol());
+        while(!queue.isEmpty()) {
+            Tile maxTile = queue.poll();
+            maxTile.setVisited(true);
+
+            Set<Tile> adjacentTiles = getAdjacentTiles(maxTile.getRow(), maxTile.getCol());
+
             for(Tile adjacentTile : adjacentTiles) {
                 if(!adjacentTile.isVisited()) {
-                    adjacentTile.setVisited(true);
-                    adjacentTile.setSteps(currentTile.getSteps()+1);
-                    queue.add(adjacentTile);
+                    int estimatedSteps = maxTile.getTotalSteps() - 1;
+
+                    if(estimatedSteps > adjacentTile.getTotalSteps()) {
+                        adjacentTile.setTotalSteps(estimatedSteps);
+                        queue.add(adjacentTile);
+                    }
                 }
             }
         }
 
-        return bestResult;
-    }
+        return end.getTotalSteps();
+    }*/
 
-    /*
+
     private long dfsIterative() {
         long bestResult = Long.MIN_VALUE;
 
@@ -109,7 +115,32 @@ public class ALongWalkNotSlippery {
         }
 
         return bestResult;
-    }*/
+    }
+
+    private long dfs(int row, int col, int steps) {
+
+        if(row == end.getRow() && col == end.getCol()) {
+            // Reached destination
+            return steps;
+        }
+
+        long bestResult = Long.MIN_VALUE;
+
+        // Mark as visited
+        Tile currentTile = map[row][col];
+        currentTile.setVisited(true);
+        originalMap[row][col] = 'O';
+        Set<Tile> adjacentTiles = getAdjacentTiles(currentTile.getRow(), currentTile.getCol());
+        for(Tile adjacentTile : adjacentTiles) {
+            bestResult = Math.max(bestResult, dfs(adjacentTile.getRow(), adjacentTile.getCol(), steps+1));
+        }
+
+        // Backtrack
+        currentTile.setVisited(false);
+
+        return bestResult;
+    }
+
 
     private Set<Tile> getAdjacentTiles(int row, int col) {
 

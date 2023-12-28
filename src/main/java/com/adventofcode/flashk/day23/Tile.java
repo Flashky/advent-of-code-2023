@@ -6,11 +6,14 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class Tile {
+public class Tile implements Comparable<Tile> {
 
     private int row;
     private int col;
     private char value;
+
+    @Setter
+    private int totalSteps = 0;
 
     @Setter
     private boolean visited = false;
@@ -25,4 +28,8 @@ public class Tile {
     }
 
 
+    @Override
+    public int compareTo(Tile o) {
+        return Integer.compare(totalSteps, o.totalSteps);
+    }
 }
