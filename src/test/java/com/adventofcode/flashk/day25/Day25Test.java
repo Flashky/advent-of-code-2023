@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_25)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day25Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_25;
@@ -43,6 +44,12 @@ public class Day25Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		Snowverload snowverload = new Snowverload(inputs);
+		int result = snowverload.solve();
+
+		assertEquals(54, result);
+
 		
 	}
 	
@@ -57,7 +64,11 @@ public class Day25Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		Snowverload snowverload = new Snowverload(inputs);
+		int result = snowverload.solve();
+
+		assertEquals(548960, result);
 	}
 	
 	@Test
@@ -65,6 +76,7 @@ public class Day25Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
+	@Disabled
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
@@ -79,6 +91,7 @@ public class Day25Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
+	@Disabled
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");

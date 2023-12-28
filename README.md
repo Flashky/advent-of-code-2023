@@ -27,7 +27,7 @@
 - [Day 22](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day22)
 - [Day 23](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day23)
 - [Day 24](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day24)
-- [Day 25](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day25)
+- [Day 25 - Snowverload](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day25)
 
 ## Cloning this repository
 
