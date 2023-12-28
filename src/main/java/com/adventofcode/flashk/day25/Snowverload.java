@@ -22,6 +22,7 @@ public class Snowverload {
             graph.addVertex(leftVertex);
             for(String rightVertex : rightVertexes) {
                 graph.addVertex(rightVertex);
+                graph.addEdge(leftVertex, rightVertex);
             }
         }
 
