@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_24)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day24Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_24;
@@ -43,7 +44,12 @@ public class Day24Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		NeverTellMeTheOdds neverTellMeTheOdds = new NeverTellMeTheOdds(inputs, true);
+		long result = neverTellMeTheOdds.solveA(7, 27);
+
+		assertEquals(2, result);
+
 	}
 	
 	@Test
@@ -57,6 +63,18 @@ public class Day24Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		NeverTellMeTheOdds neverTellMeTheOdds = new NeverTellMeTheOdds(inputs, true);
+		long result = neverTellMeTheOdds.solveA(200000000000000L, 400000000000000L);
+
+		//System.out.println("R: "+result);
+		assertEquals(17244, result);
+
+		// Con el algoritmo de Hailstone:
+		// 683 -> That's not the right answer; your answer is too low.
+
+		// Con el algoritmo de HailstoneRefactor:
+		// 17244 -> OK
 		
 	}
 	
