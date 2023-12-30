@@ -67,14 +67,7 @@ public class Day24Test extends PuzzleTest {
 		NeverTellMeTheOdds neverTellMeTheOdds = new NeverTellMeTheOdds(inputs, true);
 		long result = neverTellMeTheOdds.solveA(200000000000000L, 400000000000000L);
 
-		//System.out.println("R: "+result);
 		assertEquals(17244, result);
-
-		// Con el algoritmo de Hailstone:
-		// 683 -> That's not the right answer; your answer is too low.
-
-		// Con el algoritmo de HailstoneRefactor:
-		// 17244 -> OK
 		
 	}
 	
@@ -89,7 +82,12 @@ public class Day24Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		NeverTellMeTheOdds neverTellMeTheOdds = new NeverTellMeTheOdds(inputs, false);
+		long result = neverTellMeTheOdds.solveB();
+
+		assertEquals(47, result);
+
 	}
 	
 	@Test
@@ -103,7 +101,12 @@ public class Day24Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		NeverTellMeTheOdds neverTellMeTheOdds = new NeverTellMeTheOdds(inputs, false);
+		long result = neverTellMeTheOdds.solveB();
+
+		assertEquals(1025019997186820L, result);
+
 	}
 
 }

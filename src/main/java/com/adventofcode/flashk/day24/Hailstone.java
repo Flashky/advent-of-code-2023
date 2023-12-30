@@ -2,19 +2,20 @@ package com.adventofcode.flashk.day24;
 
 import lombok.Getter;
 import org.apache.commons.geometry.euclidean.threed.Vector3D;
-import org.apache.commons.geometry.euclidean.threed.line.Line3D;
-import org.apache.commons.geometry.euclidean.threed.line.Lines3D;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.numbers.core.Precision;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 public class Hailstone {
 
-    private Vector3D position;
-    private Vector3D speed;
+    @Getter
+    private final Vector3D position;
 
     @Getter
-    private Line3D trajectory;
-
+    private final Vector3D speed;
+    
+    private final double slope; // m
+    private final double intercept; // b
+    
     public Hailstone(String input, boolean isPartOne) {
         String[] inputParts = input.split("@");
         String[] posCoords = StringUtils.deleteWhitespace(inputParts[0]).split(",");
@@ -28,69 +29,63 @@ public class Hailstone {
         position = createVector3D(posCoords);
         speed = createVector3D(speedCoords);
 
-        //Precision.DoubleEquivalence equivalence = Precision.doubleEquivalenceOfEpsilon(1e-6);
-        Precision.DoubleEquivalence equivalence = Precision.doubleEquivalenceOfEpsilon(1e-10);
+        // Initialize slope and intercept
+        Vector3D position2 = position.add(speed);
 
-        trajectory = Lines3D.fromPointAndDirection(position, speed, equivalence);
+        SimpleRegression simpleRegression = new SimpleRegression();
+        simpleRegression.addData(position.getX(), position.getY());
+        simpleRegression.addData(position2.getX(), position2.getY());
+
+        slope = simpleRegression.getSlope();
+        intercept = simpleRegression.getIntercept();
 
     }
 
     public boolean intersectsInFuture(Hailstone other, long min, long max) {
-        Vector3D intersection = trajectory.intersection(other.trajectory);
 
-        // Parallel line
-        if(intersection == null) {
-            System.out.println("Hailstones's paths are parallel; they never intersect.");
+        if(slope == other.slope) {
+            return false; // Hailstones' paths are parallel; they never intersect.
+        }
+
+        // Calculate intersection
+        double intersectX = (other.intercept - intercept) / (slope - other.slope);
+        double intersectY = slope * intersectX + intercept;
+
+        Vector3D intersection = Vector3D.of(intersectX, intersectY, 0);
+
+        // Intersection might have 4  different cases:
+        // - Hailstones' paths crossed in the past for both hailstones. (false)
+        // - Hailstones' paths crossed in the past for hailstone A. (false)
+        // - Hailstones' paths crossed in the past for hailstone B. (false)
+        // - Hailstones' paths cross in the future (true)
+        if(isNotInFuture(intersection) || other.isNotInFuture(intersection)) {
             return false;
         }
 
-        // Check intersection in time
-        boolean isInFutureA = isInFuture(intersection);
-        boolean isInFutureB = other.isInFuture(intersection);
-
-        if(!isInFutureA && !isInFutureB) {
-            System.out.println("Hailstones' paths crossed in the past for both hailstones.");
-            return false;
-        } else if(!isInFutureA) {
-            System.out.println("Hailstones' paths crossed in the past for hailstone A.");
-            return false;
-        } else if(!isInFutureB) {
-            System.out.println("Hailstones' paths crossed in the past for hailstone B.");
-            return false;
-        }
-
-        boolean isInArea = isInArea(intersection, min, max);
-        if(isInArea) {
-            System.out.println("Hailstones' paths will cross inside the test area (at x="+intersection.getX()+", y="+intersection.getY()+").");
-        } else {
-            System.out.println("Hailstones' paths will cross outside the test area (at x="+intersection.getX()+", y="+intersection.getY()+").");
-        }
-
-        return isInArea;
+        // Two cases:
+        // - Hailstones' paths cross inside the test area
+        // - Hailstones' paths cross outisde the test area
+        return isInArea(intersection, min, max);
     }
 
     private Vector3D createVector3D(String[] coords) {
-        return Vector3D.of(Double.valueOf(coords[0]), Double.valueOf(coords[1]), Double.valueOf(coords[2]));
+        return Vector3D.of(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]), Double.parseDouble(coords[2]));
     }
 
-    private boolean isInFuture(Vector3D intersection) {
+    private boolean isNotInFuture(Vector3D intersection) {
 
         double deltaX = intersection.getX() - position.getX();
         if((deltaX > 0 && speed.getX() < 0) || (deltaX < 0 && speed.getX() > 0)){
-            return false;
+            return true;
         }
 
         double deltaY = intersection.getY() - position.getY();
         if((deltaY > 0 && speed.getY() < 0) || (deltaY < 0 && speed.getY() > 0)){
-            return false;
+            return true;
         }
 
         double deltaZ = intersection.getZ() - position.getZ();
-        if((deltaZ > 0 && speed.getZ() < 0) || (deltaZ < 0 && speed.getZ() > 0)){
-            return false;
-        }
-
-        return true;
+        return (deltaZ > 0 && speed.getZ() < 0) || (deltaZ < 0 && speed.getZ() > 0);
     }
 
     private boolean isInArea(Vector3D intersection, long min, long max){
@@ -99,9 +94,4 @@ public class Hailstone {
                 intersection.getY() >= min &&
                 intersection.getY() <= max;
     }
-
-    public boolean samePosition(Hailstone other) {
-        return position.equals(other.position);
-    }
-
 }
