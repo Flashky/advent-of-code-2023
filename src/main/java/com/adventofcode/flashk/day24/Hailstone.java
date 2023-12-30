@@ -75,17 +75,21 @@ public class Hailstone {
     private boolean isNotInFuture(Vector3D intersection) {
 
         double deltaX = intersection.getX() - position.getX();
-        if((deltaX > 0 && speed.getX() < 0) || (deltaX < 0 && speed.getX() > 0)){
+        if(isInvalidSpeedSign(deltaX, speed.getX())){
             return true;
         }
 
         double deltaY = intersection.getY() - position.getY();
-        if((deltaY > 0 && speed.getY() < 0) || (deltaY < 0 && speed.getY() > 0)){
+        if(isInvalidSpeedSign(deltaY, speed.getY())){
             return true;
         }
 
         double deltaZ = intersection.getZ() - position.getZ();
-        return (deltaZ > 0 && speed.getZ() < 0) || (deltaZ < 0 && speed.getZ() > 0);
+        return (isInvalidSpeedSign(deltaZ, speed.getZ()));
+    }
+
+    private boolean isInvalidSpeedSign(double intersectionSpeed, double realSpeed) {
+        return ((intersectionSpeed > 0 && realSpeed < 0) || (intersectionSpeed < 0 && realSpeed > 0));
     }
 
     private boolean isInArea(Vector3D intersection, long min, long max){
