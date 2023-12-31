@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_21)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled
 public class Day21Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_21;
@@ -47,11 +46,8 @@ public class Day21Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		StepCounter stepCounter = new StepCounter(inputs);
-		long result = stepCounter.solveADFS(1);
+		long result = stepCounter.solveA(6);
 
-		assertEquals(2, result);
-
-		result = stepCounter.solveADFS(6); // 6 para el ejemplo
 		assertEquals(16, result);
 		
 	}
@@ -69,9 +65,9 @@ public class Day21Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		StepCounter stepCounter = new StepCounter(inputs);
-		long result = stepCounter.solveADFS(64);
+		long result = stepCounter.solveA(64);
 
-		System.out.println("R: "+result);
+		assertEquals(3733, result);
 
 	}
 	
