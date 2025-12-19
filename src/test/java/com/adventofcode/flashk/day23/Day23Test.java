@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day23;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -19,9 +17,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_23)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day23Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_23;
@@ -38,12 +37,14 @@ public class Day23Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	public void testSolvePart1Sample() {
-		
-		System.out.print("1 | sample | ");
-		
+
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		ALongWalk aLongWalk = new ALongWalk(inputs);
+		long result = aLongWalk.solveA();
+
+		assertEquals(94, result);
 	}
 	
 	@Test
@@ -52,12 +53,16 @@ public class Day23Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	public void testSolvePart1Input() {
-		
+
 		System.out.print("1 | input  | ");
-		
+
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		ALongWalk aLongWalk = new ALongWalk(inputs);
+		long result = aLongWalk.solveA();
+
+		assertEquals(2294, result);
 	}
 	
 	@Test
@@ -66,12 +71,15 @@ public class Day23Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
 	public void testSolvePart2Sample() {
-		
-		System.out.print("2 | sample | ");
-		
+
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		ALongWalkBacktrack aLongWalkBacktrack = new ALongWalkBacktrack(inputs);
+		long result = aLongWalkBacktrack.solveB();
+
+		assertEquals(154, result);
+
 	}
 	
 	@Test
@@ -79,13 +87,18 @@ public class Day23Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
+	@Disabled("Backtrack bruteforce solution. Takes 30 minutes to finish")
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		ALongWalkBacktrack aLongWalkBacktrack = new ALongWalkBacktrack(inputs);
+		long result = aLongWalkBacktrack.solveB();
+
+		assertEquals(6418, result);
 	}
 
 }

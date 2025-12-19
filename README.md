@@ -25,7 +25,7 @@
 - [Day 20](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day20)
 - [Day 21](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day21)
 - [Day 22](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day22)
-- [Day 23](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day23)
+- [Day 23 - A Long Walk](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day23)
 - [Day 24 - Never Tell Me The Odds](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day24)
 - [Day 25 - Snowverload](https://github.com/Flashky/advent-of-code-2023/tree/master/src/main/java/com/adventofcode/flashk/day25)
 
