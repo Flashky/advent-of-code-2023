@@ -16,7 +16,6 @@ public class ALongWalk {
     private static final char SLOPE_DOWN = 'v';
     private static final char SLOPE_UP = '^';
 
-    private final char[][] originalMap;
     private final Tile[][] map;
 
     private final Tile start;
@@ -31,7 +30,6 @@ public class ALongWalk {
         cols = inputs[0].length;
 
         map = new Tile[rows][];
-        originalMap = inputs;
 
         for(int row = 0; row < rows; row++) {
             map[row] = new Tile[cols];
@@ -53,7 +51,6 @@ public class ALongWalk {
     private long dfs(int row, int col, int steps) {
 
         if(row == end.getRow() && col == end.getCol()) {
-            // Reached destination
             return steps;
         }
 
@@ -62,7 +59,6 @@ public class ALongWalk {
         // Mark as visited
         Tile currentTile = map[row][col];
         currentTile.setVisited(true);
-        originalMap[row][col] = 'O';
         Set<Tile> adjacentTiles = getAdjacentTiles(currentTile.getRow(), currentTile.getCol());
         for(Tile adjacentTile : adjacentTiles) {
             bestResult = Math.max(bestResult, dfs(adjacentTile.getRow(), adjacentTile.getCol(), steps+1));
@@ -83,7 +79,7 @@ public class ALongWalk {
         Tile currentTile = getTile(currentPos);
 
         // When in a tile:
-        // - If the tile is a path, calculate all possible adyacent tiles.
+        // - If the tile is a path, calculate all possible adjacent tiles.
         // - If the tile is a slope, there is only one possible direction.
 
         switch(currentTile.getValue()) {
