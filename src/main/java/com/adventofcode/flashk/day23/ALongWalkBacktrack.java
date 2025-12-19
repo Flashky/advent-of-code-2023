@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day23;
 
-import static java.lang.IO.println;
-
 import module java.base;
 import com.adventofcode.flashk.common.Vector2;
 
@@ -33,8 +31,7 @@ public class ALongWalkBacktrack {
         Set<Vector2> visited = new HashSet<>();
         visited.add(start);
 
-        long result = dfs(start, visited, 0);
-        return result;
+        return dfs(start, visited, 0);
 
     }
 

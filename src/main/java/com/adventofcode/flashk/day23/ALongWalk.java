@@ -16,7 +16,7 @@ public class ALongWalk {
     private static final char SLOPE_DOWN = 'v';
     private static final char SLOPE_UP = '^';
 
-    private char[][] originalMap;
+    private final char[][] originalMap;
     private final Tile[][] map;
 
     private final Tile start;
