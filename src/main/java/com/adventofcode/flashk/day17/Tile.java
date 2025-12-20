@@ -1,41 +1,28 @@
 package com.adventofcode.flashk.day17;
 
+
+import module java.base;
 import com.adventofcode.flashk.common.Vector2;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
-@Setter
-public class Tile implements Comparable<Tile>{
+public class Tile implements Comparable<Tile>  {
 
-    private int row;
-    private int col;
-    private int totalHeatloss = Integer.MAX_VALUE;
-    private int heatloss;
+    private final Vector2 pos;
+    private final long heatloss;
 
-    private final Set<Pair<Vector2, Integer>> visitedDirectionsPerLength = new HashSet<>();
+    @Setter
+    private long totalHeatloss = Long.MAX_VALUE;
 
     public Tile(int heatloss, int row, int col){
         this.heatloss = heatloss;
-        this.row = row;
-        this.col = col;
-    }
-
-    public void visit(Pair<Vector2, Integer> directionAndLength) {
-        visitedDirectionsPerLength.add(directionAndLength);
-    }
-
-    public boolean isVisited(Pair<Vector2, Integer> directionAndLength) {
-        return visitedDirectionsPerLength.contains(directionAndLength);
+        this.pos = new Vector2(col, row);
     }
 
     @Override
-    public int compareTo(Tile other) {
-        return Integer.compare(totalHeatloss, other.totalHeatloss);
+    public int compareTo(@NotNull Tile other) {
+        return Long.compare(totalHeatloss, other.totalHeatloss);
     }
-
 }

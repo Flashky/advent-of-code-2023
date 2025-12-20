@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day17;
 
-import com.adventofcode.flashk.common.Vector2;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -35,37 +33,18 @@ public class Day17Test extends PuzzleTest {
 		Timer.printHeader(TestDisplayName.DAY_17);
 	}
 
-	@Test
-	void testSets() {
-		Tile tile = new Tile(2,2,2);
-		tile.visit(ImmutablePair.of(Vector2.left(), 1));
-		tile.visit(ImmutablePair.of(Vector2.left(), 2));
-		tile.visit(ImmutablePair.of(Vector2.left(), 3));
-		tile.visit(ImmutablePair.of(Vector2.right(), 1));
-		tile.visit(ImmutablePair.of(Vector2.right(), 2));
-		tile.visit(ImmutablePair.of(Vector2.right(), 3));
 
-		assertTrue(tile.isVisited(ImmutablePair.of(Vector2.left(),1)));
-		assertTrue(tile.isVisited(ImmutablePair.of(Vector2.left(),2)));
-		assertTrue(tile.isVisited(ImmutablePair.of(Vector2.left(),3)));
-		assertTrue(tile.isVisited(ImmutablePair.of(Vector2.right(),1)));
-		assertTrue(tile.isVisited(ImmutablePair.of(Vector2.right(),2)));
-		assertTrue(tile.isVisited(ImmutablePair.of(Vector2.right(),3)));
-		assertFalse(tile.isVisited(ImmutablePair.of(Vector2.right(),4)));
-	}
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	public void testSolvePart1Sample() {
-		
-		System.out.print("1 | sample | ");
-		
+
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		ClumsyCrucibleRefactor clumsyCrucible = new ClumsyCrucibleRefactor(inputs);
+		ClumsyCrucibleNode clumsyCrucible = new ClumsyCrucibleNode(inputs);
 		long result = clumsyCrucible.solveA();
 
 		assertEquals(102, result);
@@ -79,12 +58,10 @@ public class Day17Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	public void testSolvePart1SingleSample() {
 
-		System.out.print("1 | sample | ");
-
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
 
-		ClumsyCrucibleRefactor clumsyCrucible = new ClumsyCrucibleRefactor(inputs);
+		ClumsyCrucibleNode clumsyCrucible = new ClumsyCrucibleNode(inputs);
 		long result = clumsyCrucible.solveA();
 
 		assertEquals(7, result);
@@ -98,15 +75,14 @@ public class Day17Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	public void testSolvePart1Input() {
 		
-		System.out.print("1 | input  | ");
-		
+
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		ClumsyCrucibleRefactor clumsyCrucible = new ClumsyCrucibleRefactor(inputs);
+		ClumsyCrucibleNode clumsyCrucible = new ClumsyCrucibleNode(inputs);
 		long result = clumsyCrucible.solveA();
 
-		System.out.println("R: "+result);
+		assertEquals(742, result);
 	}
 	
 	@Test
@@ -116,8 +92,7 @@ public class Day17Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
 	public void testSolvePart2Sample() {
 		
-		System.out.print("2 | sample | ");
-		
+
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		
