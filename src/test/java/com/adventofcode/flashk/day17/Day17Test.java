@@ -126,8 +126,6 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
 	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
