@@ -39,12 +39,10 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
 
     @Override
     protected Optional<Node> getSideNode(Vector2 newDir, int x, int y) {
-        Vector2 maxDir;
-        Vector2 maxPos;
-        maxDir = new Vector2(newDir);
+        Vector2 maxDir = new Vector2(newDir);
         maxDir.multiply(minSteps);
 
-        maxPos = new Vector2(x, y);
+        Vector2 maxPos = new Vector2(x, y);
         maxPos.transform(maxDir);
 
         if(clumsyCrucible.isInbounds(maxPos)) {

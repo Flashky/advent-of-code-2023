@@ -31,10 +31,10 @@ public class AdjacentStrategyCrucible extends AdjacentStrategy {
         newPos.transform(newDir);
 
         if(clumsyCrucible.isInbounds(newPos)) {
-            NodeIdentifier leftId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, minSteps);
-            Node leftNode = clumsyCrucible.getGraphNodes().getOrDefault(leftId, new Node(leftId, clumsyCrucible.getMap()[newPos.getY()][newPos.getX()]));
-            clumsyCrucible.getGraphNodes().putIfAbsent(leftId, leftNode);
-            return Optional.of(leftNode);
+            NodeIdentifier newId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, minSteps);
+            Node newNode = clumsyCrucible.getGraphNodes().getOrDefault(newId, new Node(newId, clumsyCrucible.getMap()[newPos.getY()][newPos.getX()]));
+            clumsyCrucible.getGraphNodes().putIfAbsent(newId, newNode);
+            return Optional.of(newNode);
         }
 
         return Optional.empty();
