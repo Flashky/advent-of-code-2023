@@ -55,8 +55,8 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
             }
 
             NodeIdentifier newId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, minSteps);
-            Node newNode = clumsyCrucible.getGraphNodes().getOrDefault(newId, new Node(newId, heatloss));
-            clumsyCrucible.getGraphNodes().putIfAbsent(newId, newNode);
+            Node newNode = clumsyCrucible.getOrCreateNode(newId, heatloss);
+
             return Optional.of(newNode);
         }
         return Optional.empty();

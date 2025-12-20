@@ -74,4 +74,10 @@ public class ClumsyCrucible {
     public boolean isInbounds(Vector2 pos) {
         return (pos.getY() >= 0 && pos.getY() < rows && pos.getX() >= 0 && pos.getX() < cols);
     }
+
+    public Node getOrCreateNode(NodeIdentifier nodeIdentifier, int heatloss) {
+        Node newNode = graphNodes.getOrDefault(nodeIdentifier, new Node(nodeIdentifier, heatloss));
+        graphNodes.putIfAbsent(nodeIdentifier, newNode);
+        return newNode;
+    }
 }
