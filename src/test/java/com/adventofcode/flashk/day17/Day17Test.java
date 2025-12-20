@@ -17,7 +17,6 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
-import static java.lang.IO.println;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_17)
@@ -90,7 +89,6 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - Example 1")
 	public void testSolvePart2Sample() {
-		
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -98,7 +96,6 @@ public class Day17Test extends PuzzleTest {
 		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
 		long result = clumsyCrucible.solve(new AdjacentStrategyUltraCrucible(clumsyCrucible));
 
-		// For some reason this is giving me 92 instead of 94
 		assertEquals(94, result);
 	}
 
@@ -108,7 +105,6 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - Example 2")
 	public void testSolvePart2SingleSample() {
-
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
@@ -148,6 +144,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - cannot turn before 4 straight steps")
 	public void testPart2CannotTurnBeforeFourSteps() {
+
 		/*
 			Grid layout:
 
@@ -165,9 +162,8 @@ public class Day17Test extends PuzzleTest {
 			2. However, at the next step must turn to the right. There is no way o reach the end node (1,4), as it is
 			   at 1 step (less than 4 minimum steps on any direction).
 
-			When there is no solution, the algorithm will return Long.MAX value as there won't be any path to the bottom-right cell.
-
 		 */
+
 		int[][] grid = {
 				{1, 9, 9, 9, 1},
 				{1, 1, 1, 1, 1}
@@ -176,7 +172,7 @@ public class Day17Test extends PuzzleTest {
 		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(grid);
 		long result = clumsyCrucible.solve(new AdjacentStrategyUltraCrucible(clumsyCrucible));
 
-		// There is no solution, you can only go straight to 4,0, and from there, you cannot reach the bottom right node.
+		// When there is no solution, the algorithm will return Long.MAX value as there won't be any path to the bottom-right cell.
 		assertEquals(Long.MAX_VALUE, result);
 	}
 
@@ -186,6 +182,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - reject paths requiring >10 straight steps")
 	public void testPart2RejectsMoreThanTenStraightSteps() {
+
 		/*
 			Single-row grid layout:
 
@@ -202,8 +199,8 @@ public class Day17Test extends PuzzleTest {
 			2. Once at (10,0), it cannot move backwards, and cannot move just one step straight.
 			3. The algorithm must return the total totalHeatloss value the bottom-right cell.
 
-			When there is no solution, the algorithm will return Long.MAX value as there won't be any path to the bottom-right cell.
 		 */
+
 		int[][] grid = new int[1][12];
 		for (int i = 0; i < 12; i++) {
 			grid[0][i] = 1;
@@ -212,6 +209,7 @@ public class Day17Test extends PuzzleTest {
 		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(grid);
 		long result = clumsyCrucible.solve(new AdjacentStrategyUltraCrucible(clumsyCrucible));
 
+		// When there is no solution, the algorithm will return Long.MAX value as there won't be any path to the bottom-right cell.
 		assertEquals(Long.MAX_VALUE, result);
 	}
 
@@ -221,28 +219,8 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - 4-step move that would leave grid is disallowed")
 	public void testPart2FourStepMoveLeavingGridIsDisallowed() {
-		/*
-			Grid layout:
 
-			    0  1  2
-			0 [ 1, 1, 1 ]
-			1 [ 1, 9, 1 ]
-			2 [ 1, 1, 1 ]
-
-			Start at (0,0), goal at (2,2).
-
-			Ultracrucible rules:
-			- At least 4 steps are required.
-			- At most 10 straight steps are allowed.
-
-			Without proper boundary checks in the ultracrucible adjacency logic, a
-			"turn and go 4 steps" move could attempt to step off the grid.
-
-			A valid ultracrucible path that stays inside the grid and respects
-			4–10 step constraints must be chosen; we assert its cost.
-
-			When there is no solution, the algorithm will return Long.MAX value as there won't be any path to the bottom-right cell.
-		 */
+		// 3x3 grid: no initial 4-step straight move is possible in any direction
 		int[][] grid = {
 				{1, 1, 1},
 				{1, 9, 1},
@@ -252,7 +230,7 @@ public class Day17Test extends PuzzleTest {
 		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(grid);
 		long result = clumsyCrucible.solve(new AdjacentStrategyUltraCrucible(clumsyCrucible));
 
-		// Expected cost = maximum value, there is no solution
+		// When there is no solution, the algorithm will return Long.MAX value as there won't be any path to the bottom-right cell.
 		assertEquals(Long.MAX_VALUE, result);
 	}
 
