@@ -16,11 +16,7 @@ public class ClumsyCrucible {
 
         rows = inputs.length;
         cols = inputs[0].length;
-        map = new int[this.rows][];
-
-        for(int row = 0; row < rows; row++) {
-            this.map[row] = inputs[row];
-        }
+        map = inputs;
 
         // Create start node and add it to the graph
         NodeIdentifier startId = new NodeIdentifier(0,0, new Vector2(0,1), 0);

@@ -90,7 +90,7 @@ public class Day17Test extends PuzzleTest {
 	@Order(3)
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + "- Example 1")
+	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - Example 1")
 	public void testSolvePart2Sample() {
 		
 
