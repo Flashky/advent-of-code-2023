@@ -4,7 +4,7 @@ import module java.base;
 import com.adventofcode.flashk.common.Vector2;
 
 public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
-    
+
     public AdjacentStrategyUltraCrucible(ClumsyCrucible clumsyCrucible) {
         super(clumsyCrucible);
     }
@@ -14,7 +14,7 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
 
         if(clumsyCrucible.getRows() >= 4) {
             int heatloss = 0;
-            for (int row = 0; row < 4; row++) {
+            for (int row = 1; row <= 4; row++) {
                 heatloss += clumsyCrucible.getMap()[row][0];
             }
             NodeIdentifier downId = new NodeIdentifier(0,4, new Vector2(0,1), 4);
@@ -25,7 +25,7 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
 
         if(clumsyCrucible.getCols() >= 4) {
             int heatloss = 0;
-            for (int col = 0; col < 4; col++) {
+            for (int col = 1; col <= 4; col++) {
                 heatloss += clumsyCrucible.getMap()[0][col];
             }
             NodeIdentifier rightId = new NodeIdentifier(4,0,new Vector2(1,0), 4);
