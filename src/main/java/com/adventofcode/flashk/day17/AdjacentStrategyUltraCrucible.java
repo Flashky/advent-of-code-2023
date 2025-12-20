@@ -42,41 +42,30 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
         Set<Node> adjacents = new HashSet<>();
 
         // Current identifier data
-        int x = currentNode.getId().x();
-        int y = currentNode.getId().y();
-        Vector2 dir = currentNode.getId().dir();
-        int steps = currentNode.getId().steps();
+        NodeIdentifier id = currentNode.getId();
 
         // Left
-        Vector2 newDir = new Vector2(dir);
+        Vector2 newDir = new Vector2(id.dir());
         newDir.rotateLeft();
-
-        Vector2 maxDir = new Vector2(newDir);
-        maxDir.multiply(4);
-
-        Vector2 maxPos = new Vector2(x, y);
-        maxPos.transform(maxDir);
-
-        if(clumsyCrucible.isInbounds(maxPos)) {
-            Vector2 newPos = new Vector2(x, y);
-
-            int heatloss = 0;
-            for (int i = 0; i < 4; i++) {
-                newPos.transform(newDir);
-                heatloss += clumsyCrucible.getMap()[newPos.getY()][newPos.getX()];
-            }
-
-            NodeIdentifier leftId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, 4);
-            Node leftNode = clumsyCrucible.getGraphNodes().getOrDefault(leftId, new Node(leftId, heatloss));
-            clumsyCrucible.getGraphNodes().putIfAbsent(leftId, leftNode);
-            adjacents.add(leftNode);
-
-        }
+        getSideNode(newDir, id.x(), id.y()).ifPresent(adjacents::add);
 
         // Right
-        newDir = new Vector2(dir);
+        newDir = new Vector2(id.dir());
         newDir.rotateRight();
+        getSideNode(newDir, id.x(), id.y()).ifPresent(adjacents::add);
 
+        // Straight
+        if(id.steps() < 10) {
+            getStraightNode(id).ifPresent(adjacents::add);
+        }
+
+        return adjacents;
+
+    }
+
+    private Optional<Node> getSideNode(Vector2 newDir, int x, int y) {
+        Vector2 maxDir;
+        Vector2 maxPos;
         maxDir = new Vector2(newDir);
         maxDir.multiply(4);
 
@@ -92,28 +81,11 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
                 heatloss += clumsyCrucible.getMap()[newPos.getY()][newPos.getX()];
             }
 
-            NodeIdentifier rightId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, 4);
-            Node rightNode = clumsyCrucible.getGraphNodes().getOrDefault(rightId, new Node(rightId, heatloss));
-            clumsyCrucible.getGraphNodes().putIfAbsent(rightId, rightNode);
-            adjacents.add(rightNode);
+            NodeIdentifier newId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, 4);
+            Node newNode = clumsyCrucible.getGraphNodes().getOrDefault(newId, new Node(newId, heatloss));
+            clumsyCrucible.getGraphNodes().putIfAbsent(newId, newNode);
+            return Optional.of(newNode);
         }
-
-        // Straight
-        if(steps == 10) {
-            return adjacents;
-        }
-
-        Vector2 newPos = new Vector2(x,y);
-        newPos.transform(dir);
-
-        if(clumsyCrucible.isInbounds(newPos)) {
-            NodeIdentifier straightId = new NodeIdentifier(newPos.getX(), newPos.getY(), dir, steps+1);
-            Node straightNode = clumsyCrucible.getGraphNodes().getOrDefault(straightId, new Node(straightId, clumsyCrucible.getMap()[newPos.getY()][newPos.getX()]));
-            clumsyCrucible.getGraphNodes().putIfAbsent(straightId, straightNode);
-            adjacents.add(straightNode);
-        }
-
-        return adjacents;
-
+        return Optional.empty();
     }
 }

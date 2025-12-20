@@ -30,54 +30,37 @@ public class AdjacentStrategyCrucible extends AdjacentStrategy {
         Set<Node> adjacents = new HashSet<>();
 
         // Current identifier data
-        int x = currentNode.getId().x();
-        int y = currentNode.getId().y();
-        Vector2 dir = currentNode.getId().dir();
-        int steps = currentNode.getId().steps();
+        NodeIdentifier id = currentNode.getId();
 
         // Left
-        Vector2 newDir = new Vector2(dir);
+        Vector2 newDir = new Vector2(id.dir());
         newDir.rotateLeft();
+        getSideNode(newDir, id.x(), id.y()).ifPresent(adjacents::add);
 
-        Vector2 newPos = new Vector2(x,y);
+        // Right
+        newDir = new Vector2(id.dir());
+        newDir.rotateRight();
+        getSideNode(newDir, id.x(), id.y()).ifPresent(adjacents::add);
+
+        // Straight
+        if(id.steps() < 3) {
+            getStraightNode(currentNode.getId()).ifPresent(adjacents::add);
+        }
+
+        return adjacents;
+    }
+
+    private Optional<Node> getSideNode(Vector2 newDir, int x, int y) {
+        Vector2 newPos = new Vector2(x, y);
         newPos.transform(newDir);
 
         if(clumsyCrucible.isInbounds(newPos)) {
             NodeIdentifier leftId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, 1);
             Node leftNode = clumsyCrucible.getGraphNodes().getOrDefault(leftId, new Node(leftId, clumsyCrucible.getMap()[newPos.getY()][newPos.getX()]));
             clumsyCrucible.getGraphNodes().putIfAbsent(leftId, leftNode);
-            adjacents.add(leftNode);
+            return Optional.of(leftNode);
         }
 
-        // Right
-        newDir = new Vector2(dir);
-        newDir.rotateRight();
-
-        newPos = new Vector2(x,y);
-        newPos.transform(newDir);
-
-        if(clumsyCrucible.isInbounds(newPos)) {
-            NodeIdentifier rightId = new NodeIdentifier(newPos.getX(), newPos.getY(), newDir, 1);
-            Node rightNode = clumsyCrucible.getGraphNodes().getOrDefault(rightId, new Node(rightId, clumsyCrucible.getMap()[newPos.getY()][newPos.getX()]));
-            clumsyCrucible.getGraphNodes().putIfAbsent(rightId, rightNode);
-            adjacents.add(rightNode);
-        }
-
-        // Straight
-        if(steps == 3) {
-            return adjacents;
-        }
-
-        newPos = new Vector2(x,y);
-        newPos.transform(dir);
-
-        if(clumsyCrucible.isInbounds(newPos)) {
-            NodeIdentifier straightId = new NodeIdentifier(newPos.getX(), newPos.getY(), dir, steps+1);
-            Node straightNode = clumsyCrucible.getGraphNodes().getOrDefault(straightId, new Node(straightId, clumsyCrucible.getMap()[newPos.getY()][newPos.getX()]));
-            clumsyCrucible.getGraphNodes().putIfAbsent(straightId, straightNode);
-            adjacents.add(straightNode);
-        }
-
-        return adjacents;
+        return Optional.empty();
     }
 }
