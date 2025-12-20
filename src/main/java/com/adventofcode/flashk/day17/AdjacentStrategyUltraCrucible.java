@@ -19,6 +19,24 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
         Vector2 dir = currentNode.getId().dir();
         int steps = currentNode.getId().steps();
 
+        // Start node only
+        /*
+        if((currentNode.getId().dir().getX() == 0 && currentNode.getId().dir().getY() == 0)) {
+            Vector2 pos = new Vector2(4,0);
+
+            if(clumsyCrucible.isInbounds(pos)) {
+                NodeIdentifier id = new NodeIdentifier(1, 0, pos, 1);
+                adjacents.add(new Node(id, clumsyCrucible.getMap()[0][1]));
+            }
+
+            pos = new Vector2(0,4);
+            if(clumsyCrucible.isInbounds(pos)) {
+                NodeIdentifier id = new NodeIdentifier(0, 1, pos, 1);
+                adjacents.add(new Node(id, clumsyCrucible.getMap()[1][0]));
+            }
+            return adjacents;
+        }*/
+
 
         // Left
         Vector2 newDir = new Vector2(dir);

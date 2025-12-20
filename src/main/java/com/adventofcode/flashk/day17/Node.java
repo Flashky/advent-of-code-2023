@@ -50,4 +50,5 @@ public class Node implements Comparable<Node> {
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(id).toHashCode();
     }
+
 }
