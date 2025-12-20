@@ -34,8 +34,6 @@ public class AdjacentStrategyCrucible extends AdjacentStrategy {
             adjacents.add(leftNode);
         }
 
-        newPos.rotateLeft();
-
         // Right
         newDir = new Vector2(dir);
         newDir.rotateRight();

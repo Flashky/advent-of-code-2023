@@ -31,20 +31,12 @@ public class ClumsyCrucible {
 
     public long solveA() {
         dijkstra(new AdjacentStrategyCrucible(this));
-
-        // Calculate the minimum possible solution
-        Set<Node> endNodes = getEndNodes(1, 3);
-        Optional<Node> smallestEndNode = endNodes.stream().sorted().findFirst();
-        return smallestEndNode.map(Node::getTotalHeatloss).orElse(-1L);
+        return getMinHeatloss();
     }
 
     public long solveB() {
         dijkstra(new AdjacentStrategyUltraCrucible(this));
-
-        // Calculate the minimum possible solution
-        Set<Node> endNodes = getEndNodes(4, 10);
-        Optional<Node> smallestEndNode = endNodes.stream().sorted().findFirst();
-        return smallestEndNode.map(Node::getTotalHeatloss).orElse(-1L);
+        return getMinHeatloss();
     }
 
 
@@ -73,48 +65,22 @@ public class ClumsyCrucible {
 
     }
 
-    private Set<Node> getEndNodes(int minSteps, int maxSteps) {
-
-        Set<Node> endNodes = new HashSet<>();
-
-        Set<Vector2> directions = Set.of(Vector2.up(), Vector2.down(), Vector2.left(), Vector2.right());
+    private long getMinHeatloss() {
 
         int x = cols - 1;
         int y = rows - 1;
 
-        // TODO puede que este step = 1 sea el que esté causando un problema, el step mínimo en parte 2 es 4.
-        for(int step = minSteps; step <= maxSteps; step++) {
-            for(Vector2 dir : directions) {
-                NodeIdentifier nodeIdentifier = new NodeIdentifier(x,y, dir, step);
-                if(graphNodes.containsKey(nodeIdentifier)) {
-                    endNodes.add(graphNodes.get(nodeIdentifier));
-                }
-            }
+        Set<NodeIdentifier> endNodeIdentifiers = graphNodes.keySet().stream()
+                .filter(ni -> ni.x() == x)
+                .filter(ni -> ni.y() == y)
+                .collect(Collectors.toSet());
+
+        long minHeatloss = Long.MAX_VALUE;
+        for(NodeIdentifier endNodeIdentifier : endNodeIdentifiers) {
+            minHeatloss = Math.min(minHeatloss, graphNodes.get(endNodeIdentifier).getTotalHeatloss());
         }
 
-        return endNodes;
-    }
-
-    private Set<Node> getEndNodesPart2() {
-
-
-        Set<Node> endNodes = new HashSet<>();
-
-        Set<Vector2> directions = Set.of(Vector2.up(), Vector2.down(), Vector2.left(), Vector2.right());
-
-        int x = cols - 1;
-        int y = rows - 1;
-
-        for(int step = 1; step <= 10; step++) {
-            for(Vector2 dir : directions) {
-                NodeIdentifier nodeIdentifier = new NodeIdentifier(x,y, dir, step);
-                if(graphNodes.containsKey(nodeIdentifier)) {
-                    endNodes.add(graphNodes.get(nodeIdentifier));
-                }
-            }
-        }
-
-        return endNodes;
+        return minHeatloss;
     }
 
     public boolean isInbounds(Vector2 pos) {
