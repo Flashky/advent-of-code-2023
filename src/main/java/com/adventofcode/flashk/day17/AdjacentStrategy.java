@@ -6,13 +6,38 @@ import com.adventofcode.flashk.common.Vector2;
 public abstract class AdjacentStrategy {
 
     protected final ClumsyCrucible clumsyCrucible;
+    protected int minSteps;
+    protected int maxSteps;
 
-    public AdjacentStrategy(ClumsyCrucible clumsyCrucible) {
+    public AdjacentStrategy(ClumsyCrucible clumsyCrucible, int minSteps, int maxSteps) {
         this.clumsyCrucible = clumsyCrucible;
+        this.minSteps = minSteps;
+        this.maxSteps = maxSteps;
     }
 
-    public abstract Set<Node> getInitialNodes();
-    public abstract Set<Node> getAdjacents(Node currentNode);
+    public Set<Node> getAdjacents(Node currentNode){
+        Set<Node> adjacents = new HashSet<>();
+
+        // Current identifier data
+        NodeIdentifier id = currentNode.getId();
+
+        // Left
+        Vector2 newDir = new Vector2(id.dir());
+        newDir.rotateLeft();
+        getSideNode(newDir, id.x(), id.y()).ifPresent(adjacents::add);
+
+        // Right
+        newDir = new Vector2(id.dir());
+        newDir.rotateRight();
+        getSideNode(newDir, id.x(), id.y()).ifPresent(adjacents::add);
+
+        // Straight
+        if(id.steps() < maxSteps) {
+            getStraightNode(id).ifPresent(adjacents::add);
+        }
+
+        return adjacents;
+    }
 
     /**
      * Attempts to generate a straight node based on the original NodeIdentifier
@@ -32,5 +57,10 @@ public abstract class AdjacentStrategy {
 
         return Optional.empty();
     }
+
+    public abstract Set<Node> getInitialNodes();
+    protected abstract Optional<Node> getSideNode(Vector2 newDir, int x, int y);
+
+
 
 }
