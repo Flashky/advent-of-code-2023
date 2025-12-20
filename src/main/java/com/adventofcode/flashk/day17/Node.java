@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class Node implements Comparable<Node> {
-    
+
     private final NodeIdentifier id;
 
     // Dijkstra attributes:

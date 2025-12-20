@@ -17,6 +17,7 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static java.lang.IO.println;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,7 +45,7 @@ public class Day17Test extends PuzzleTest {
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		ClumsyCrucibleNode clumsyCrucible = new ClumsyCrucibleNode(inputs);
+		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
 		long result = clumsyCrucible.solveA();
 
 		assertEquals(102, result);
@@ -61,7 +62,7 @@ public class Day17Test extends PuzzleTest {
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
 
-		ClumsyCrucibleNode clumsyCrucible = new ClumsyCrucibleNode(inputs);
+		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
 		long result = clumsyCrucible.solveA();
 
 		assertEquals(7, result);
@@ -79,7 +80,7 @@ public class Day17Test extends PuzzleTest {
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		ClumsyCrucibleNode clumsyCrucible = new ClumsyCrucibleNode(inputs);
+		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
 		long result = clumsyCrucible.solveA();
 
 		assertEquals(742, result);
@@ -89,13 +90,34 @@ public class Day17Test extends PuzzleTest {
 	@Order(3)
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
+	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + "- Example 1")
 	public void testSolvePart2Sample() {
 		
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
+		long result = clumsyCrucible.solveB();
+
+		assertEquals(94, result);
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_TWO)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - Example 2")
+	public void testSolvePart2SingleSample() {
+
+
+		// Read input file
+		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
+
+		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
+		long result = clumsyCrucible.solveB();
+
+		assertEquals(71, result);
 	}
 	
 	@Test
@@ -106,9 +128,16 @@ public class Day17Test extends PuzzleTest {
 	public void testSolvePart2Input() {
 		
 		System.out.print("2 | input  | ");
-		
+
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		ClumsyCrucible clumsyCrucible = new ClumsyCrucible(inputs);
+		long result = clumsyCrucible.solveB();
+
+		println("Solution: " + result);
+
+		// 917 -> too low
 		
 	}
 
