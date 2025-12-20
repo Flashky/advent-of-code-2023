@@ -10,6 +10,7 @@ public abstract class AdjacentStrategy {
         this.clumsyCrucible = clumsyCrucible;
     }
 
+    public abstract Set<Node> getInitialNodes();
     public abstract Set<Node> getAdjacents(Node currentNode);
 
 }

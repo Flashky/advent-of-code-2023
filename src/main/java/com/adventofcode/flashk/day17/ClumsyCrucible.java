@@ -5,16 +5,14 @@ import module java.base;
 import com.adventofcode.flashk.common.Vector2;
 import lombok.Getter;
 
+@Getter
 public class ClumsyCrucible {
 
-    @Getter
+
     private final int[][] map;
     private final int rows;
     private final int cols;
-
-    @Getter
     private final Map<NodeIdentifier, Node> graphNodes = new HashMap<>();
-    private final Node start;
 
     public ClumsyCrucible(int[][] inputs) {
 
@@ -24,25 +22,32 @@ public class ClumsyCrucible {
 
         // Create start node and add it to the graph
         NodeIdentifier startId = new NodeIdentifier(0,0, new Vector2(0,0), 0);
-        start = new Node(startId, map[0][0]);
-        graphNodes.put(startId, start);
+       // start = new Node(startId, map[0][0]);
+       // graphNodes.put(startId, start);
 
     }
 
     public long solveA() {
 
-        PriorityQueue<Node> initialNodes = new PriorityQueue<>();
+        /*
         NodeIdentifier downId = new NodeIdentifier(0,1,new Vector2(0,1), 1);
         Node downNode = new Node(downId, map[1][0]);
         downNode.setTotalHeatloss(downNode.getHeatloss());
         initialNodes.add(downNode);
+        graphNodes.put(downId, downNode);
 
         NodeIdentifier rightId = new NodeIdentifier(1,0,new Vector2(1,0), 1);
         Node rightNode = new Node(rightId, map[0][1]);
         rightNode.setTotalHeatloss(rightNode.getHeatloss());
         initialNodes.add(rightNode);
+        graphNodes.put(rightId, rightNode);*/
 
-        dijkstra(initialNodes, new AdjacentStrategyCrucible(this));
+        NodeIdentifier startId = new NodeIdentifier(0,0, new Vector2(1,0), 1);
+        Node start = new Node(startId, map[0][0]);
+        start.setTotalHeatloss(0);
+        graphNodes.put(startId, start);
+
+        dijkstra(new AdjacentStrategyCrucible(this));
         return getMinHeatloss();
     }
 
@@ -50,6 +55,8 @@ public class ClumsyCrucible {
 
         // Calculate initial nodes
         PriorityQueue<Node> initialNodes = new PriorityQueue<>();
+
+        /*
         if(rows >= 4) {
             int heatloss = 0;
             for (int row = 0; row < 4; row++) {
@@ -72,19 +79,23 @@ public class ClumsyCrucible {
             rightNode.setTotalHeatloss(heatloss);
             initialNodes.add(rightNode);
             graphNodes.put(rightId, rightNode);
-        }
-
-        dijkstra(initialNodes, new AdjacentStrategyUltraCrucible(this));
+        }*/
+        dijkstra(new AdjacentStrategyUltraCrucible(this));
 
         return getMinHeatloss();
     }
 
 
-    private void dijkstra(PriorityQueue<Node> nodes, AdjacentStrategy adjacentStrategy) {
+    private void dijkstra(AdjacentStrategy adjacentStrategy) {
 
-        //PriorityQueue<Node> nodes = new PriorityQueue<>();
-        //start.setTotalHeatloss(0);
-        //nodes.add(start);
+        // Initialize initial nodes and add them to the graph
+        PriorityQueue<Node> nodes = new PriorityQueue<>();
+        Set<Node> initialNodes = adjacentStrategy.getInitialNodes();
+
+        for(Node initialNode: initialNodes) {
+            nodes.add(initialNode);
+            graphNodes.put(initialNode.getId(), initialNode);
+        }
 
         while(!nodes.isEmpty()) {
             Node nextNode = nodes.poll();

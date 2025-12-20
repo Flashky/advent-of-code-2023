@@ -8,7 +8,35 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
     public AdjacentStrategyUltraCrucible(ClumsyCrucible clumsyCrucible) {
         super(clumsyCrucible);
     }
-    
+
+    public Set<Node> getInitialNodes() {
+        Set<Node> nodes = new HashSet<>();
+
+        if(clumsyCrucible.getRows() >= 4) {
+            int heatloss = 0;
+            for (int row = 0; row < 4; row++) {
+                heatloss += clumsyCrucible.getMap()[row][0];
+            }
+            NodeIdentifier downId = new NodeIdentifier(0,4, new Vector2(0,1), 4);
+            Node downNode = new Node(downId, heatloss);
+            downNode.setTotalHeatloss(heatloss);
+            nodes.add(downNode);
+        }
+
+        if(clumsyCrucible.getCols() >= 4) {
+            int heatloss = 0;
+            for (int col = 0; col < 4; col++) {
+                heatloss += clumsyCrucible.getMap()[0][col];
+            }
+            NodeIdentifier rightId = new NodeIdentifier(4,0,new Vector2(1,0), 4);
+            Node rightNode = new Node(rightId, heatloss);
+            rightNode.setTotalHeatloss(heatloss);
+            nodes.add(rightNode);
+        }
+
+        return nodes;
+    }
+
     @Override
     public Set<Node> getAdjacents(Node currentNode) {
         Set<Node> adjacents = new HashSet<>();
@@ -18,25 +46,6 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
         int y = currentNode.getId().y();
         Vector2 dir = currentNode.getId().dir();
         int steps = currentNode.getId().steps();
-
-        // Start node only
-        /*
-        if((currentNode.getId().dir().getX() == 0 && currentNode.getId().dir().getY() == 0)) {
-            Vector2 pos = new Vector2(4,0);
-
-            if(clumsyCrucible.isInbounds(pos)) {
-                NodeIdentifier id = new NodeIdentifier(1, 0, pos, 1);
-                adjacents.add(new Node(id, clumsyCrucible.getMap()[0][1]));
-            }
-
-            pos = new Vector2(0,4);
-            if(clumsyCrucible.isInbounds(pos)) {
-                NodeIdentifier id = new NodeIdentifier(0, 1, pos, 1);
-                adjacents.add(new Node(id, clumsyCrucible.getMap()[1][0]));
-            }
-            return adjacents;
-        }*/
-
 
         // Left
         Vector2 newDir = new Vector2(dir);
@@ -63,7 +72,6 @@ public class AdjacentStrategyUltraCrucible extends AdjacentStrategy {
             adjacents.add(leftNode);
 
         }
-
 
         // Right
         newDir = new Vector2(dir);

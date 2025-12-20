@@ -9,6 +9,22 @@ public class AdjacentStrategyCrucible extends AdjacentStrategy {
         super(clumsyCrucible);
     }
 
+    public Set<Node> getInitialNodes() {
+
+        Set<Node> nodes = new HashSet<>();
+        NodeIdentifier downId = new NodeIdentifier(0,1,new Vector2(0,1), 1);
+        Node downNode = new Node(downId, clumsyCrucible.getMap()[1][0]);
+        downNode.setTotalHeatloss(downNode.getHeatloss());
+        nodes.add(downNode);
+
+        NodeIdentifier rightId = new NodeIdentifier(1,0,new Vector2(1,0), 1);
+        Node rightNode = new Node(rightId, clumsyCrucible.getMap()[0][1]);
+        rightNode.setTotalHeatloss(rightNode.getHeatloss());
+        nodes.add(rightNode);
+
+        return nodes;
+    }
+
     @Override
     public Set<Node> getAdjacents(Node currentNode) {
         Set<Node> adjacents = new HashSet<>();
