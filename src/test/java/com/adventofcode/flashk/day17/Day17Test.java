@@ -19,8 +19,6 @@ import com.adventofcode.flashk.common.test.utils.Input;
 
 import static java.lang.IO.println;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName(TestDisplayName.DAY_17)
 @TestMethodOrder(OrderAnnotation.class)
