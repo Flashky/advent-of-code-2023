@@ -1,8 +1,6 @@
 package com.adventofcode.flashk.day21;
 
 import com.adventofcode.flashk.common.Vector2;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -11,163 +9,213 @@ import java.util.Set;
 
 public class StepCounter {
 
-    private static final char ROCK = '#';
-    private static final char GARDEN_PLOT = '.';
-    private static final char REACH_TILE = '0';
+    private final Cell[][] map;
 
-    private char[][] map;
-    private char[][] solutionsMap;
+    private final int rows;
+    private final int cols;
 
-    private int rows;
-    private int cols;
-    private int reachableTiles = 0;
-    private Vector2 start;
+    private final Set<Cell> startCells = new HashSet<>();
 
-    public StepCounter(char[][] inputs) {
+    // Part 1 simulation is always from start
+    private Cell start;
 
+    // For part 2
+    private final Cell center;
+    private final Cell left;
+    private final Cell right;
+    private final Cell top;
+    private final Cell bottom;
+    private final Cell topLeft;
+    private final Cell topRight;
+    private final Cell bottomLeft;
+    private final Cell bottomRight;
+
+    private MapStats mapStats;
+    private final boolean debug;
+
+    public StepCounter(char[][] inputs, boolean debug) {
         rows = inputs.length;
         cols = inputs[0].length;
-        map = inputs;
 
-        // Find starting position
-
-        solutionsMap = new char[rows][];
+        // Initialize map
+        map = new Cell[rows][];
         for(int row = 0; row < rows; row++) {
-
-            solutionsMap[row] = new char[cols];
-
+            map[row] = new Cell[cols];
             for(int col = 0; col < cols; col++) {
-                if(map[row][col] == 'S') {
-                    start = new Vector2(col, row);
-                    map[row][col] = GARDEN_PLOT;
+                map[row][col] = new Cell(row, col, inputs[row][col]);
+                if(inputs[row][col] == 'S') {
+                    start = map[row][col];
                 }
-                solutionsMap[row][col] = map[row][col];
 
             }
         }
+
+        // Mid
+        int mid = rows / 2;
+
+        // Top row
+        topLeft = map[0][0];
+        top = map[0][mid];
+        topRight = map[0][cols-1];
+
+        // Middle row
+        left = map[mid][0];
+        center = map[mid][mid];
+        right = map[mid][cols - 1];
+
+        // Bottom row
+        bottomLeft = map[rows-1][0];
+        bottom = map[rows-1][mid];
+        bottomRight = map[rows-1][cols-1];
+
+
+        // For part 2
+
+        this.debug = debug;
     }
 
     public long solveA(int totalSteps) {
-
-        // TODO, este algoritmo vale para datos muy pequeños, pero en este caso, la ramificación es muy amplia.
-        Deque<Pair<Vector2,Integer>> queue = new ArrayDeque<>();
-        queue.add(ImmutablePair.of(start,0));
-
-        while(!queue.isEmpty() && queue.peek().getRight() < totalSteps) {
-            Pair<Vector2,Integer> positionAndSteps = queue.poll();
-
-            Vector2 position = positionAndSteps.getLeft();
-            int steps = positionAndSteps.getRight();
-
-            map[position.getY()][position.getX()] = GARDEN_PLOT;
-
-            Set<Pair<Vector2,Integer>> adjacentTiles = getAdjacentTiles(position, steps);
-            for(Pair<Vector2,Integer> positionAndStep : adjacentTiles) {
-                position = positionAndStep.getLeft();
-                map[position.getY()][position.getX()] = REACH_TILE;
-                queue.add(positionAndStep);
-            }
-        }
-
-        return countPositions();
+        SimulationResult result = bfs(totalSteps, start);
+        return totalSteps % 2 == 0 ? result.evenCount() : result.oddCount();
     }
 
-    public long solveADFS(int totalSteps) {
+    public long solveB(int totalSteps) {
+        mapStats = new MapStats(rows, totalSteps);
 
-        Set<Vector2> reachablePositions = new HashSet<>();
-        /*
-        long result = countReachableTiles(start.getY(),start.getX()+1, 1, totalSteps);
-        result += countReachableTiles(start.getY(), start.getX()-1, 1, totalSteps);
-        result += countReachableTiles(start.getY()-1, start.getX(), 1, totalSteps);
-        result += countReachableTiles(start.getY()+1, start.getX(), 1, totalSteps);
+        // ODDS AND EVEN SIMULATIONS
 
-        return result;
-         */
+        // Center simulation
+        SimulationResult result = bfs(mapStats.getCenterSteps(), center);
+        long oddTotal =  result.oddCount() * mapStats.getOddCount(); // tiene pinta de estar ok
+        long evenTotal = result.evenCount() * mapStats.getEvenCount(); // tiene pinta de estar ok
+        // En 7x7:
+        // oddTotal = 9 mapas impares con 20 casillas = 180
+        // evenTotal = 16 mapas pares con 21 casillas = 336
+        reset();
 
-        countReachableTiles(start.getY(),start.getX()+1, 1, totalSteps, reachablePositions);
-        countReachableTiles(start.getY(), start.getX()-1, 1, totalSteps, reachablePositions);
-        countReachableTiles(start.getY()-1, start.getX(), 1, totalSteps, reachablePositions);
-        countReachableTiles(start.getY()+1, start.getX(), 1, totalSteps, reachablePositions);
+        // CARDINAL SIMULATIONS
 
-        return reachablePositions.size();
+        // Cardinal left simulation
+        result = bfs(mapStats.getVertexSteps(), right);
+        long cardinalLeft = result.evenCount();
+        // En 7x7: 16
+        reset();
+
+        // Cardinal right simulation
+        result = bfs(mapStats.getVertexSteps(), left);
+        long cardinalRight = result.evenCount();
+        // En 7x7: 16
+        reset();
+
+        // Cardinal top simulation
+        result = bfs(mapStats.getVertexSteps(), bottom);
+        long cardinalTop = result.evenCount();
+        // En 7x7: 16
+        reset();
+
+        // Cardinal bottom simulation
+        result = bfs(mapStats.getVertexSteps(), top);
+        // En 7x7: 16
+        long cardinalBottom = result.evenCount();
+        reset();
+
+        // TRIANGLES SIMULATION
+
+        // Top-left diagonal triangle simulation
+        result = bfs(mapStats.getTriangleSteps(), bottomRight);
+        long topLeftTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
+        reset();
+
+        // Top-right diagonal triangle simulation
+        result = bfs(mapStats.getTriangleSteps(), bottomLeft);
+        long topRightTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
+        reset();
+
+        // Bottom-left diagonal triangle simulation
+        result = bfs(mapStats.getTriangleSteps(), topRight);
+        long bottomLeftTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
+        reset();
+
+        // Bottom-right diagonal triangle simulation
+        result = bfs(mapStats.getTriangleSteps(), topLeft);
+        long bottomRighTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
+        reset();
+
+        // TRAPEZOIDS SIMULATIONS
+
+        // Top-left diagonal trapezoid simulation
+        result = bfs(mapStats.getTrapezoidSteps(), bottomRight);
+        // TODO con cuál valor me tengo que quedar?
+        long topLeftTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
+        reset();
+
+        // Top-right diagonal trapezoid simulation
+        result = bfs(mapStats.getTrapezoidSteps(), bottomLeft);
+        long topRightTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
+        reset();
+
+        // Bottom-left diagonal trapezoid simulation
+        result = bfs(mapStats.getTrapezoidSteps(), topRight);
+        long bottomLeftTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
+        reset();
+
+        // Bottom-right diagonal trapezoid simulation
+        result = bfs(mapStats.getTrapezoidSteps(), topLeft);
+        long bottomRightTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
+        reset();
+
+        long finalResult = oddTotal + evenTotal +
+                            topLeftTriangle + topRightTriangle + bottomLeftTriangle + bottomRighTriangle
+                            + topLeftTrapezoid + topRightTrapezoid + bottomLeftTrapezoid + bottomRightTrapezoid
+                             + cardinalLeft + cardinalRight + cardinalBottom + cardinalTop;
+
+        return finalResult;
     }
 
-    private void countReachableTiles(int row, int col, int steps, int maxSteps, Set<Vector2> reachablePositions) {
+    private SimulationResult bfs(int totalSteps, Cell start) {
+        long oddCells = 0; // TODO cuidado cuando estemos con múltiples celdas, es posible que el número de impares o pares varíe.
+        long evenCells = 1; // First cell is even
 
-        if(!isValid(row, col)) {
-            return;
-        }
+        Deque<Cell> queue = new ArrayDeque<>();
+        start.setVisited(true);
+        queue.add(start);
 
-        if(steps == maxSteps) {
-            reachablePositions.add(new Vector2(col, row));
-            solutionsMap[row][col] = REACH_TILE;
-            return;
-        }
+        while(!queue.isEmpty()) {
+            Cell currentCell = queue.poll();
 
-        // TODO esta condición está mal
-        // Es necesario podar ramas que ya hayamos visitado para reducir el árbol de llamadas, pero hay que ver como.
-        /*if(solutionsMap[row][col] == REACH_TILE) {
-            return; // Already explored
-        }*/
-
-        if(maxSteps % 2 == 0) {
-            // Se buscan celdas pares
-            if(steps % 2 == 0) {
-                reachablePositions.add(new Vector2(col, row));
-                solutionsMap[row][col] = REACH_TILE;
-            }
-
-        } else {
-            // Se buscan celdas impares
-            if(steps % 2 != 0) {
-                reachablePositions.add(new Vector2(col, row));
-                solutionsMap[row][col] = REACH_TILE;
-            }
-        }
-
-        countReachableTiles(row,col+1, steps+1, maxSteps, reachablePositions);
-        countReachableTiles(row, col-1, steps+1, maxSteps, reachablePositions);
-        countReachableTiles(row-1, col, steps+1, maxSteps, reachablePositions);
-        countReachableTiles(row+1, col, steps+1, maxSteps, reachablePositions);
-
-    }
-
-    private long countReachableTiles(int row, int col, int steps, int maxSteps) {
-
-        if(!isValid(row, col)) {
-            return 0;
-        }
-
-        if(steps == maxSteps) {
-            return 1;
-        }
-
-        long result = countReachableTiles(row,col+1, steps+1, maxSteps);
-        result += countReachableTiles(row, col-1, steps+1, maxSteps);
-        result += countReachableTiles(row-1, col, steps+1, maxSteps);
-        result += countReachableTiles(row+1, col, steps+1, maxSteps);
-
-        return result;
-    }
-
-
-    private long countPositions() {
-        long count = 0;
-        for(int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                if(map[row][col] == REACH_TILE) {
-                    count++;
+            Set<Cell> adjacentCells = getAdjacentTiles(currentCell, totalSteps);
+            for(Cell adjacentCell : adjacentCells) {
+                if(!adjacentCell.isVisited()) {
+                    adjacentCell.setVisited(true);
+                    adjacentCell.setStep(currentCell.getStep()+1);
+                    if(adjacentCell.isEven()) {
+                        evenCells++;
+                    } else {
+                        oddCells++;
+                    }
+                    queue.add(adjacentCell);
                 }
             }
         }
-        return count;
+
+        if(debug) {
+            printMap(totalSteps);
+        }
+
+        return new SimulationResult(oddCells, evenCells);
     }
-    private Set<Pair<Vector2,Integer>> getAdjacentTiles(Vector2 position, int stepCounter) {
 
-        Set<Pair<Vector2,Integer>> adjacentTiles = new HashSet<>();
 
-        //Vector2 position = positionAndSteps.getLeft();
-        //int stepCounter = positionAndSteps.getRight() + 1;
+
+    private Set<Cell> getAdjacentTiles(Cell currentCell, int maxSteps) {
+
+        Set<Cell> adjacentTiles = new HashSet<>();
+
+        if(currentCell.getStep() == maxSteps) {
+            return adjacentTiles;
+        }
+
+        Vector2 position = new Vector2(currentCell.getCol(), currentCell.getRow());
 
         // Possible positions
         Vector2 left = Vector2.transform(position, Vector2.left());
@@ -177,38 +225,59 @@ public class StepCounter {
 
         // Add valid movements to the adjacent set
         if(isValid(left)) {
-            adjacentTiles.add(ImmutablePair.of(left, stepCounter+1));
+            adjacentTiles.add(map[left.getY()][left.getX()]);
         }
 
         if(isValid(right)) {
-            adjacentTiles.add(ImmutablePair.of(right, stepCounter+1));
+            adjacentTiles.add(map[right.getY()][right.getX()]);
         }
 
         if(isValid(up)) {
-            adjacentTiles.add(ImmutablePair.of(up, stepCounter+1));
+            adjacentTiles.add(map[up.getY()][up.getX()]);
         }
 
         if(isValid(down)) {
-            adjacentTiles.add(ImmutablePair.of(down, stepCounter+1));
+            adjacentTiles.add(map[down.getY()][down.getX()]);
         }
 
         return adjacentTiles;
     }
 
+    /**
+     * A position is valid if is not out of bounds and does not contain a rock.
+     * @param position the position to check
+     * @return true if the cells is in bounds and not a rock. False otherwise.
+     */
     private boolean isValid(Vector2 position) {
-        return isNotOutOfBounds(position) && map[position.getY()][position.getX()] != ROCK;
-    }
-
-    private boolean isValid(int row, int col) {
-        // Empty tile that is in limits
-        // TODO we don't want to repeat movements
-        return isNotOutOfBounds(row, col) && map[row][col] == GARDEN_PLOT;
-    }
-    private boolean isNotOutOfBounds(int row, int col) {
-        return (row >= 0 && row < rows) && (col >= 0 && col < cols);
+        return isNotOutOfBounds(position) && !map[position.getY()][position.getX()].isRock();
     }
 
     private boolean isNotOutOfBounds(Vector2 position) {
         return (position.getY() >= 0 && position.getY() < rows) && (position.getX() >= 0 && position.getX() < cols);
     }
+
+    private void reset() {
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                if(!map[row][col].isRock()){
+                    map[row][col].setVisited(false);
+                    map[row][col].setStep(0);
+                }
+            }
+        }
+    }
+    public void printMap(long steps) {
+
+        System.out.println();
+        boolean isEven = steps % 2 == 0;
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                map[row][col].print(isEven);
+            }
+            System.out.println();
+        }
+    }
+
+
+
 }
