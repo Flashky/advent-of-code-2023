@@ -18,16 +18,16 @@ public class MapStats {
 
     // Steps to simulate on each type of map
     private final int centerSteps;    // Center map, which is the same as any other odd/even complete map
-    private final int vertexSteps;    // Cardinal maps
+    private final int cardinalSteps;  // Cardinal maps
     private final int triangleSteps;  // Diagonal triangle maps
     private final int trapezoidSteps; // Diagonal trapezoid maps
 
     // Count of different type maps
     private final long oddCount;
     private final long evenCount;
-    private final long vertexCountPerSide = 1;  // There are 4 different vertices, and there is only 1 per side.
-    private final long triangleCountPerSide;    // There are 4 different sides, with n maps on each side.
-    private final long trapezoidCountPerSide;   // There are 4 different sides, with n-1 maps on each side.
+    private final long cardinalCountPerSide = 1;    // There are 4 different vertices, and there is only 1 per side.
+    private final long triangleCountPerSide;        // There are 4 different sides, with n maps on each side.
+    private final long trapezoidCountPerSide;       // There are 4 different sides, with n-1 maps on each side.
 
 
     public MapStats(int gridSize, int steps) {
@@ -39,7 +39,7 @@ public class MapStats {
 
         // Calculate steps
         this.centerSteps = gridSize;
-        this.vertexSteps = gridSize - 1;
+        this.cardinalSteps = gridSize - 1;
         this.triangleSteps = calculateTriangleSteps(steps, gridSize);
         this.trapezoidSteps = gridSize + triangleSteps;
 
