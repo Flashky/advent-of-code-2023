@@ -20,16 +20,10 @@ public class StepCounter {
     private Cell start;
 
     // For part 2
-    private final Cell center;
-    private final Cell left;
-    private final Cell right;
-    private final Cell top;
-    private final Cell bottom;
-    private final Cell topLeft;
-    private final Cell topRight;
-    private final Cell bottomLeft;
-    private final Cell bottomRight;
+    private final Set<Cell> cardinalStartPoints = new HashSet<>();
+    private final Set<Cell> diagonalStartPoints = new HashSet<>();
 
+    // Others
     private final boolean debug;
 
     public StepCounter(char[][] inputs, boolean debug) {
@@ -51,23 +45,19 @@ public class StepCounter {
 
         // For part 2
 
-        // Mid
         int mid = rows / 2;
 
-        // Top row
-        topLeft = map[0][0];
-        top = map[0][mid];
-        topRight = map[0][cols-1];
+        // Cardinal start points
+        cardinalStartPoints.add(map[0][mid]);           // top
+        cardinalStartPoints.add(map[mid][0]);           // left
+        cardinalStartPoints.add(map[mid][cols - 1]);    // right
+        cardinalStartPoints.add(map[rows-1][mid]);      // bottom
 
-        // Middle row
-        left = map[mid][0];
-        center = map[mid][mid];
-        right = map[mid][cols - 1];
-
-        // Bottom row
-        bottomLeft = map[rows-1][0];
-        bottom = map[rows-1][mid];
-        bottomRight = map[rows-1][cols-1];
+        // Diagonal start points
+        diagonalStartPoints.add(map[0][0]);             // top-left
+        diagonalStartPoints.add(map[0][cols-1]);        // top-right
+        diagonalStartPoints.add(map[rows-1][0]);        // bottom-left
+        diagonalStartPoints.add(map[rows-1][cols-1]);   // bottom-right
 
         this.debug = debug;
     }
@@ -82,17 +72,15 @@ public class StepCounter {
         MapStats mapStats = new MapStats(rows, totalSteps);
 
         // Odd and even maps simulation
-        SimulationResult result = bfs(mapStats.getCenterSteps(), center);
+        SimulationResult result = bfs(mapStats.getCenterSteps(), start);
         long oddStepsCount =  result.oddCount() * mapStats.getOddCount();
         long evenStepsCount = result.evenCount() * mapStats.getEvenCount();
 
         // Cardinal maps simulation
-        Set<Cell> cardinalStartPoints = Set.of(left, right, top, bottom);
         long cardinalStepsCount = calculateMapSteps(cardinalStartPoints,
                                                     mapStats.getCardinalSteps(), mapStats.getCardinalCountPerSide());
 
         // Diagonal maps simulations
-        Set<Cell> diagonalStartPoints = Set.of(bottomRight, bottomLeft, topRight, topLeft);
         long triangleStepsCount = calculateMapSteps(diagonalStartPoints,
                                                     mapStats.getTriangleSteps(), mapStats.getTriangleCountPerSide());
         long trapezoidStepsCount = calculateMapSteps(diagonalStartPoints,
