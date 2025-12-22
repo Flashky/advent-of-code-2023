@@ -179,6 +179,7 @@ public class StepCounter {
             }
         }
     }
+
     public void printMap(long steps) {
 
         println();
