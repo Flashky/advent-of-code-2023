@@ -7,6 +7,8 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.lang.IO.println;
+
 public class StepCounter {
 
     private final Cell[][] map;
@@ -47,6 +49,8 @@ public class StepCounter {
             }
         }
 
+        // For part 2
+
         // Mid
         int mid = rows / 2;
 
@@ -64,9 +68,6 @@ public class StepCounter {
         bottomLeft = map[rows-1][0];
         bottom = map[rows-1][mid];
         bottomRight = map[rows-1][cols-1];
-
-
-        // For part 2
 
         this.debug = debug;
     }
@@ -88,7 +89,7 @@ public class StepCounter {
         // Cardinal maps simulation
         Set<Cell> cardinalStartPoints = Set.of(left, right, top, bottom);
         long cardinalStepsCount = calculateMapSteps(cardinalStartPoints,
-                                                    mapStats.getVertexSteps(), mapStats.getVertexCountPerSide());
+                                                    mapStats.getCardinalSteps(), mapStats.getCardinalCountPerSide());
 
         // Diagonal maps simulations
         Set<Cell> diagonalStartPoints = Set.of(bottomRight, bottomLeft, topRight, topLeft);
@@ -119,7 +120,7 @@ public class StepCounter {
 
     private SimulationResult bfs(int totalSteps, Cell start) {
         long oddCells = 0;
-        long evenCells = 1; // First cell is even
+        long evenCells = 1; // First cell is always even
 
         Deque<Cell> queue = new ArrayDeque<>();
         start.setVisited(true);
@@ -151,9 +152,8 @@ public class StepCounter {
         return new SimulationResult(oddCells, evenCells);
     }
 
-
-
     private Set<Cell> getAdjacentTiles(Cell currentCell, int maxSteps) {
+        Set<Vector2> directions = Set.of(Vector2.left(), Vector2.right(), Vector2.down(), Vector2.up());
 
         Set<Cell> adjacentTiles = new HashSet<>();
 
@@ -163,37 +163,19 @@ public class StepCounter {
 
         Vector2 position = new Vector2(currentCell.getCol(), currentCell.getRow());
 
-        // Possible positions
-        Vector2 left = Vector2.transform(position, Vector2.left());
-        Vector2 right = Vector2.transform(position, Vector2.right());
-        Vector2 up = Vector2.transform(position, Vector2.down());
-        Vector2 down = Vector2.transform(position, Vector2.up());
-
-        // Add valid movements to the adjacent set
-        if(isValid(left)) {
-            adjacentTiles.add(map[left.getY()][left.getX()]);
-        }
-
-        if(isValid(right)) {
-            adjacentTiles.add(map[right.getY()][right.getX()]);
-        }
-
-        if(isValid(up)) {
-            adjacentTiles.add(map[up.getY()][up.getX()]);
-        }
-
-        if(isValid(down)) {
-            adjacentTiles.add(map[down.getY()][down.getX()]);
+        for(Vector2 dir : directions) {
+            Vector2 newPos = Vector2.transform(position, dir);
+            if(isValid(newPos)) {
+                adjacentTiles.add(map[newPos.getY()][newPos.getX()]);
+            }
         }
 
         return adjacentTiles;
     }
 
-    /**
-     * A position is valid if is not out of bounds and does not contain a rock.
-     * @param position the position to check
-     * @return true if the cells is in bounds and not a rock. False otherwise.
-     */
+    /// A position is valid if is not out of bounds and does not contain a rock.
+    /// @param position the position to check
+    /// @return true if the cells is in bounds and not a rock. False otherwise.
     private boolean isValid(Vector2 position) {
         return isNotOutOfBounds(position) && !map[position.getY()][position.getX()].isRock();
     }
@@ -205,22 +187,19 @@ public class StepCounter {
     private void reset() {
         for(int row = 0; row < rows; row++) {
             for(int col = 0; col < cols; col++) {
-                if(!map[row][col].isRock()){
-                    map[row][col].setVisited(false);
-                    map[row][col].setStep(0);
-                }
+                map[row][col].reset();
             }
         }
     }
     public void printMap(long steps) {
 
-        System.out.println();
+        println();
         boolean isEven = steps % 2 == 0;
         for(int row = 0; row < rows; row++) {
             for(int col = 0; col < cols; col++) {
                 map[row][col].print(isEven);
             }
-            System.out.println();
+            println();
         }
     }
 

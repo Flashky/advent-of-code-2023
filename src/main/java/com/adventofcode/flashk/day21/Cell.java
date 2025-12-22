@@ -42,4 +42,9 @@ public class Cell {
             IO.print(GARDEN_PLOT);
         }
     }
+
+    public void reset() {
+        step = 0;
+        visited = false;
+    }
 }
