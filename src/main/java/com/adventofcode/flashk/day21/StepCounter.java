@@ -14,8 +14,6 @@ public class StepCounter {
     private final int rows;
     private final int cols;
 
-    private final Set<Cell> startCells = new HashSet<>();
-
     // Part 1 simulation is always from start
     private Cell start;
 
@@ -30,7 +28,6 @@ public class StepCounter {
     private final Cell bottomLeft;
     private final Cell bottomRight;
 
-    private MapStats mapStats;
     private final boolean debug;
 
     public StepCounter(char[][] inputs, boolean debug) {
@@ -80,100 +77,48 @@ public class StepCounter {
     }
 
     public long solveB(int totalSteps) {
-        mapStats = new MapStats(rows, totalSteps);
 
-        // ODDS AND EVEN SIMULATIONS
+        MapStats mapStats = new MapStats(rows, totalSteps);
 
-        // Center simulation
+        // Odd and even maps simulation
         SimulationResult result = bfs(mapStats.getCenterSteps(), center);
-        long oddTotal =  result.oddCount() * mapStats.getOddCount(); // tiene pinta de estar ok
-        long evenTotal = result.evenCount() * mapStats.getEvenCount(); // tiene pinta de estar ok
-        // En 7x7:
-        // oddTotal = 9 mapas impares con 20 casillas = 180
-        // evenTotal = 16 mapas pares con 21 casillas = 336
-        reset();
+        long oddStepsCount =  result.oddCount() * mapStats.getOddCount();
+        long evenStepsCount = result.evenCount() * mapStats.getEvenCount();
 
-        // CARDINAL SIMULATIONS
+        // Cardinal maps simulation
+        Set<Cell> cardinalStartPoints = Set.of(left, right, top, bottom);
+        long cardinalStepsCount = calculateMapSteps(cardinalStartPoints,
+                                                    mapStats.getVertexSteps(), mapStats.getVertexCountPerSide());
 
-        // Cardinal left simulation
-        result = bfs(mapStats.getVertexSteps(), right);
-        long cardinalLeft = result.evenCount();
-        // En 7x7: 16
-        reset();
+        // Diagonal maps simulations
+        Set<Cell> diagonalStartPoints = Set.of(bottomRight, bottomLeft, topRight, topLeft);
+        long triangleStepsCount = calculateMapSteps(diagonalStartPoints,
+                                                    mapStats.getTriangleSteps(), mapStats.getTriangleCountPerSide());
+        long trapezoidStepsCount = calculateMapSteps(diagonalStartPoints,
+                                                    mapStats.getTrapezoidSteps(), mapStats.getTrapezoidCountPerSide());
 
-        // Cardinal right simulation
-        result = bfs(mapStats.getVertexSteps(), left);
-        long cardinalRight = result.evenCount();
-        // En 7x7: 16
-        reset();
+        return oddStepsCount + evenStepsCount + triangleStepsCount + trapezoidStepsCount + cardinalStepsCount;
 
-        // Cardinal top simulation
-        result = bfs(mapStats.getVertexSteps(), bottom);
-        long cardinalTop = result.evenCount();
-        // En 7x7: 16
-        reset();
+    }
 
-        // Cardinal bottom simulation
-        result = bfs(mapStats.getVertexSteps(), top);
-        // En 7x7: 16
-        long cardinalBottom = result.evenCount();
-        reset();
+    private long calculateMapSteps(Set<Cell> startPoints, int stepsCount, long mapCount) {
+        long result = 0;
+        boolean isEven = stepsCount % 2 == 0;
+        for(Cell startCell : startPoints) {
+            SimulationResult simulationResult = bfs(stepsCount, startCell);
 
-        // TRIANGLES SIMULATION
+            if(isEven) {
+                result += simulationResult.evenCount() * mapCount;
+            } else {
+                result += simulationResult.oddCount() * mapCount;
+            }
+        }
 
-        // Top-left diagonal triangle simulation
-        result = bfs(mapStats.getTriangleSteps(), bottomRight);
-        long topLeftTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
-        reset();
-
-        // Top-right diagonal triangle simulation
-        result = bfs(mapStats.getTriangleSteps(), bottomLeft);
-        long topRightTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
-        reset();
-
-        // Bottom-left diagonal triangle simulation
-        result = bfs(mapStats.getTriangleSteps(), topRight);
-        long bottomLeftTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
-        reset();
-
-        // Bottom-right diagonal triangle simulation
-        result = bfs(mapStats.getTriangleSteps(), topLeft);
-        long bottomRighTriangle = result.evenCount() * mapStats.getTriangleCountPerSide();
-        reset();
-
-        // TRAPEZOIDS SIMULATIONS
-
-        // Top-left diagonal trapezoid simulation
-        result = bfs(mapStats.getTrapezoidSteps(), bottomRight);
-        // TODO con cuál valor me tengo que quedar?
-        long topLeftTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
-        reset();
-
-        // Top-right diagonal trapezoid simulation
-        result = bfs(mapStats.getTrapezoidSteps(), bottomLeft);
-        long topRightTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
-        reset();
-
-        // Bottom-left diagonal trapezoid simulation
-        result = bfs(mapStats.getTrapezoidSteps(), topRight);
-        long bottomLeftTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
-        reset();
-
-        // Bottom-right diagonal trapezoid simulation
-        result = bfs(mapStats.getTrapezoidSteps(), topLeft);
-        long bottomRightTrapezoid = result.oddCount() * mapStats.getTrapezoidCountPerSide();
-        reset();
-
-        long finalResult = oddTotal + evenTotal +
-                            topLeftTriangle + topRightTriangle + bottomLeftTriangle + bottomRighTriangle
-                            + topLeftTrapezoid + topRightTrapezoid + bottomLeftTrapezoid + bottomRightTrapezoid
-                             + cardinalLeft + cardinalRight + cardinalBottom + cardinalTop;
-
-        return finalResult;
+        return result;
     }
 
     private SimulationResult bfs(int totalSteps, Cell start) {
-        long oddCells = 0; // TODO cuidado cuando estemos con múltiples celdas, es posible que el número de impares o pares varíe.
+        long oddCells = 0;
         long evenCells = 1; // First cell is even
 
         Deque<Cell> queue = new ArrayDeque<>();
@@ -202,6 +147,7 @@ public class StepCounter {
             printMap(totalSteps);
         }
 
+        reset();
         return new SimulationResult(oddCells, evenCells);
     }
 

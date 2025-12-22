@@ -35,11 +35,11 @@ public class Cell {
 
     public void print(boolean printEven) {
         if(isRock()) {
-            System.out.print(ROCK);
+            IO.print(ROCK);
         } else if (isVisited() && printEven == isEven()) {
-            System.out.print("O");
+            IO.print("O");
         } else {
-            System.out.print(GARDEN_PLOT);
+            IO.print(GARDEN_PLOT);
         }
     }
 }
