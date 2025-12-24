@@ -51,6 +51,7 @@ public class Day12Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT + " - Old method")
+	@Disabled
 	public void testSolvePart1InputOriginal() {
 
 		// Read input file

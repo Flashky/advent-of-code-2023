@@ -54,12 +54,13 @@ public class SpringRecord {
             }
         }
 
-        if(group == numbers.size()) {
-            return 1;
-        }
-
         String currentValue = pattern.substring(0,1);
         String remainingPattern = pattern.substring(1);
+
+        if(group == numbers.size()) {
+            return remainingPattern.contains(DAMAGED) ? 0 : 1;
+        }
+
         int expectedAmount = numbers.get(group);
 
         if(OPERATIONAL.equals(currentValue)) {
