@@ -29,6 +29,7 @@ public class ConditionRecord {
             rowRecord = StringUtils.repeat(rowRecord + UNKNOWN, REPETITIONS);
             rowRecord = StringUtils.chop(rowRecord);
             numericPartStr = StringUtils.repeat(numericPartStr + ",", REPETITIONS);
+            numericPartStr = StringUtils.chop(numericPartStr);
         }
 
         basePattern = rowRecord;
