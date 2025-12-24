@@ -1,16 +1,17 @@
 package com.adventofcode.flashk.day12;
 
-import java.util.List;
-
+import module java.base;
 
 public class HotSprings {
 
-    private List<HotSpringRecord> records;
-    public HotSprings(List<String> inputs, boolean unFold) {
-        records = inputs.stream().map(input -> new HotSpringRecord(input, unFold)).toList();
+    private final List<ConditionRecord> conditionRecords;
+
+    public HotSprings(List<String> inputs, boolean unfold) {
+        conditionRecords = inputs.stream().map(input -> new ConditionRecord(input, unfold)).toList();
     }
 
-    public long solveA() {
-        return records.stream().map(HotSpringRecord::countArrangements).reduce(0L, Long::sum);
+    public long solve() {
+        return conditionRecords.stream().mapToLong(ConditionRecord::count).sum();
     }
+
 }
