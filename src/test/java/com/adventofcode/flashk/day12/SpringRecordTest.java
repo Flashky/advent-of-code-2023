@@ -1,4 +1,4 @@
-package com.adventofcode.flashk.day12.v2;
+package com.adventofcode.flashk.day12;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,16 +17,16 @@ class SpringRecordTest {
     @MethodSource("provideFoldedEmpty")
     @Order(0)
     void foldedEmptyTest(String pattern) {
-        SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(0, springRecord.count());
+        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
+        assertEquals(0, conditionRecord.count());
     }
 
     @ParameterizedTest
     @MethodSource("provideFoldedConsecutiveUnknownUnique")
     @Order(1)
     void foldedConsecutiveUnknownTest(String pattern, long expected) {
-        SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.count());
+        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
+        assertEquals(expected, conditionRecord.count());
     }
 
     @ParameterizedTest
@@ -34,40 +34,40 @@ class SpringRecordTest {
     @MethodSource("provideFoldedConsecutiveUnknownFill")
     @Order(2)
     void foldedConsecutiveFillTest(String pattern, long expected) {
-        SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.count());
+        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
+        assertEquals(expected, conditionRecord.count());
     }
 
     @ParameterizedTest
     @MethodSource("provideFoldedAlternatingUnknownStart")
     @Order(3)
     void foldedAlternatingUnkownStartTest(String pattern, long expected) {
-        SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.count());
+        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
+        assertEquals(expected, conditionRecord.count());
     }
 
     @ParameterizedTest
     @MethodSource("provideFoldedAlternatingOperationalStart")
     @Order(4)
     void foldedAlternatingOperationalStartTest(String pattern, long expected) {
-        SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.count());
+        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
+        assertEquals(expected, conditionRecord.count());
     }
 
     @ParameterizedTest
     @MethodSource("providedUnfoldedExamples")
     @Order(5)
     void unfoldedExamplesTest(String pattern, long expected) {
-        SpringRecord springRecord = new SpringRecord(pattern, true);
-        assertEquals(expected, springRecord.count());
+        ConditionRecord conditionRecord = new ConditionRecord(pattern, true);
+        assertEquals(expected, conditionRecord.count());
     }
 
     @ParameterizedTest
     @MethodSource("providedFoldedExamples")
     @Order(6)
     void foldedExamplesTest(String pattern, long expected) {
-        SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.count());
+        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
+        assertEquals(expected, conditionRecord.count());
     }
 
     private static Stream<String> provideFoldedEmpty() {

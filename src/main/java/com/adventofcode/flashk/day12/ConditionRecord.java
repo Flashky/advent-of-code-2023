@@ -1,14 +1,13 @@
-package com.adventofcode.flashk.day12.v2;
+package com.adventofcode.flashk.day12;
 
 import static java.lang.IO.println;
 
 import module java.base;
-import com.adventofcode.flashk.day12.CountStatus;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 @Getter
-public class SpringRecord {
+public class ConditionRecord {
 
     private static final short REPETITIONS = 5;
 
@@ -19,18 +18,17 @@ public class SpringRecord {
     private final String basePattern;
     private final List<Integer> numbers;
 
-    private Map<CountStatus, Long> memo = new HashMap<>();
+    private final Map<CountStatus, Long> memo = new HashMap<>();
 
-    public SpringRecord(String input, boolean unFold) {
+    public ConditionRecord(String input, boolean unFold) {
         String[] inputParts = input.split(StringUtils.SPACE);
         String rowRecord = inputParts[0];
         String numericPartStr = inputParts[1];
 
         if(unFold) {
-            rowRecord = StringUtils.repeat(rowRecord+ UNKNOWN, REPETITIONS);
+            rowRecord = StringUtils.repeat(rowRecord + UNKNOWN, REPETITIONS);
             rowRecord = StringUtils.chop(rowRecord);
-            numericPartStr = StringUtils.repeat(numericPartStr+",", REPETITIONS);
-            StringUtils.chop(numericPartStr);
+            numericPartStr = StringUtils.repeat(numericPartStr + ",", REPETITIONS);
         }
 
         basePattern = rowRecord;
@@ -46,17 +44,14 @@ public class SpringRecord {
     private long count(String pattern, int group, int amount) {
 
         CountStatus countStatus = new CountStatus(pattern, group, amount);
+
+        // Memoization - Check cache first
         if(memo.containsKey(countStatus)) {
             return memo.get(countStatus);
         }
 
         long result = 0;
 
-        // Situation A
-        // The remaining pattern is blank. There are different scenarios:
-        // - No more groups to handle: return 1
-        // - Last group and the amount is the expected amount: return 1
-        // - There are more groups left and their amount has not been filled: return 0
         if(StringUtils.isBlank(pattern)) {
             if(group >= numbers.size()) {
                 return 1;
@@ -100,6 +95,7 @@ public class SpringRecord {
             result += count(OPERATIONAL+remainingPattern, group, amount);
         }
 
+        // Memoization - Save at cache
         memo.put(countStatus, result);
 
         return result;
