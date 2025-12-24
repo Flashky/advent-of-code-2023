@@ -22,9 +22,10 @@ public class HotSpringRecord {
 
         if(unFold) {
             row = StringUtils.repeat(rowRecord+UNKOWN, 5);
-            row = StringUtils.removeEnd(row, UNKOWN);
+            row = row.substring(0, row.length()-1); // Remove last "?"
             numericPartStr = StringUtils.repeat(numericPartStr+",", 5);
-            numericPartStr = StringUtils.removeEnd(numericPartStr, ",");
+            numericPartStr = numericPartStr.substring(0, numericPartStr.length()-1); // Remove last ","
+
             String[] numericPart = numericPartStr.split(",");
             numbers = Arrays.stream(numericPart).map(Integer::valueOf).toList();
         } else {
