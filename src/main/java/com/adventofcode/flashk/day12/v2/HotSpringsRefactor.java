@@ -13,8 +13,7 @@ public class HotSpringsRefactor {
     }
 
     public long solve() {
-        long result = springRecords.stream().map(SpringRecord::countArrangements).reduce(0L, Long::sum);
-        return result;
+        return springRecords.stream().map(SpringRecord::countArrangements).reduce(0L, Long::sum);
     }
 
 }

@@ -49,7 +49,24 @@ public class Day12Test extends PuzzleTest {
 		assertEquals(21, result);
 		
 	}
-	
+
+	@Test
+	@Order(2)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.INPUT)
+	@DisplayName(TestDisplayName.PART_ONE_INPUT)
+	public void testSolvePart1InputOriginal() {
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		HotSprings hotSprings = new HotSprings(inputs, false);
+		long result = hotSprings.solveA();
+
+		assertEquals(7195, result);
+
+	}
+
 	@Test
 	@Order(2)
 	@Tag(TestTag.PART_ONE)

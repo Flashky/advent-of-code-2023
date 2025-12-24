@@ -19,9 +19,8 @@ public class SpringRecord {
 
     private final String row;
     private final List<Integer> numbers;
-    private final int expectedTotalDamaged;
+    //private final int expectedTotalDamaged;
     private final String expectedPattern;
-    //private List<Integer> unknownIndexes = new ArrayList<>();
 
     public SpringRecord(String input, boolean unFold) {
         String[] inputParts = input.split(StringUtils.SPACE);
@@ -30,12 +29,9 @@ public class SpringRecord {
 
         if(unFold) {
             rowRecord = StringUtils.repeat(rowRecord+ UNKNOWN, REPETITIONS);
-            rowRecord = StringUtils.chop(rowRecord); //rowRecord.substring(0, rowRecord.length()-1); // remove last "?"
-            // StringUtils.chop(rowRecord);
+            rowRecord = StringUtils.chop(rowRecord);
             numericPartStr = StringUtils.repeat(numericPartStr+",", REPETITIONS);
             StringUtils.chop(numericPartStr);
-            //numericPartStr = numericPartStr.substring(0, numericPartStr.length()-1);
-
         }
 
         row = rowRecord;
@@ -49,8 +45,7 @@ public class SpringRecord {
         }
 
         expectedPattern = sb.substring(0, sb.toString().length()-1);
-
-        expectedTotalDamaged = numbers.stream().mapToInt(Integer::intValue).sum();
+        //expectedTotalDamaged = numbers.stream().mapToInt(Integer::intValue).sum();
     }
 
     public long countArrangements() {
@@ -101,12 +96,5 @@ public class SpringRecord {
 
         return result;
     }
-
-
-
-    private boolean hasNoDamagedRecords(String remainingString) {
-        return !remainingString.contains(DAMAGED);
-    }
-
 
 }
