@@ -18,7 +18,7 @@ class SpringRecordTest {
     @Order(0)
     void foldedEmptyTest(String pattern) {
         SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(0, springRecord.countArrangements());
+        assertEquals(0, springRecord.count());
     }
 
     @ParameterizedTest
@@ -26,7 +26,7 @@ class SpringRecordTest {
     @Order(1)
     void foldedConsecutiveUnknownTest(String pattern, long expected) {
         SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.countArrangements());
+        assertEquals(expected, springRecord.count());
     }
 
     @ParameterizedTest
@@ -35,7 +35,7 @@ class SpringRecordTest {
     @Order(2)
     void foldedConsecutiveFillTest(String pattern, long expected) {
         SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.countArrangements());
+        assertEquals(expected, springRecord.count());
     }
 
     @ParameterizedTest
@@ -43,7 +43,7 @@ class SpringRecordTest {
     @Order(3)
     void foldedAlternatingUnkownStartTest(String pattern, long expected) {
         SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.countArrangements());
+        assertEquals(expected, springRecord.count());
     }
 
     @ParameterizedTest
@@ -51,7 +51,7 @@ class SpringRecordTest {
     @Order(4)
     void foldedAlternatingOperationalStartTest(String pattern, long expected) {
         SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.countArrangements());
+        assertEquals(expected, springRecord.count());
     }
 
     @ParameterizedTest
@@ -59,7 +59,7 @@ class SpringRecordTest {
     @Order(5)
     void unfoldedExamplesTest(String pattern, long expected) {
         SpringRecord springRecord = new SpringRecord(pattern, true);
-        assertEquals(expected, springRecord.countArrangements());
+        assertEquals(expected, springRecord.count());
     }
 
     @ParameterizedTest
@@ -67,7 +67,7 @@ class SpringRecordTest {
     @Order(6)
     void foldedExamplesTest(String pattern, long expected) {
         SpringRecord springRecord = new SpringRecord(pattern, false);
-        assertEquals(expected, springRecord.countArrangements());
+        assertEquals(expected, springRecord.count());
     }
 
     private static Stream<String> provideFoldedEmpty() {

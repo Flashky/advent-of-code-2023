@@ -15,12 +15,8 @@ public class SpringRecord {
     private static final String DAMAGED = "#";
     private static final String UNKNOWN = "?";
 
-    private static final String UNKNOWN_PATTERN = "[?]";
-
-    private final String row;
+    private final String basePattern;
     private final List<Integer> numbers;
-    //private final int expectedTotalDamaged;
-    private final String expectedPattern;
 
     public SpringRecord(String input, boolean unFold) {
         String[] inputParts = input.split(StringUtils.SPACE);
@@ -34,23 +30,14 @@ public class SpringRecord {
             StringUtils.chop(numericPartStr);
         }
 
-        row = rowRecord;
+        basePattern = rowRecord;
         String[] numericPart = numericPartStr.split(",");
         numbers = Arrays.stream(numericPart).map(Integer::valueOf).toList();
 
-        // Obtain expected pattern
-        StringBuilder sb = new StringBuilder();
-        for(int number : numbers) {
-            sb.append(StringUtils.repeat(DAMAGED, number)).append(OPERATIONAL);
-        }
-
-        expectedPattern = sb.substring(0, sb.toString().length()-1);
-        //expectedTotalDamaged = numbers.stream().mapToInt(Integer::intValue).sum();
     }
 
-    public long countArrangements() {
-        long result = count(row, 0, 0);
-        return result;
+    public long count() {
+        return count(basePattern, 0, 0);
     }
 
     private long count(String pattern, int group, int amount) {

@@ -27,12 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(OrderAnnotation.class)
 public class Day12Test extends PuzzleTest {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_12;
+	private static final String INPUT_FOLDER = TestFolder.DAY_12;
 
-	@BeforeAll
-	public static void beforeAll() {
-	}
-	
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
@@ -54,7 +50,7 @@ public class Day12Test extends PuzzleTest {
 	@Order(2)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
-	@DisplayName(TestDisplayName.PART_ONE_INPUT)
+	@DisplayName(TestDisplayName.PART_ONE_INPUT + " - Old method")
 	public void testSolvePart1InputOriginal() {
 
 		// Read input file
@@ -83,51 +79,12 @@ public class Day12Test extends PuzzleTest {
 		assertEquals(7195, result);
 
 	}
-
-	@Test
-	@Order(3)
-	@Tag(TestTag.PART_TWO)
-	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	@Disabled
-	public void testSolvePart1Pattern() {
-
-		// Arrange & Act
-		SpringRecord hotSpringsSpringRecordRefactor = new SpringRecord(".# 1", false);
-
-		// Assert
-		assertEquals(".#", hotSpringsSpringRecordRefactor.getRow());
-		assertEquals(1, hotSpringsSpringRecordRefactor.getNumbers().size());
-		assertEquals(1, hotSpringsSpringRecordRefactor.getNumbers().getFirst());
-
-	}
-
-	@Test
-	@Order(3)
-	@Tag(TestTag.PART_TWO)
-	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	@Disabled
-	public void testSolvePart2RepeatPattern() {
-
-		// Arrange & Act
-		SpringRecord hotSpringsSpringRecordRefactor = new SpringRecord(".# 1", true);
-
-		// Assert
-		assertEquals(".#?.#?.#?.#?.#", hotSpringsSpringRecordRefactor.getRow());
-		assertEquals(5, hotSpringsSpringRecordRefactor.getNumbers().size());
-
-		for(Integer number : hotSpringsSpringRecordRefactor.getNumbers()) {
-			assertEquals(1, number);
-		}
-	}
 	
 	@Test
 	@Order(3)
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	@Disabled
 	public void testSolvePart2Sample() {
 		
 		System.out.print("2 | sample | ");
@@ -135,8 +92,8 @@ public class Day12Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		HotSprings hotSprings = new HotSprings(inputs, true);
-		long result = hotSprings.solveA();
+		HotSpringsRefactor hotSprings = new HotSpringsRefactor(inputs, true);
+		long result = hotSprings.solve();
 
 		// TODO enable the test
 		assertEquals(525152, result);
