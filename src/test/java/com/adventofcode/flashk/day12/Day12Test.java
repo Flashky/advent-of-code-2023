@@ -93,7 +93,7 @@ public class Day12Test extends PuzzleTest {
 
 		HotSpringsRefactor hotSprings = new HotSpringsRefactor(inputs, true);
 		long result = hotSprings.solve();
-		
+
 		assertEquals(525152, result);
 
 	}
@@ -113,7 +113,8 @@ public class Day12Test extends PuzzleTest {
 		HotSpringsRefactor hotSprings = new HotSpringsRefactor(inputs, true);
 
 		long result = hotSprings.solve();
-		println("Result: "+result);
+
+		assertEquals(33992866292225L, result);
 	}
 
 }

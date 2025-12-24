@@ -3,6 +3,7 @@ package com.adventofcode.flashk.day12.v2;
 import static java.lang.IO.println;
 
 import module java.base;
+import com.adventofcode.flashk.day12.CountStatus;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,6 +18,8 @@ public class SpringRecord {
 
     private final String basePattern;
     private final List<Integer> numbers;
+
+    private Map<CountStatus, Long> memo = new HashMap<>();
 
     public SpringRecord(String input, boolean unFold) {
         String[] inputParts = input.split(StringUtils.SPACE);
@@ -41,6 +44,11 @@ public class SpringRecord {
     }
 
     private long count(String pattern, int group, int amount) {
+
+        CountStatus countStatus = new CountStatus(pattern, group, amount);
+        if(memo.containsKey(countStatus)) {
+            return memo.get(countStatus);
+        }
 
         long result = 0;
 
@@ -91,6 +99,8 @@ public class SpringRecord {
             result += count(DAMAGED+remainingPattern, group, amount);
             result += count(OPERATIONAL+remainingPattern, group, amount);
         }
+
+        memo.put(countStatus, result);
 
         return result;
     }
