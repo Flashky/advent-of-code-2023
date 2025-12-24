@@ -88,15 +88,12 @@ public class Day12Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
 	public void testSolvePart2Sample() {
 		
-		System.out.print("2 | sample | ");
-		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		HotSpringsRefactor hotSprings = new HotSpringsRefactor(inputs, true);
 		long result = hotSprings.solve();
-
-		// TODO enable the test
+		
 		assertEquals(525152, result);
 
 	}

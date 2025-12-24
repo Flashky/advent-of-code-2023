@@ -44,6 +44,11 @@ public class SpringRecord {
 
         long result = 0;
 
+        // Situation A
+        // The remaining pattern is blank. There are different scenarios:
+        // - No more groups to handle: return 1
+        // - Last group and the amount is the expected amount: return 1
+        // - There are more groups left and their amount has not been filled: return 0
         if(StringUtils.isBlank(pattern)) {
             if(group >= numbers.size()) {
                 return 1;
@@ -59,6 +64,11 @@ public class SpringRecord {
 
         if(group == numbers.size()) {
             return remainingPattern.contains(DAMAGED) ? 0 : 1;
+        } else if((group == numbers.size() - 1) && amount == numbers.get(group)){ // Last group
+            if(DAMAGED.equals(currentValue)) {
+                return 0;
+            }
+            return remainingPattern.contains(DAMAGED) ? 0 : 1;
         }
 
         int expectedAmount = numbers.get(group);
@@ -67,7 +77,7 @@ public class SpringRecord {
             if(amount == expectedAmount) {
                 result += count(remainingPattern, group+1, 0); // Go to the next group
             } else if(amount == 0){
-                result += count(remainingPattern, group, 0); // Skip until finding the next #
+                result += count(remainingPattern, group, 0); // Skip operational until finding the first #
             } else {
                 return 0; // Not valid
             }
