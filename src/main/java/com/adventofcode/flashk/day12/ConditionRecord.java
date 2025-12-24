@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day12;
 
-import static java.lang.IO.println;
-
 import module java.base;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
