@@ -133,13 +133,10 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	@Disabled // TODO enable
+	@Disabled
 	public void testSolvePart2Sample() {
-		
-		System.out.print("2 | sample | ");
-		
-		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		// Does not apply
 		
 	}
 	
@@ -148,17 +145,15 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
-	@Disabled // TODO enable
 	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		long result = 0;
-		System.out.println("R: "+result);
-		//assertEquals(0, result);
+		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
+		long result = pulsePropagation.solveB();
+
+		assertEquals(207652583562007L, result);
 	}
 
 }

@@ -23,9 +23,6 @@ public abstract class Module {
         this.name = name;
     }
 
-    @Setter
-    private boolean isVisited = false;
-
     public abstract Optional<Pulse> process(PulseEvent pulseEvent);
 
     public String getLabel() {

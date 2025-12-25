@@ -29,7 +29,14 @@ public class Conjunction extends Module {
         // If all inputs are high, return a LOW pulse. Otherwise, return a HIGH pulse
         long countHighs = inputMemory.values().stream().filter(p -> p == Pulse.HIGH).count();
         Pulse outputPulse = countHighs == inputMemory.size() ? Pulse.LOW : Pulse.HIGH;
-
+        if(getName().equals("hd") && outputPulse == Pulse.LOW) {
+            println(outputPulse);
+        }
         return Optional.of(outputPulse);
+    }
+
+    public Pulse simulatePulse() {
+        long countHighs = inputMemory.values().stream().filter(p -> p == Pulse.HIGH).count();
+        return countHighs == inputMemory.size() ? Pulse.LOW : Pulse.HIGH;
     }
 }
