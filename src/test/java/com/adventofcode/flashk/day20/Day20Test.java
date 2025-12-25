@@ -2,6 +2,7 @@ package com.adventofcode.flashk.day20;
 
 import java.util.List;
 
+import com.adventofcode.flashk.day20.jgrapht.PulsePropagationJGraphT;
 import org.junit.jupiter.api.BeforeAll;
 
 import org.junit.jupiter.api.Disabled;
@@ -28,9 +29,27 @@ public class Day20Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_20;
 
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_20);
+	@Test
+	void paintGraph() {
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
+		PulsePropagationJGraphT pulsePropagationJGraphT = new PulsePropagationJGraphT(inputs);
+	}
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SAMPLE + " - Single push")
+	public void testSolvePart1SinglePush() {
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
+		long result = pulsePropagation.solveA(1);
+
+		assertEquals(32, result);
+
 	}
 
 	
@@ -41,12 +60,10 @@ public class Day20Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	public void testSolvePart1Sample() {
 		
-		System.out.print("1 | sample | ");
-		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
+		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
 		long result = pulsePropagation.solveA(1000);
 
 		assertEquals(32000000, result);
@@ -59,14 +76,38 @@ public class Day20Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	void testSolvePart1Sample2() {
 
-		System.out.print("1 | sample | ");
-
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
 
-		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
+		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
 		long result = pulsePropagation.solveA(1000);
 
+		// TODO AQUI SE VE EL PROBLEMA!!
+		/*
+
+		button -low-> broadcaster
+		broadcaster -low-> a
+		a -high-> inv
+		a -high-> con
+		inv -low-> b
+		b -high-> con
+		con -low-> output
+		con -low-> output
+
+		EXPECTED:
+		button -low-> broadcaster
+		broadcaster -low-> a
+		a -high-> inv
+		a -high-> con
+		inv -low-> b
+		con -high-> output
+		b -high-> con
+		con -low-> output
+		 */
+
+		// Casualmente llega al mismo estado de salida, contando bien los pulsos,
+		// pero el orden de los mismos y sus valores no son correctos.
+		// Probablemente el error esté en el conjunction.
 		assertEquals(11687500, result);
 	}
 	
@@ -77,17 +118,14 @@ public class Day20Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	public void testSolvePart1Input() {
 		
-		System.out.print("1 | input  | ");
-		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
+		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
 		long result = pulsePropagation.solveA(1000);
 
-		System.out.println("R: "+result);
-		// 787801375 -> Too high
-		//assertEquals(0, result);
+		assertEquals(763500168, result);
+
 	}
 	
 	@Test

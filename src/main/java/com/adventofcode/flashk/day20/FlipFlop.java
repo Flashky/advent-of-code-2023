@@ -17,7 +17,7 @@ public class FlipFlop extends Module {
     @Override
     public void sendPulse(Module origin, String value) {
 
-        //System.out.println(origin.getName() + " -"+value+"-> " + getName());
+        System.out.println(origin.getName() + " -"+value+"-> " + getName());
 
         // Update high and low counters
         if (LOW.equals(value)) {

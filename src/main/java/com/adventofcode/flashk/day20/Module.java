@@ -34,7 +34,7 @@ public abstract class Module {
 
     public void sendPulse(Module origin, String value) {
         this.inputPulses.add(ImmutablePair.of(origin, value));
-        //System.out.println(origin.name + " -"+value+"-> " + name);
+        System.out.println(origin.name + " -"+value+"-> " + name);
 
         // Update high and low counters
         if(LOW.equals(value)) {
