@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day20;
 
 import module java.base;
 import com.adventofcode.flashk.day20.modules.Broadcaster;
-import com.adventofcode.flashk.day20.modules.Button;
 import com.adventofcode.flashk.day20.modules.Conjunction;
 import com.adventofcode.flashk.day20.modules.FlipFlop;
 import com.adventofcode.flashk.day20.modules.Module;
@@ -27,10 +26,6 @@ public class PulsePropagation {
     private long highPulses = 0;
 
     public PulsePropagation(List<String> inputs) {
-
-       // Manually add the button to broadcaster definition to the input
-       inputs.addFirst("button -> broadcaster");
-
        // Initialize graphs
        Map<Module,String[]> outputsByModule = createVertices(inputs);
        createEdges(outputsByModule);
@@ -88,9 +83,7 @@ public class PulsePropagation {
 
     private Module createModule(String moduleName) {
         Module module;
-        if(Button.NAME.equals(moduleName)) {
-            module = new Button();
-        } else if(Broadcaster.NAME.equals(moduleName)) {
+        if(Broadcaster.NAME.equals(moduleName)) {
             module = new Broadcaster();
         } else if (moduleName.startsWith("%")) {
             module = new FlipFlop(moduleName);
@@ -111,7 +104,6 @@ public class PulsePropagation {
 
     public long solveB() {
 
-        Module button = modulesByName.get(Button.NAME);
         Module broadcaster = modulesByName.get(Broadcaster.NAME);
 
         List<Module> broadcastAdjacents = graph.get(broadcaster);
@@ -133,8 +125,6 @@ public class PulsePropagation {
         // - 'f_dv' to 'c_nh'
 
         for(Module start : broadcastAdjacents) {
-            graph.get(button).clear();
-            graph.get(button).add(start);
 
             boolean found;
             long count = 0;
@@ -210,7 +200,7 @@ public class PulsePropagation {
     /// or if it has not received a `low` pulse.
     private boolean bfs(Module start, Module target){
         Queue<PulseEvent> queue = new ArrayDeque<>();
-        queue.add(new PulseEvent(Pulse.LOW, modulesByName.get(Button.NAME), start));
+        queue.add(new PulseEvent(Pulse.LOW, null, start));
 
         while(!queue.isEmpty()) {
             PulseEvent pulseEvent = queue.poll();
@@ -261,7 +251,7 @@ public class PulsePropagation {
             return false;
         }
 
-        return pulseEvent.origin().equals(target) && pulseEvent.pulse() == Pulse.LOW;
+        return target.equals(pulseEvent.origin()) && pulseEvent.pulse() == Pulse.LOW;
     }
 
 }

@@ -69,7 +69,7 @@ class GraphVisualizerTest {
         return Stream.of(
         Arguments.of("sample.input", "sample.dot"),
                 Arguments.of("sample_2.input", "sample_2.dot"),
-                Arguments.of("data.input", "input.dot"));
+                Arguments.of("data.input", "input_no_button.dot"));
 
     }
 }
