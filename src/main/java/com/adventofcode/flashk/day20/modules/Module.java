@@ -1,22 +1,15 @@
-package com.adventofcode.flashk.day20.jgrapht.modules;
-
-import static java.lang.IO.println;
+package com.adventofcode.flashk.day20.modules;
 
 import module java.base;
-import com.adventofcode.flashk.day20.jgrapht.Pulse;
-import com.adventofcode.flashk.day20.jgrapht.PulseEvent;
-import com.adventofcode.flashk.day20.jgrapht.Status;
-import lombok.AllArgsConstructor;
+import com.adventofcode.flashk.day20.Pulse;
+import com.adventofcode.flashk.day20.PulseEvent;
 import lombok.Getter;
-import lombok.Setter;
-
 
 @Getter
 public abstract class Module {
 
     private final String prefix;
     private final String name;
-
 
     public Module(String prefix, String name) {
         this.prefix = prefix;

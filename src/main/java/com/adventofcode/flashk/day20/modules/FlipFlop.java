@@ -1,11 +1,9 @@
-package com.adventofcode.flashk.day20.jgrapht.modules;
-
-import static java.lang.IO.println;
+package com.adventofcode.flashk.day20.modules;
 
 import module java.base;
-import com.adventofcode.flashk.day20.jgrapht.Pulse;
-import com.adventofcode.flashk.day20.jgrapht.PulseEvent;
-import com.adventofcode.flashk.day20.jgrapht.Status;
+import com.adventofcode.flashk.day20.Pulse;
+import com.adventofcode.flashk.day20.PulseEvent;
+import com.adventofcode.flashk.day20.Status;
 
 public class FlipFlop extends Module {
 

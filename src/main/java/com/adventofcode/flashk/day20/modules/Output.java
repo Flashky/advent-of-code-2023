@@ -1,10 +1,8 @@
-package com.adventofcode.flashk.day20.jgrapht.modules;
-
-import static java.lang.IO.println;
+package com.adventofcode.flashk.day20.modules;
 
 import module java.base;
-import com.adventofcode.flashk.day20.jgrapht.Pulse;
-import com.adventofcode.flashk.day20.jgrapht.PulseEvent;
+import com.adventofcode.flashk.day20.Pulse;
+import com.adventofcode.flashk.day20.PulseEvent;
 import org.apache.commons.lang3.StringUtils;
 
 /// Output is an special module that is only present on the second example

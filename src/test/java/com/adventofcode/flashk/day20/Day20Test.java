@@ -2,9 +2,6 @@ package com.adventofcode.flashk.day20;
 
 import java.util.List;
 
-import com.adventofcode.flashk.day20.jgrapht.PulsePropagationJGraphT;
-import org.junit.jupiter.api.BeforeAll;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -18,7 +15,6 @@ import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +28,7 @@ public class Day20Test extends PuzzleTest {
 	@Test
 	void paintGraph() {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
-		PulsePropagationJGraphT pulsePropagationJGraphT = new PulsePropagationJGraphT(inputs);
+		PulsePropagation pulsePropagationJGraphT = new PulsePropagation(inputs);
 	}
 
 	@Test
@@ -45,7 +41,7 @@ public class Day20Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
 		long result = pulsePropagation.solveA(1);
 
 		assertEquals(32, result);
@@ -63,7 +59,7 @@ public class Day20Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
 		long result = pulsePropagation.solveA(1000);
 
 		assertEquals(32000000, result);
@@ -79,7 +75,7 @@ public class Day20Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
 
-		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
 		long result = pulsePropagation.solveA(1000);
 
 		// TODO AQUI SE VE EL PROBLEMA!!
@@ -121,7 +117,7 @@ public class Day20Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
 		long result = pulsePropagation.solveA(1000);
 
 		assertEquals(763500168, result);
@@ -150,7 +146,7 @@ public class Day20Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		PulsePropagationJGraphT pulsePropagation = new PulsePropagationJGraphT(inputs);
+		PulsePropagation pulsePropagation = new PulsePropagation(inputs);
 		long result = pulsePropagation.solveB();
 
 		assertEquals(207652583562007L, result);

@@ -1,21 +1,19 @@
-package com.adventofcode.flashk.day20.jgrapht.modules;
+package com.adventofcode.flashk.day20.modules;
 
 import static java.lang.IO.println;
 
 import module java.base;
-import com.adventofcode.flashk.day20.jgrapht.Pulse;
-import com.adventofcode.flashk.day20.jgrapht.PulseEvent;
+import com.adventofcode.flashk.day20.Pulse;
+import com.adventofcode.flashk.day20.PulseEvent;
 
 public class Conjunction extends Module {
 
-
-    private Map<Module,Pulse> inputMemory = new HashMap<>();
+    private final Map<Module,Pulse> inputMemory = new HashMap<>();
 
     public Conjunction(String name) {
         super(name.substring(0,1), name.substring(1));
     }
 
-    // TODO inicializar el conjunction al principio del todo
     public void addInputModule(Module inputModule) {
         inputMemory.put(inputModule, Pulse.LOW);
     }
@@ -29,14 +27,8 @@ public class Conjunction extends Module {
         // If all inputs are high, return a LOW pulse. Otherwise, return a HIGH pulse
         long countHighs = inputMemory.values().stream().filter(p -> p == Pulse.HIGH).count();
         Pulse outputPulse = countHighs == inputMemory.size() ? Pulse.LOW : Pulse.HIGH;
-        if(getName().equals("hd") && outputPulse == Pulse.LOW) {
-            println(outputPulse);
-        }
+
         return Optional.of(outputPulse);
     }
 
-    public Pulse simulatePulse() {
-        long countHighs = inputMemory.values().stream().filter(p -> p == Pulse.HIGH).count();
-        return countHighs == inputMemory.size() ? Pulse.LOW : Pulse.HIGH;
-    }
 }
