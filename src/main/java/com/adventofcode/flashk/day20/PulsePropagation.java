@@ -7,11 +7,8 @@ import com.adventofcode.flashk.day20.modules.Conjunction;
 import com.adventofcode.flashk.day20.modules.FlipFlop;
 import com.adventofcode.flashk.day20.modules.Module;
 import com.adventofcode.flashk.day20.modules.Output;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
-import org.jgrapht.Graph;
-import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.nio.dot.DOTExporter;
 
 import static java.util.function.Predicate.not;
 
@@ -19,9 +16,8 @@ public class PulsePropagation {
 
     private static final String WHITESPACES_REGEX = "\\s";
 
-    // Graphs
-    private final Graph<Module, DefaultEdge> jgrapht = new DefaultDirectedGraph<>(DefaultEdge.class);
-    private final Map<Module, List<Module>> graph = new HashMap<>();
+    @Getter
+    private final Map<Module, List<Module>> graph = new LinkedHashMap<>();
 
     // Auxiliar structures
     private final Map<String, Module> modulesByName = new HashMap<>();
@@ -33,13 +29,11 @@ public class PulsePropagation {
     public PulsePropagation(List<String> inputs) {
 
        // Manually add the button to broadcaster definition to the input
-       inputs.add("button -> broadcaster");
+       inputs.addFirst("button -> broadcaster");
 
        // Initialize graphs
        Map<Module,String[]> outputsByModule = createVertices(inputs);
        createEdges(outputsByModule);
-
-       //paint();
     }
 
     private Map<Module, String[]> createVertices(List<String> inputs) {
@@ -59,8 +53,7 @@ public class PulsePropagation {
             modulesByName.put(module.getName(), module);
             outputsByModule.put(module, outputs);
 
-            // Add vertex module to the graphs
-            jgrapht.addVertex(module);
+            // Add vertex module to the graph
             graph.put(module, new ArrayList<>());
 
         }
@@ -79,12 +72,10 @@ public class PulsePropagation {
                 } else {
                     // This is an output module that is only used as sink
                     outputModule = new Output(name);
-                    jgrapht.addVertex(outputModule);
                     graph.put(outputModule, Collections.emptyList());
                 }
 
-                // Add edges to the graphs
-                jgrapht.addEdge(module, outputModule);
+                // Add edges to the graph
                 graph.get(module).add(outputModule);
 
                 // If it is a conjunction module, add the input to its memory
@@ -154,6 +145,9 @@ public class PulsePropagation {
 
             result *= count;
         }
+
+        // Not needed, but just for painting the graph purposes
+        broadcastAdjacents.clear();
 
         return result;
     }
@@ -270,10 +264,4 @@ public class PulsePropagation {
         return pulseEvent.origin().equals(target) && pulseEvent.pulse() == Pulse.LOW;
     }
 
-    public void paint() {
-        DOTExporter<Module, DefaultEdge> exporter=new DOTExporter<>(Module::getLabel);
-        Writer writer = new StringWriter();
-        exporter.exportGraph(jgrapht, writer);
-        System.out.println(writer);
-    }
 }

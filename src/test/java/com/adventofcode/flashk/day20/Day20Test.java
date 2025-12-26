@@ -2,6 +2,7 @@ package com.adventofcode.flashk.day20;
 
 import java.util.List;
 
+import com.adventofcode.flashk.day20.jgrapht.GraphVisualizer;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -24,12 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Day20Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_20;
-
-	@Test
-	void paintGraph() {
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
-		PulsePropagation pulsePropagationJGraphT = new PulsePropagation(inputs);
-	}
 
 	@Test
 	@Order(1)
