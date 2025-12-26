@@ -27,7 +27,7 @@ class Day20Test {
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_ONE_SAMPLE + " - Single push")
+	@DisplayName(TestDisplayName.PART_ONE_SAMPLE + " - Example 1 (single press)")
 	void testSolvePart1SinglePush() {
 
 		// Read input file
@@ -45,7 +45,7 @@ class Day20Test {
 	@Order(2)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SAMPLE + " - Example 1 (1000 presses)")
 	void testSolvePart1Sample() {
 		
 		// Read input file
@@ -61,7 +61,7 @@ class Day20Test {
 	@Order(3)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
+	@DisplayName(TestDisplayName.PART_ONE_SAMPLE + " - Example 2 (1000 presses)")
 	void testSolvePart1Sample2() {
 
 		// Read input file
