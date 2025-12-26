@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day20;
 
-import static java.lang.IO.println;
-
 import module java.base;
 import com.adventofcode.flashk.day20.modules.Broadcaster;
 import com.adventofcode.flashk.day20.modules.Button;
@@ -123,87 +121,77 @@ public class PulsePropagation {
         Module button = modulesByName.get(Button.NAME);
         Module broadcaster = modulesByName.get(Broadcaster.NAME);
 
-        // Get broadcast links
         List<Module> broadcastAdjacents = graph.get(broadcaster);
-        Module qg = broadcastAdjacents.get(2);
-        Module lf = broadcastAdjacents.get(3);
-        Module tb = broadcastAdjacents.get(0);
-        Module dv = broadcastAdjacents.get(1);
 
-        // Clear output nodes
+        // Find all vertex conjunctions that are linked to the broadcast adjacent module
+        // For example: 'c_hd' is linked to 'f_qg'
+        Map<Module,Conjunction> moduleToConjunction = findEndConjunctions(broadcastAdjacents);
 
-        // Link button with one of them
-        // TODO later convert into a loop
-        // First input -> 'button' to 'lf' - sink in 'tn'
-        graph.get(button).clear();
-        graph.get(button).add(qg);
-        // 0: tb
-        // 1: dv
-        // 2: qg
-        // 3: lf
+        // Remove the end vertices conjunctions edge to the inversor conjunction
+        // For example: removes the 'c_hd' edge to 'c_tr'
+        for(Conjunction endConjunction : moduleToConjunction.values()) {
+            removeConjunctionEdge(endConjunction);
+        }
 
-        // Find hd and unlink its outputs
+        long result = 1;
 
-        Conjunction hd = clearConjunction("hd","tr");
+        // Test each subgraph and multiply their values:
+        // - 'f_qg' to 'c_hd'
+        // - 'f_lf' to 'c_tn'
+        // - 'f_tb' to 'c_vc'
+        // - 'f_dv' to 'c_nh'
 
-        long countHd = 0;
-        boolean found;
-        do {
-            countHd++;
-            found = bfs(qg, hd);
-        } while(!found);
+        for(Module start : broadcastAdjacents) {
+            graph.get(button).clear();
+            graph.get(button).add(start);
+
+            boolean found;
+            long count = 0;
+            do {
+                count++;
+                found = bfs(start, moduleToConjunction.get(start));
+            } while(!found);
+
+            result *= count;
+        }
+
+        return result;
+    }
 
 
-        // hd = 3739 - OK, me sale el mismo 3739 que antes
+    private Map<Module,Conjunction> findEndConjunctions(List<Module> startModules) {
 
-        // Second input -> 'button' to 'lf' - sink in 'tn'
-        graph.get(button).clear();
-        graph.get(button).add(lf);
+        Map<Module, Conjunction> result = new HashMap<>();
 
-        // Find tn and unlink the output
-        Conjunction tn = clearConjunction("tn","xm");
+        List<Module> conjunctions = graph.keySet().stream().filter(Conjunction.class::isInstance).toList();
 
-        long countTn = 0;
-        do {
-            countTn++;
-            found = bfs(lf, tn);
+        for(Module module : conjunctions) {
+            Conjunction conjunction = (Conjunction) module;
+            List<Module> outputModules = graph.get(conjunction);
 
-        } while(!found);
+            for(Module startModule : startModules) {
+                if(outputModules.contains(startModule)) {
+                    result.put(startModule, conjunction);
+                    break;
+                }
+            }
+        }
 
-        // tn = 3761
+        return result;
+    }
 
-        // Third input -> 'button' to 'tb' - sink in 'vc'
-        graph.get(button).clear();
-        graph.get(button).add(tb);
+    private void removeConjunctionEdge(Conjunction conjunction) {
+        List<Module> outputs = graph.get(conjunction);
 
-        Conjunction vc = clearConjunction("vc","dr");
+        Iterator<Module> outputIterator = outputs.iterator();
 
-        long countTb = 0;
-        do {
-            countTb++;
-            found = bfs(tb, vc);
-
-        } while(!found);
-
-        // tb = 3797
-
-        // Fourth input -> 'button' to 'dv' - sink in 'jx' - remove 'nh' from 'jx'
-        graph.get(button).clear();
-        graph.get(button).add(dv);
-
-        Conjunction jx = clearConjunction("jx","nh");
-
-        long countDv = 0;
-        do {
-            countDv++;
-            found = bfs(dv, jx);
-
-        } while(!found);
-
-        // dv = 3889
-
-        // All four numbers are prime, so the result lcm of all 4 numbers is just the multiplication between them.
-        return countHd * countDv * countTb * countTn;
+        while(outputIterator.hasNext()) {
+            Module output = outputIterator.next();
+            if(output instanceof Conjunction) {
+                outputs.remove(output);
+                break;
+            }
+        }
     }
 
     /// Applies BFS algorithm over all the modules.
@@ -268,18 +256,6 @@ public class PulsePropagation {
         }
 
         return pulseEvent.origin().equals(target) && pulseEvent.pulse() == Pulse.LOW;
-    }
-
-    ///  Removes an edge between the conjunction origin and destination from the graph
-    /// @param conjunctionName the origin module name.
-    /// @param outputToRemove the destination module name
-    /// @return
-    private Conjunction clearConjunction(String conjunctionName, String outputToRemove) {
-        Conjunction conjunction = (Conjunction) modulesByName.get(conjunctionName);
-        Module moduleToRemove = modulesByName.get(outputToRemove);
-        graph.get(conjunction).remove(moduleToRemove);
-
-        return conjunction;
     }
 
     public void paint() {
