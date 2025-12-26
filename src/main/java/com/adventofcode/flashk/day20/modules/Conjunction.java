@@ -31,4 +31,8 @@ public class Conjunction extends Module {
         return Optional.of(outputPulse);
     }
 
+    public int getMemorySize() {
+        return inputMemory.size();
+    }
+
 }

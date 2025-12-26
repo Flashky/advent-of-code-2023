@@ -13,6 +13,8 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.nio.dot.DOTExporter;
 
+import static java.util.function.Predicate.not;
+
 public class PulsePropagation {
 
     private static final String WHITESPACES_REGEX = "\\s";
@@ -129,9 +131,7 @@ public class PulsePropagation {
 
         // Remove the end vertices conjunctions edge to the inversor conjunction
         // For example: removes the 'c_hd' edge to 'c_tr'
-        for(Conjunction endConjunction : moduleToConjunction.values()) {
-            removeConjunctionEdge(endConjunction);
-        }
+        removeEndConjunctionEdges();
 
         long result = 1;
 
@@ -180,18 +180,30 @@ public class PulsePropagation {
         return result;
     }
 
-    private void removeConjunctionEdge(Conjunction conjunction) {
-        List<Module> outputs = graph.get(conjunction);
+    private void removeEndConjunctionEdges() {
+        List<Module> conjunctions = graph.keySet().stream().filter(Conjunction.class::isInstance).toList();
 
-        Iterator<Module> outputIterator = outputs.iterator();
+        for(Module module : conjunctions) {
+            Conjunction conjunction = (Conjunction) module;
 
-        while(outputIterator.hasNext()) {
-            Module output = outputIterator.next();
-            if(output instanceof Conjunction) {
-                outputs.remove(output);
-                break;
+            // Condiciones especiales:
+            // Tienen > 1 salida
+            // Tienen > 1 entrada
+            if(conjunction.getMemorySize() > 1 && graph.get(conjunction).size() > 1){
+                removeConjunctionEdge(conjunction);
             }
         }
+    }
+
+    private void removeConjunctionEdge(Conjunction conjunction) {
+
+        List<Module> modifiedOutputs = graph.get(conjunction)
+                                            .stream()
+                                            .filter(not(Conjunction.class::isInstance))
+                                            .toList();
+
+        graph.put(conjunction, modifiedOutputs);
+
     }
 
     /// Applies BFS algorithm over all the modules.
