@@ -47,8 +47,8 @@ class GraphVisualizerTest {
         // Arrange
         List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
         List<String> outputs = Input.readStringLines(OUTPUT_FOLDER, "input_modified_part2.dot");
-        String expectedOutput = String.join("\r\n", outputs);
-        expectedOutput += "\r\n";
+        String lineSeparator = System.lineSeparator();
+        String expectedOutput = String.join(lineSeparator, outputs) + lineSeparator;
 
         // Prepare graph
         PulsePropagation pulsePropagation = new PulsePropagation(inputs);
