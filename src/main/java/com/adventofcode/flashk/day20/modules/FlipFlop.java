@@ -1,0 +1,34 @@
+package com.adventofcode.flashk.day20.modules;
+
+import module java.base;
+import com.adventofcode.flashk.day20.Pulse;
+import com.adventofcode.flashk.day20.PulseEvent;
+import com.adventofcode.flashk.day20.Status;
+
+public class FlipFlop extends Module {
+
+    public FlipFlop(String name) {
+        super(name.substring(0,1), name.substring(1));
+    }
+
+    private Status status = Status.OFF;
+
+    @Override
+    public Optional<Pulse> process(PulseEvent pulseEvent) {
+
+        if (pulseEvent.pulse() == Pulse.LOW) {
+            Pulse outputPulse;
+            if (status == Status.OFF) {
+                status = Status.ON;
+                outputPulse = Pulse.HIGH;
+            } else  {
+                status = Status.OFF;
+                outputPulse = Pulse.LOW;
+            }
+            return Optional.of(outputPulse);
+
+        }
+
+        return Optional.empty();
+    }
+}
