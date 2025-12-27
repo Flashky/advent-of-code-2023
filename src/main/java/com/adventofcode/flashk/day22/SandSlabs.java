@@ -26,6 +26,7 @@ public class SandSlabs {
         long result = desintegrateB();
         return result;
     }
+
     /// Simulates the sand slabs fall to the ground
     private void move() {
         boolean hasMoved;
@@ -40,7 +41,7 @@ public class SandSlabs {
     private boolean moveBricks() {
         boolean hasMoved = false;
         for(Brick brick : bricks) {
-            if(!brick.isAtGround()) {
+            if(!isBelowGround(brick)) {
                 brick.move(DOWN);
                 if(collidesWithAnything(brick)) {
                     brick.move(UP); // Restore original position
@@ -89,7 +90,7 @@ public class SandSlabs {
     private long moveBricksAndCount() {
         long movedBricks = 0;
         for(Brick brick : bricks) {
-            if(!brick.isAtGround()) {
+            if(!isBelowGround(brick)) {
                 brick.move(DOWN);
                 if(collidesWithAnything(brick)) {
                     brick.move(UP); // Restore original position
@@ -102,14 +103,22 @@ public class SandSlabs {
     }
 
     public long desintegrateB() {
-        return 0;
+        long count = 0;
+        List<Brick> bricksSnapshot = new ArrayList<>(bricks);
+
+        for(Brick brick : bricks){
+
+        }
+
+        return count;
     }
 
     /// Checks if the brick collides with any other brick
     /// @return `true` if brick collides with at least another brick.
     private boolean collidesWithAnything(Brick brick) {
 
-        if(brick.isAtGround()) {
+        // Is below minimum allowed position (ground is at z = 0)
+        if(isBelowGround(brick)) {
             return true;
         }
 
@@ -120,6 +129,10 @@ public class SandSlabs {
         }
 
         return false;
+    }
+
+    private boolean isBelowGround(Brick brick) {
+        return brick.getMinZ() < 1;
     }
 
 }

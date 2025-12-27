@@ -32,8 +32,8 @@ public class Brick {
         return collider.collidesWith(other.collider);
     }
 
-    // TODO the right thing would be to return <= 1
-    public boolean isAtGround() {
-        return position.getZ() < 1;
+    public long getMinZ() {
+        return position.getZ();
     }
+
 }
