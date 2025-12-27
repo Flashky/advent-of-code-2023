@@ -326,5 +326,8 @@ public class Vector2 {
 	public static Vector2 downLeft() {
 		return new Vector2(-1,-1);
 	}
-	
+
+    public Object getZ() {
+        return null;
+    }
 }

@@ -71,35 +71,35 @@ public class Vector3 {
 	}
 	
 	/**
-	 * Shorthand for <code>Vector3(0,1,0)</code>.
+	 * Shorthand for <code>Vector3(0,0,1)</code>.
 	 * @return A unitary vector that points up.
 	 */
 	public static Vector3 up() {
-		return new Vector3(0,1,0);
+		return new Vector3(0,0,1);
 	}
 	
 	/**
-	 * Shorthand for <code>Vector3(0,-1,0)</code>.
+	 * Shorthand for <code>Vector3(0,0,-1)</code>.
 	 * @return A unitary vector that points down.
 	 */
 	public static Vector3 down() {
-		return new Vector3(0,-1,0);
+		return new Vector3(0,0,-1);
 	}
 
 	/**
-	 * Shorthand for <code>Vector3(0,0,1)</code>.
+	 * Shorthand for <code>Vector3(0,1,0)</code>.
 	 * @return A unitary vector that points forward;
 	 */
 	public static Vector3 forward() {
-		return new Vector3(0,0,1);
+		return new Vector3(0,1,0);
 	}
 
 	/**
-	 * Shorthand for <code>Vector3(0,0,-1)</code>.
+	 * Shorthand for <code>Vector3(0,-1,0)</code>.
 	 * @return A unitary vector that points backwards;
 	 */
 	public static Vector3 backward() {
-		return new Vector3(0,0,-1);
+		return new Vector3(0,-1,0);
 	}
 	
 }

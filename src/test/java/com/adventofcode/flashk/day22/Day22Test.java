@@ -19,6 +19,9 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static java.lang.IO.println;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_22)
 @TestMethodOrder(OrderAnnotation.class)
 @Disabled // TODO Remove comment when implemented
@@ -26,12 +29,6 @@ public class Day22Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_22;
 
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_22);
-	}
-
-	
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
@@ -43,7 +40,11 @@ public class Day22Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		SandSlabs sandSlabs = new SandSlabs(inputs);
+		long result = sandSlabs.solveA();
+
+		assertEquals(5, result);
 	}
 	
 	@Test
@@ -52,12 +53,15 @@ public class Day22Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	public void testSolvePart1Input() {
-		
-		System.out.print("1 | input  | ");
+
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		SandSlabs sandSlabs = new SandSlabs(inputs);
+		long result = sandSlabs.solveA();
+
+		assertEquals(421, result);
 	}
 	
 	@Test
