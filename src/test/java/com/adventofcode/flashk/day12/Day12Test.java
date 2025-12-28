@@ -13,14 +13,13 @@ import com.adventofcode.flashk.common.test.constants.TestDisplayName;
 import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_12)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day12Test extends PuzzleTest {
+class Day12Test {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_12;
 
@@ -29,7 +28,7 @@ public class Day12Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	public void testSolvePart1Sample() {
+	void testSolvePart1Sample() {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -46,7 +45,7 @@ public class Day12Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
-	public void testSolvePart1Input() {
+	void testSolvePart1Input() {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -63,7 +62,7 @@ public class Day12Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	public void testSolvePart2Sample() {
+	void testSolvePart2Sample() {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -80,7 +79,7 @@ public class Day12Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
-	public void testSolvePart2Input() {
+	void testSolvePart2Input() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);

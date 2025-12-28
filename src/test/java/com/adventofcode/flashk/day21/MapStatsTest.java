@@ -1,7 +1,6 @@
 package com.adventofcode.flashk.day21;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static java.lang.IO.println;
 
 import module java.base;
 import org.junit.jupiter.api.Test;

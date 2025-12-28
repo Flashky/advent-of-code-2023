@@ -17,7 +17,7 @@ class SplitterTileTest {
         List<Vector2> directions = vertical.nextDirections(Vector2.left());
 
         assertEquals(2, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(0, direction.getX());
         assertEquals(1, direction.getY());
 
@@ -31,7 +31,7 @@ class SplitterTileTest {
         List<Vector2> directions = vertical.nextDirections(Vector2.right());
 
         assertEquals(2, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(0, direction.getX());
         assertEquals(1, direction.getY());
 
@@ -45,7 +45,7 @@ class SplitterTileTest {
         List<Vector2> directions = vertical.nextDirections(Vector2.down());
 
         assertEquals(1, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(0, direction.getX());
         assertEquals(-1, direction.getY());
 
@@ -56,7 +56,7 @@ class SplitterTileTest {
         List<Vector2> directions = vertical.nextDirections(Vector2.up());
 
         assertEquals(1, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(0, direction.getX());
         assertEquals(1, direction.getY());
 
@@ -69,7 +69,7 @@ class SplitterTileTest {
         List<Vector2> directions = horizontal.nextDirections(Vector2.left());
 
         assertEquals(1, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(-1, direction.getX());
         assertEquals(0, direction.getY());
 
@@ -80,7 +80,7 @@ class SplitterTileTest {
         List<Vector2> directions = horizontal.nextDirections(Vector2.right());
 
         assertEquals(1, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(1, direction.getX());
         assertEquals(0, direction.getY());
     }
@@ -90,7 +90,7 @@ class SplitterTileTest {
         List<Vector2> directions = horizontal.nextDirections(Vector2.down());
 
         assertEquals(2, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(-1, direction.getX());
         assertEquals(0, direction.getY());
 
@@ -105,7 +105,7 @@ class SplitterTileTest {
         List<Vector2> directions = horizontal.nextDirections(Vector2.up());
 
         assertEquals(2, directions.size());
-        Vector2 direction = directions.get(0);
+        Vector2 direction = directions.getFirst();
         assertEquals(-1, direction.getX());
         assertEquals(0, direction.getY());
 
