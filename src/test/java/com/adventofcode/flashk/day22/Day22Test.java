@@ -93,9 +93,7 @@ public class Day22Test extends PuzzleTest {
 		SandSlabs sandSlabs = new SandSlabs(inputs);
 		long result = sandSlabs.solveB();
 
-		println("Solution: "+result);
-
-		// 1905 -> too low (30 min 22seg de ejecución)
+		assertEquals(39247, result);
 	}
 
 }

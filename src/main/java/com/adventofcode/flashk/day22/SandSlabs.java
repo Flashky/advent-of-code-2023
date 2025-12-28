@@ -25,8 +25,7 @@ public class SandSlabs {
     public long solveB() {
         move();
         commit();
-        long result = desintegrateB();
-        return result;
+        return desintegrateB();
     }
 
     /// Simulates the sand slabs fall to the ground
@@ -94,7 +93,6 @@ public class SandSlabs {
         List<Brick> bricksSnapshot = new ArrayList<>(bricks);
 
         for(Brick brickToRemove : bricksSnapshot){
-            //move();
             bricks.remove(brickToRemove);
             count += moveB();
             bricks.add(brickToRemove);
@@ -108,18 +106,13 @@ public class SandSlabs {
     private long moveB() {
 
         Set<Brick> movedBricks = new HashSet<>();
-        Set<Brick> notMovableBricks = new HashSet<>();
         boolean hasMoved;
         do {
             hasMoved = false;
             for(Brick brick: bricks) {
-                if(notMovableBricks.contains(brick)) {
-                    continue;
-                }
                 brick.move(DOWN);
                 if(collidesWithAnything(brick)) {
                     brick.move(UP); // Restore original position
-                    notMovableBricks.add(brick);
                 } else {
                     movedBricks.add(brick);
                     hasMoved = true;
