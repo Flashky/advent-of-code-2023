@@ -1,15 +1,11 @@
 package com.adventofcode.flashk.common;
 
-import static java.lang.IO.println;
-
 import module java.base;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
-@ToString
 public class Collider3D {
 
     private final Vector3 start;

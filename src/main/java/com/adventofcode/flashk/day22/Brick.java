@@ -3,11 +3,9 @@ package com.adventofcode.flashk.day22;
 import module java.base;
 import com.adventofcode.flashk.common.Collider3D;
 import com.adventofcode.flashk.common.Vector3;
-import lombok.ToString;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-@ToString
 public class Brick {
 
     private Vector3 initialPosition;

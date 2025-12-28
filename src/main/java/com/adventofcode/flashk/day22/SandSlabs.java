@@ -86,7 +86,7 @@ public class SandSlabs {
     /// @return `true` if brick collides with at least another brick.
     private boolean collidesWithAnything(Brick brick) {
 
-        // Is below minimum allowed position (ground is at z = 0)
+        // Is below minimum allowed position (ground is located at z = 0, bricks can be at a minimum of z = 1)
         if(isBelowGround(brick)) {
             return true;
         }
