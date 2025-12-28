@@ -13,7 +13,6 @@ import com.adventofcode.flashk.common.test.constants.TestDisplayName;
 import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -23,9 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_21)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day21Test extends PuzzleTest {
+class Day21Test {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_21;
+	private static final String INPUT_FOLDER = TestFolder.DAY_21;
 
 
 	@Test
@@ -33,14 +32,12 @@ public class Day21Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	public void testSolvePart1Sample() {
-
-		System.out.print("1 | sample | ");
+	void testSolvePart1Sample() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		StepCounter stepCounter = new StepCounter(inputs, true);
+		StepCounter stepCounter = new StepCounter(inputs, false);
 		long result = stepCounter.solveA(6);
 
 		assertEquals(16, result);
@@ -52,14 +49,12 @@ public class Day21Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
-	public void testSolvePart1Input() {
-
-		System.out.print("1 | input  | ");
+	void testSolvePart1Input() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		StepCounter stepCounter = new StepCounter(inputs, true);
+		StepCounter stepCounter = new StepCounter(inputs, false);
 		long result = stepCounter.solveA(64);
 
 		assertEquals(3733, result);
@@ -71,7 +66,7 @@ public class Day21Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - 7x7 test matrix")
-	public void testSolvePart2Sample() {
+	void testSolvePart2Sample() {
 
 		// Read input file
 
@@ -80,7 +75,7 @@ public class Day21Test extends PuzzleTest {
 
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "sample_7x7.input");
 
-		StepCounter stepCounter = new StepCounter(inputs, true);
+		StepCounter stepCounter = new StepCounter(inputs, false);
 		long result = stepCounter.solveB(31);
 
 		assertEquals(848, result);
@@ -91,7 +86,7 @@ public class Day21Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
-	public void testSolvePart2Input() {
+	void testSolvePart2Input() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -153,6 +148,5 @@ public class Day21Test extends PuzzleTest {
 
 		);
 	}
-
 
 }

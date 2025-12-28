@@ -245,23 +245,10 @@ class GridUtilTest {
         }
     }
 
-    private void testAdjacentValues(Set<Character> expectedAdjacentValues, List<Vector2> result, int[][] array) {
-        for(Vector2 vector : result) {
-            assertTrue(expectedAdjacentValues.contains(array[vector.getY()][vector.getX()]));
-        }
-    }
-
     private Set<Character> initSet(Character... objects) {
         Set<Character> set = new HashSet<>();
         Collections.addAll(set, objects);
         return set;
     }
-
-    private Set<Integer> initSet(Integer... objects) {
-        Set<Integer> set = new HashSet<>();
-        Collections.addAll(set, objects);
-        return set;
-    }
-
 
 }

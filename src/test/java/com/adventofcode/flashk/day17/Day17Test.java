@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day17;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -13,30 +11,22 @@ import com.adventofcode.flashk.common.test.constants.TestDisplayName;
 import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_17)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day17Test extends PuzzleTest {
+class Day17Test {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_17;
-
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_17);
-	}
-
+	private static final String INPUT_FOLDER = TestFolder.DAY_17;
 
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	public void testSolvePart1Sample() {
+	void testSolvePart1Sample() {
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -53,7 +43,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	public void testSolvePart1SingleSample() {
+	void testSolvePart1SingleSample() {
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
@@ -70,7 +60,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
-	public void testSolvePart1Input() {
+	void testSolvePart1Input() {
 		
 
 		// Read input file
@@ -87,7 +77,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - Example 1")
-	public void testSolvePart2Sample() {
+	void testSolvePart2Sample() {
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -103,7 +93,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - Example 2")
-	public void testSolvePart2SingleSample() {
+	void testSolvePart2SingleSample() {
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
@@ -119,7 +109,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
-	public void testSolvePart2Input() {
+	void testSolvePart2Input() {
 
 		// Read input file
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -142,7 +132,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - cannot turn before 4 straight steps")
-	public void testPart2CannotTurnBeforeFourSteps() {
+	void testPart2CannotTurnBeforeFourSteps() {
 
 		/*
 			Grid layout:
@@ -180,7 +170,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - reject paths requiring >10 straight steps")
-	public void testPart2RejectsMoreThanTenStraightSteps() {
+	void testPart2RejectsMoreThanTenStraightSteps() {
 
 		/*
 			Single-row grid layout:
@@ -217,7 +207,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE + " - 4-step move that would leave grid is disallowed")
-	public void testPart2FourStepMoveLeavingGridIsDisallowed() {
+	void testPart2FourStepMoveLeavingGridIsDisallowed() {
 
 		// 3x3 grid: no initial 4-step straight move is possible in any direction
 		int[][] grid = {

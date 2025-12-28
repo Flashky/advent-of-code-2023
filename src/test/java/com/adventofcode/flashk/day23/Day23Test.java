@@ -1,6 +1,5 @@
 package com.adventofcode.flashk.day23;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -13,30 +12,22 @@ import com.adventofcode.flashk.common.test.constants.TestDisplayName;
 import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_23)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day23Test extends PuzzleTest {
+class Day23Test {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_23;
+	private static final String INPUT_FOLDER = TestFolder.DAY_23;
 
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_23);
-	}
-
-	
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	public void testSolvePart1Sample() {
+	void testSolvePart1Sample() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -52,9 +43,7 @@ public class Day23Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
-	public void testSolvePart1Input() {
-
-		System.out.print("1 | input  | ");
+	void testSolvePart1Input() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -70,7 +59,7 @@ public class Day23Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	public void testSolvePart2Sample() {
+	void testSolvePart2Sample() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -88,9 +77,7 @@ public class Day23Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
 	@Disabled("Backtrack bruteforce solution. Takes 30 minutes to finish")
-	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
+	void testSolvePart2Input() {
 		
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);

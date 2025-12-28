@@ -2,8 +2,6 @@ package com.adventofcode.flashk.day15;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -15,31 +13,22 @@ import com.adventofcode.flashk.common.test.constants.TestDisplayName;
 import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_15)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day15Test extends PuzzleTest {
+class Day15Test {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_15;
-
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_15);
-	}
+	private static final String INPUT_FOLDER = TestFolder.DAY_15;
 
 	@Test
 	@Order(0)
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SINGLE_SAMPLE)
-	public void testSolvePart1SingleSample() {
-
-		System.out.print("1 | single sample | ");
+	void testSolvePart1SingleSample() {
 
 		LensLibrary lensLibrary = new LensLibrary("HASH");
 		long result = lensLibrary.solveA();
@@ -52,9 +41,7 @@ public class Day15Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SINGLE_SAMPLE)
-	public void testSolvePart1SingleValueRn() {
-
-		System.out.print("2 | single sample | ");
+	void testSolvePart1SingleValueRn() {
 
 		LensLibrary lensLibrary = new LensLibrary("rn");
 		long result = lensLibrary.solveA();
@@ -67,9 +54,7 @@ public class Day15Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SINGLE_SAMPLE)
-	public void testSolvePart1SingleValueQp() {
-
-		System.out.print("3 | single sample | ");
+	void testSolvePart1SingleValueQp() {
 
 		LensLibrary lensLibrary = new LensLibrary("qp");
 		long result = lensLibrary.solveA();
@@ -82,14 +67,12 @@ public class Day15Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
-	public void testSolvePart1Sample() {
-		
-		System.out.print("1 | sample | ");
+	void testSolvePart1Sample() {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+		LensLibrary lensLibrary = new LensLibrary(inputs.getFirst());
 		long result = lensLibrary.solveA();
 
 		assertEquals(1320, result);
@@ -100,13 +83,12 @@ public class Day15Test extends PuzzleTest {
 	@Tag(TestTag.PART_ONE)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
-	public void testSolvePart1Input() {
-		
-		System.out.print("1 | input  | ");
+	void testSolvePart1Input() {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+
+		LensLibrary lensLibrary = new LensLibrary(inputs.getFirst());
 		long result = lensLibrary.solveA();
 
 		assertEquals(510792, result);
@@ -118,13 +100,12 @@ public class Day15Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
-	public void testSolvePart2Sample() {
-		
-		System.out.print("2 | sample | ");
+	void testSolvePart2Sample() {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+
+		LensLibrary lensLibrary = new LensLibrary(inputs.getFirst());
 		long result = lensLibrary.solveB();
 
 		assertEquals(145, result);
@@ -135,14 +116,12 @@ public class Day15Test extends PuzzleTest {
 	@Tag(TestTag.PART_TWO)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
-	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
+	void testSolvePart2Input() {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		LensLibrary lensLibrary = new LensLibrary(inputs.get(0));
+		LensLibrary lensLibrary = new LensLibrary(inputs.getFirst());
 		long result = lensLibrary.solveB();
 
 		assertEquals(269410, result);
