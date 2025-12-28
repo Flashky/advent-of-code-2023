@@ -327,7 +327,4 @@ public class Vector2 {
 		return new Vector2(-1,-1);
 	}
 
-    public Object getZ() {
-        return null;
-    }
 }
