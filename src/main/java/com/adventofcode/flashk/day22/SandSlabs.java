@@ -11,7 +11,7 @@ public class SandSlabs {
     private static final Vector3 DOWN = Vector3.down();
 
     private final List<Brick> bricks;
-    private Set<Brick> movedBricks = new HashSet<>();
+    private final Set<Brick> movedBricks = new HashSet<>();
 
     public SandSlabs(List<String> inputs) {
         bricks = inputs.stream().map(Brick::new).collect(Collectors.toList());
@@ -19,13 +19,13 @@ public class SandSlabs {
 
     public long solveA() {
         move();
-        return desintegrate();
+        return desintegrateSafe();
     }
 
     public long solveB() {
         move();
         commit();
-        return desintegrateB();
+        return desintegrateChain();
     }
 
     /// Simulates the sand slabs fall to the ground
@@ -71,7 +71,7 @@ public class SandSlabs {
         return false;
     }
 
-    private long desintegrate() {
+    private long desintegrateSafe() {
         long count = 0;
 
         List<Brick> bricksSnapshot = new ArrayList<>(bricks);
@@ -88,8 +88,9 @@ public class SandSlabs {
     }
 
 
-    public long desintegrateB() {
+    public long desintegrateChain() {
         long count = 0;
+
         List<Brick> bricksSnapshot = new ArrayList<>(bricks);
 
         for(Brick brickToRemove : bricksSnapshot){
