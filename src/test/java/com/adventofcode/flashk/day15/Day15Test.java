@@ -128,7 +128,4 @@ class Day15Test {
 		
 	}
 
-
-
-
 }
