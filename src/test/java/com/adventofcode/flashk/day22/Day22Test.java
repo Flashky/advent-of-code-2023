@@ -71,11 +71,13 @@ public class Day22Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
 	public void testSolvePart2Sample() {
 		
-		System.out.print("2 | sample | ");
-		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		SandSlabs sandSlabs = new SandSlabs(inputs);
+		long result = sandSlabs.solveB();
+
+		assertEquals(7, result);
 	}
 	
 	@Test
@@ -85,11 +87,15 @@ public class Day22Test extends PuzzleTest {
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
 	public void testSolvePart2Input() {
 		
-		System.out.print("2 | input  | ");
-		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		SandSlabs sandSlabs = new SandSlabs(inputs);
+		long result = sandSlabs.solveB();
+
+		println("Solution: "+result);
+
+		// 1905 -> too low (30 min 22seg de ejecución)
 	}
 
 }

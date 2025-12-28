@@ -3,9 +3,13 @@ package com.adventofcode.flashk.common;
 import static java.lang.IO.println;
 
 import module java.base;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@EqualsAndHashCode
+@ToString
 public class Collider3D {
 
     private final Vector3 start;
@@ -18,12 +22,17 @@ public class Collider3D {
     private long minZ;
     private long maxZ;
 
-
     public Collider3D(Vector3 start, Vector3 end) {
         this.start = new Vector3(start);
         this.end = new Vector3(end);
 
         calculateMinAndMax();
+    }
+
+    public Collider3D(Collider3D other) {
+        this.start = new Vector3(other.start);
+        this.end = new Vector3(other.end);
+        calculateMinAndMax();;
     }
 
     public void transform(Vector3 vector) {

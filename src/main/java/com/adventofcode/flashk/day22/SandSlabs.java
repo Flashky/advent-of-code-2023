@@ -11,6 +11,7 @@ public class SandSlabs {
     private static final Vector3 DOWN = Vector3.down();
 
     private final List<Brick> bricks;
+    private Set<Brick> movedBricks = new HashSet<>();
 
     public SandSlabs(List<String> inputs) {
         bricks = inputs.stream().map(Brick::new).collect(Collectors.toList());
@@ -23,6 +24,7 @@ public class SandSlabs {
 
     public long solveB() {
         move();
+        commit();
         long result = desintegrateB();
         return result;
     }
@@ -36,16 +38,16 @@ public class SandSlabs {
     }
 
     /// Applies down movement (fall) movement to all bricks that can fall.
-
     /// @return `true` if at least one brick has moved. `false` otherwise.
     private boolean moveBricks() {
         boolean hasMoved = false;
         for(Brick brick : bricks) {
-            if(!isBelowGround(brick)) {
+            if(brick.getMinZ() > 1) {
                 brick.move(DOWN);
                 if(collidesWithAnything(brick)) {
                     brick.move(UP); // Restore original position
                 } else {
+                    movedBricks.add(brick);
                     hasMoved = true;
                 }
             }
@@ -54,7 +56,6 @@ public class SandSlabs {
     }
 
     /// Applies up movement (rise) movement to all bricks that can move
-
     private boolean bricksCanFall() {
 
         for(Brick brick : bricks) {
@@ -87,31 +88,50 @@ public class SandSlabs {
         return count;
     }
 
-    private long moveBricksAndCount() {
-        long movedBricks = 0;
-        for(Brick brick : bricks) {
-            if(!isBelowGround(brick)) {
-                brick.move(DOWN);
-                if(collidesWithAnything(brick)) {
-                    brick.move(UP); // Restore original position
-                } else {
-                    movedBricks++;
-                }
-            }
-        }
-        return movedBricks;
-    }
 
     public long desintegrateB() {
         long count = 0;
         List<Brick> bricksSnapshot = new ArrayList<>(bricks);
 
-        for(Brick brick : bricks){
-
+        for(Brick brickToRemove : bricksSnapshot){
+            //move();
+            bricks.remove(brickToRemove);
+            count += moveB();
+            bricks.add(brickToRemove);
+            reset();
         }
 
         return count;
     }
+
+    /// Simulates the sand slabs fall to the ground
+    private long moveB() {
+
+        Set<Brick> movedBricks = new HashSet<>();
+        Set<Brick> notMovableBricks = new HashSet<>();
+        boolean hasMoved;
+        do {
+            hasMoved = false;
+            for(Brick brick: bricks) {
+                if(notMovableBricks.contains(brick)) {
+                    continue;
+                }
+                brick.move(DOWN);
+                if(collidesWithAnything(brick)) {
+                    brick.move(UP); // Restore original position
+                    notMovableBricks.add(brick);
+                } else {
+                    movedBricks.add(brick);
+                    hasMoved = true;
+                }
+            }
+        } while(hasMoved);
+
+        return movedBricks.size();
+
+    }
+
+
 
     /// Checks if the brick collides with any other brick
     /// @return `true` if brick collides with at least another brick.
@@ -133,6 +153,14 @@ public class SandSlabs {
 
     private boolean isBelowGround(Brick brick) {
         return brick.getMinZ() < 1;
+    }
+
+    private void reset() {
+        bricks.forEach(Brick::reset);
+    }
+
+    private void commit() {
+        bricks.forEach(Brick::commit);
     }
 
 }

@@ -3,11 +3,17 @@ package com.adventofcode.flashk.day22;
 import module java.base;
 import com.adventofcode.flashk.common.Collider3D;
 import com.adventofcode.flashk.common.Vector3;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+@ToString
 public class Brick {
 
-    private final Vector3 position;
-    private final Collider3D collider;
+    private Vector3 initialPosition;
+    private Collider3D initialCollider;
+    private Vector3 position;
+    private Collider3D collider;
 
     public Brick(String input) {
         String[] coordinates = input.split("~");
@@ -18,6 +24,9 @@ public class Brick {
         position = new Vector3(Math.min(startCoordinate.getX(), endCoordinate.getX()),
                                 Math.min(startCoordinate.getY(), endCoordinate.getY()),
                                 Math.min(startCoordinate.getZ(), endCoordinate.getZ()));
+
+        initialPosition = new Vector3(position);
+        initialCollider = new Collider3D(collider);
     }
 
     public void move(Vector3 direction) {
@@ -36,4 +45,28 @@ public class Brick {
         return position.getZ();
     }
 
+    public void commit() {
+        initialPosition = new Vector3(position);
+        initialCollider = new Collider3D(collider);
+    }
+
+    public void reset() {
+        position = new Vector3(initialPosition);
+        collider = new Collider3D(initialCollider);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof Brick brick)) return false;
+
+        return new EqualsBuilder().append(initialPosition, brick.initialPosition).append(initialCollider, brick.initialCollider).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(initialPosition).append(initialCollider).toHashCode();
+    }
 }
