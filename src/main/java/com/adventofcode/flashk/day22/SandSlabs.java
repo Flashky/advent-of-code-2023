@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day22;
 
-import static java.lang.IO.println;
-
 import module java.base;
 import com.adventofcode.flashk.common.Vector3;
 
@@ -11,7 +9,6 @@ public class SandSlabs {
     private static final Vector3 DOWN = Vector3.down();
 
     private final List<Brick> bricks;
-    private final Set<Brick> movedBricks = new HashSet<>();
 
     public SandSlabs(List<String> inputs) {
         bricks = inputs.stream().map(Brick::new).collect(Collectors.toList());
@@ -19,59 +16,18 @@ public class SandSlabs {
 
     public long solveA() {
         move();
-        return desintegrateSafe();
+        return disintegrateSafe();
     }
 
     public long solveB() {
         move();
         commit();
-        return desintegrateChain();
+        return disintegrateChain();
     }
 
-    /// Simulates the sand slabs fall to the ground
-    private void move() {
-        boolean hasMoved;
-        do {
-            hasMoved = moveBricks();
-        } while(hasMoved);
-    }
-
-    /// Applies down movement (fall) movement to all bricks that can fall.
-    /// @return `true` if at least one brick has moved. `false` otherwise.
-    private boolean moveBricks() {
-        boolean hasMoved = false;
-        for(Brick brick : bricks) {
-            if(brick.getMinZ() > 1) {
-                brick.move(DOWN);
-                if(collidesWithAnything(brick)) {
-                    brick.move(UP); // Restore original position
-                } else {
-                    movedBricks.add(brick);
-                    hasMoved = true;
-                }
-            }
-        }
-        return hasMoved;
-    }
-
-    /// Applies up movement (rise) movement to all bricks that can move
-    private boolean bricksCanFall() {
-
-        for(Brick brick : bricks) {
-            brick.move(DOWN);
-            try {
-                if(!collidesWithAnything(brick)) {
-                    return true;
-                }
-            } finally {
-                brick.move(UP);
-            }
-        }
-
-        return false;
-    }
-
-    private long desintegrateSafe() {
+    /// Counts the number of bricks that can be disintegrated safely.
+    /// @return the number of bricks that can be dise
+    private long disintegrateSafe() {
         long count = 0;
 
         List<Brick> bricksSnapshot = new ArrayList<>(bricks);
@@ -88,14 +44,14 @@ public class SandSlabs {
     }
 
 
-    public long desintegrateChain() {
+    public long disintegrateChain() {
         long count = 0;
 
         List<Brick> bricksSnapshot = new ArrayList<>(bricks);
 
         for(Brick brickToRemove : bricksSnapshot){
             bricks.remove(brickToRemove);
-            count += moveB();
+            count += move();
             bricks.add(brickToRemove);
             reset();
         }
@@ -103,8 +59,9 @@ public class SandSlabs {
         return count;
     }
 
-    /// Simulates the sand slabs fall to the ground
-    private long moveB() {
+    /// Simulates the sand slabs fall to the ground.
+    /// @return the number of bricks that fell down.
+    private long move() {
 
         Set<Brick> movedBricks = new HashSet<>();
         boolean hasMoved;
@@ -125,8 +82,6 @@ public class SandSlabs {
 
     }
 
-
-
     /// Checks if the brick collides with any other brick
     /// @return `true` if brick collides with at least another brick.
     private boolean collidesWithAnything(Brick brick) {
@@ -139,6 +94,23 @@ public class SandSlabs {
         for(Brick otherBrick : bricks) {
             if(brick.collidesWith(otherBrick)) {
                 return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// Applies up movement (rise) movement to all bricks that can move
+    private boolean bricksCanFall() {
+
+        for(Brick brick : bricks) {
+            brick.move(DOWN);
+            try {
+                if(!collidesWithAnything(brick)) {
+                    return true;
+                }
+            } finally {
+                brick.move(UP);
             }
         }
 
