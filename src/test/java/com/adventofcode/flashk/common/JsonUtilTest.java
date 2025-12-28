@@ -15,14 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @Disabled
 class JsonUtilTest {
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void buildTreeFromArrayJsonTest() {
         String content = Input.readStringLines(TestFolder.COMMON, TestFilename.ARRAY_JSON).get(0);

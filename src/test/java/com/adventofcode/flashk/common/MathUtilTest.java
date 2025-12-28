@@ -8,14 +8,6 @@ import org.junit.jupiter.api.Test;
 
 class MathUtilTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
 	@Test
 	void testSummation0() {
 		assertEquals(0, MathUtil.summation(0));
