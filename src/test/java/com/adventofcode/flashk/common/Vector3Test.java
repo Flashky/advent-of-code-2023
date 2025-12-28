@@ -97,8 +97,8 @@ class Vector3Test {
         Vector3 vector = Vector3.up();
 
         assertEquals(0, vector.getX());
-        assertEquals(1, vector.getY());
-        assertEquals(0, vector.getZ());
+        assertEquals(0, vector.getY());
+        assertEquals(1, vector.getZ());
     }
 
     @Test
@@ -106,8 +106,8 @@ class Vector3Test {
         Vector3 vector = Vector3.down();
 
         assertEquals(0, vector.getX());
-        assertEquals(-1, vector.getY());
-        assertEquals(0, vector.getZ());
+        assertEquals(0, vector.getY());
+        assertEquals(-1, vector.getZ());
     }
 
     @Test
@@ -116,8 +116,8 @@ class Vector3Test {
         Vector3 vector = Vector3.forward();
 
         assertEquals(0, vector.getX());
-        assertEquals(0, vector.getY());
-        assertEquals(1, vector.getZ());
+        assertEquals(1, vector.getY());
+        assertEquals(0, vector.getZ());
 
     }
 
@@ -127,7 +127,7 @@ class Vector3Test {
         Vector3 vector = Vector3.backward();
 
         assertEquals(0, vector.getX());
-        assertEquals(0, vector.getY());
-        assertEquals(-1, vector.getZ());
+        assertEquals(-1, vector.getY());
+        assertEquals(0, vector.getZ());
     }
 }
