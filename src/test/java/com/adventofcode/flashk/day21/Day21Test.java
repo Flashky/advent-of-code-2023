@@ -34,12 +34,10 @@ class Day21Test {
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	void testSolvePart1Sample() {
 
-		System.out.print("1 | sample | ");
-
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		StepCounter stepCounter = new StepCounter(inputs, true);
+		StepCounter stepCounter = new StepCounter(inputs, false);
 		long result = stepCounter.solveA(6);
 
 		assertEquals(16, result);
@@ -53,12 +51,10 @@ class Day21Test {
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	void testSolvePart1Input() {
 
-		System.out.print("1 | input  | ");
-
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		StepCounter stepCounter = new StepCounter(inputs, true);
+		StepCounter stepCounter = new StepCounter(inputs, false);
 		long result = stepCounter.solveA(64);
 
 		assertEquals(3733, result);
@@ -79,7 +75,7 @@ class Day21Test {
 
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "sample_7x7.input");
 
-		StepCounter stepCounter = new StepCounter(inputs, true);
+		StepCounter stepCounter = new StepCounter(inputs, false);
 		long result = stepCounter.solveB(31);
 
 		assertEquals(848, result);
@@ -152,6 +148,5 @@ class Day21Test {
 
 		);
 	}
-
 
 }

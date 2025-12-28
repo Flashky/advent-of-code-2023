@@ -85,7 +85,6 @@ class Day19RefactorTest {
 		Aplenty aplenty = new Aplenty(inputs);
 		long result = aplenty.solveB();
 
-		System.out.println("R: " + result);
 		assertEquals(134370637448305L, result);
 
 	}

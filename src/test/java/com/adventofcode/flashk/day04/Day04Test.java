@@ -29,9 +29,7 @@ class Day04Test {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	void testSolvePart1Sample() {
-		
-		System.out.print("1 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		Scratchcards scratchcards = new Scratchcards(inputs);
@@ -46,9 +44,7 @@ class Day04Test {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	void testSolvePart1Input() {
-		
-		System.out.print("1 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
@@ -65,8 +61,6 @@ class Day04Test {
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
 	void testSolvePart2Sample() {
 
-		System.out.print("2 | sample | ");
-		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
@@ -82,9 +76,7 @@ class Day04Test {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
 	void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 

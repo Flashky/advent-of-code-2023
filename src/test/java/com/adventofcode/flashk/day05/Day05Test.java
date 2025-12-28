@@ -35,6 +35,7 @@ class Day05Test {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		YouGiveASeedAFertilizer puzzle = new YouGiveASeedAFertilizer(inputs);
+
 		assertEquals(35,puzzle.solveA());
 		
 	}
