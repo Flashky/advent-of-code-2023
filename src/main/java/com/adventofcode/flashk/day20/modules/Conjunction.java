@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day20.modules;
 
-import static java.lang.IO.println;
-
 import module java.base;
 import com.adventofcode.flashk.day20.Pulse;
 import com.adventofcode.flashk.day20.PulseEvent;
