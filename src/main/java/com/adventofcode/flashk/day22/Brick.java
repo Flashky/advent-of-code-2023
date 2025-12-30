@@ -5,8 +5,9 @@ import com.adventofcode.flashk.common.Collider3D;
 import com.adventofcode.flashk.common.Vector3;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.jetbrains.annotations.NotNull;
 
-public class Brick {
+public class Brick implements Comparable<Brick> {
 
     private Vector3 initialPosition;
     private Collider3D initialCollider;
@@ -66,5 +67,10 @@ public class Brick {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(initialPosition).append(initialCollider).toHashCode();
+    }
+
+    @Override
+    public int compareTo(@NotNull Brick other) {
+        return Integer.compare(position.getZ(), other.position.getZ());
     }
 }
