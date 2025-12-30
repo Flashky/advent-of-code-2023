@@ -3,6 +3,8 @@ package com.adventofcode.flashk.day22;
 import module java.base;
 import com.adventofcode.flashk.common.Vector3;
 
+import static java.lang.IO.println;
+
 public class SandSlabs {
 
     private static final Vector3 UP = Vector3.up();
@@ -43,7 +45,6 @@ public class SandSlabs {
         return count;
     }
 
-
     public long disintegrateChain() {
         long count = 0;
 
@@ -63,33 +64,38 @@ public class SandSlabs {
     /// @return the number of bricks that fell down.
     private long move() {
 
-        Set<Brick> movedBricks = new HashSet<>();
-        boolean hasMoved;
-        do {
-            hasMoved = false;
-            for(Brick brick: bricks) {
-                brick.move(DOWN);
-                if(collidesWithAnything(brick)) {
-                    brick.move(UP); // Restore original position
-                } else {
-                    movedBricks.add(brick);
-                    hasMoved = true;
-                }
+        PriorityQueue<Brick> bricksQueue = new PriorityQueue<>(bricks);
+        long movedBricks = 0;
+
+        while(!bricksQueue.isEmpty()) {
+            Brick brick = bricksQueue.poll();
+            if(move(brick)) {
+                movedBricks++;
             }
-        } while(hasMoved);
+        }
 
-        return movedBricks.size();
+        return movedBricks;
 
+    }
+
+    /// Simulates a single brick fall to the ground
+    /// @param brick the brick that must fall.
+    /// @return `true` if the brick has fell at least 1 unit of distance. `false` otherwise.
+    private boolean move(Brick brick) {
+        int movementCount = 0;
+        do {
+            brick.move(DOWN);
+            movementCount++;
+        } while(!collidesWithAnything(brick));
+
+        brick.move(UP);
+
+        return movementCount > 1;
     }
 
     /// Checks if the brick collides with any other brick
     /// @return `true` if brick collides with at least another brick.
     private boolean collidesWithAnything(Brick brick) {
-
-        // Is below minimum allowed position (ground is located at z = 0, bricks can be at a minimum of z = 1)
-        if(isBelowGround(brick)) {
-            return true;
-        }
 
         for(Brick otherBrick : bricks) {
             if(brick.collidesWith(otherBrick)) {
@@ -97,7 +103,8 @@ public class SandSlabs {
             }
         }
 
-        return false;
+        // Ground is located at z = 0, bricks can be at a minimum of z = 1)
+        return collidesWithGround(brick);
     }
 
     /// Applies up movement (rise) movement to all bricks that can move
@@ -117,7 +124,7 @@ public class SandSlabs {
         return false;
     }
 
-    private boolean isBelowGround(Brick brick) {
+    private boolean collidesWithGround(Brick brick) {
         return brick.getMinZ() < 1;
     }
 
