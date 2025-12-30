@@ -3,8 +3,6 @@ package com.adventofcode.flashk.day22;
 import module java.base;
 import com.adventofcode.flashk.common.Vector3;
 
-import static java.lang.IO.println;
-
 public class SandSlabs {
 
     private static final Vector3 UP = Vector3.up();
