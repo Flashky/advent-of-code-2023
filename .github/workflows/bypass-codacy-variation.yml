@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   bypass_check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
 
       # Verifies which kind of files have changes.

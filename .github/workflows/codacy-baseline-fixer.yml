@@ -6,7 +6,7 @@ on:
 
 jobs:
   fix-missing-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # Run only when the triggering workflow_run is for a pull_request and at least one PR is present
     if: ${{ github.event.workflow_run.event == 'pull_request'}}
 
