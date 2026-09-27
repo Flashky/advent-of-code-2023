@@ -30,13 +30,13 @@
 		<jgrapht.version>1.5.3</jgrapht.version>
 
 		<!-- Others -->
-		<lombok.version>1.18.46</lombok.version>
+		<lombok.version>1.18.48</lombok.version>
 		<jetbrains-annotations.version>26.1.0</jetbrains-annotations.version>
 
 		<!-- Plugins -->
-		<maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
-		<maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
-		<maven.compiler.release>25</maven.compiler.release>
+		<maven-surefire-plugin.version>3.6.0</maven-surefire-plugin.version>
+		<maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+		<maven.compiler.release>27</maven.compiler.release>
 		<jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
 
 	</properties>
