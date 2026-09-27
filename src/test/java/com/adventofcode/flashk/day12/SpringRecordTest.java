@@ -1,8 +1,9 @@
 package com.adventofcode.flashk.day12;
 
+import module java.base;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import module java.base;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -23,33 +24,13 @@ class SpringRecordTest {
 
     @ParameterizedTest
     @MethodSource("provideFoldedConsecutiveUnknownUnique")
-    @Order(1)
-    void foldedConsecutiveUnknownTest(String pattern, long expected) {
-        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
-        assertEquals(expected, conditionRecord.count());
-    }
-
-    @ParameterizedTest
     @MethodSource("provideFoldedConsecutiveDamagedFill")
     @MethodSource("provideFoldedConsecutiveUnknownFill")
-    @Order(2)
-    void foldedConsecutiveFillTest(String pattern, long expected) {
-        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
-        assertEquals(expected, conditionRecord.count());
-    }
-
-    @ParameterizedTest
     @MethodSource("provideFoldedAlternatingUnknownStart")
-    @Order(3)
-    void foldedAlternatingUnkownStartTest(String pattern, long expected) {
-        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
-        assertEquals(expected, conditionRecord.count());
-    }
-
-    @ParameterizedTest
     @MethodSource("provideFoldedAlternatingOperationalStart")
-    @Order(4)
-    void foldedAlternatingOperationalStartTest(String pattern, long expected) {
+    @MethodSource("providedFoldedExamples")
+    @Order(1)
+    void foldedExamplesTest(String pattern, long expected) {
         ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
         assertEquals(expected, conditionRecord.count());
     }
@@ -62,13 +43,6 @@ class SpringRecordTest {
         assertEquals(expected, conditionRecord.count());
     }
 
-    @ParameterizedTest
-    @MethodSource("providedFoldedExamples")
-    @Order(6)
-    void foldedExamplesTest(String pattern, long expected) {
-        ConditionRecord conditionRecord = new ConditionRecord(pattern, false);
-        assertEquals(expected, conditionRecord.count());
-    }
 
     private static Stream<String> provideFoldedEmpty() {
         return Stream.of(   ". 1", ".. 1", "... 1", ".... 1", "..... 1" , "...... 1");
